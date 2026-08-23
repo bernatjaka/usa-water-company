@@ -286,6 +286,19 @@ a { color: var(--blue); text-decoration: none; }
 .choose-link { color: var(--red); font-weight: 700; }
 .choose-card:hover .choose-link { color: var(--red-dark); }
 
+/* Homepage system cards (image + body) */
+.system-card {
+  display: block; background: #fff; border: 1px solid var(--border); border-radius: 16px;
+  overflow: hidden; transition: transform .15s, box-shadow .15s, border-color .15s;
+}
+.system-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--blue); }
+.system-img { background: #fff; display: flex; align-items: center; justify-content: center; padding: 1.6rem; border-bottom: 1px solid var(--border); }
+.system-img img { max-height: 230px; width: auto; max-width: 100%; }
+.system-body { padding: 1.8rem; }
+.system-body h3 { font-size: 1.35rem; margin-bottom: .5rem; }
+.system-body p { color: var(--muted); margin-bottom: 1rem; }
+.system-card:hover .choose-link { color: var(--red-dark); }
+
 /* Smooth-scroll to product anchors, offset for sticky header */
 html { scroll-behavior: smooth; }
 section[id] { scroll-margin-top: 90px; }
