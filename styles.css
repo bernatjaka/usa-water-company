@@ -290,6 +290,9 @@ a { color: var(--blue); text-decoration: none; }
   background: var(--blue-light); color: var(--blue); font-weight: 800; font-size: .85rem;
   display: flex; align-items: center; justify-content: center;
 }
+.diagram-figure { text-align: center; margin-top: 2.5rem; }
+.diagram-figure img { width: 100%; max-width: 640px; border-radius: 16px; background: #fff; border: 1px solid var(--border); padding: 1rem; }
+.diagram-figure figcaption { color: var(--muted); font-size: .9rem; margin-top: .8rem; }
 .finishes { text-align: center; }
 .finishes h3 { margin-bottom: 1.2rem; }
 .finishes-img { width: 100%; max-width: 620px; border-radius: 16px; }
