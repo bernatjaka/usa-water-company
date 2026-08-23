@@ -275,6 +275,27 @@ a { color: var(--blue); text-decoration: none; }
   font-weight: 600; color: var(--navy); font-size: .9rem; background: #fff;
 }
 
+/* Featured product */
+.featured { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; margin-bottom: 3.5rem; }
+.featured-media { text-align: center; }
+.featured-media img { width: 100%; max-width: 460px; border-radius: 16px; background: #fff; border: 1px solid var(--border); padding: 1.5rem; }
+.media-note { font-size: .8rem; color: #9aa4b0; margin-top: .6rem; font-style: italic; }
+.featured-copy h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+.stage-list { list-style: none; counter-reset: stage; margin-bottom: 1.4rem; }
+.stage-list li { position: relative; padding: .55rem 0 .55rem 3rem; color: var(--muted); border-bottom: 1px solid var(--border); }
+.stage-list li strong { color: var(--navy); }
+.stage-list li::before {
+  counter-increment: stage; content: counter(stage);
+  position: absolute; left: 0; top: .5rem; width: 30px; height: 30px; border-radius: 50%;
+  background: var(--blue-light); color: var(--blue); font-weight: 800; font-size: .85rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.finishes { text-align: center; }
+.finishes h3 { margin-bottom: 1.2rem; }
+.finishes-img { width: 100%; max-width: 620px; border-radius: 16px; }
+.finishes-names { display: flex; gap: .7rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
+.finishes-names span { background: var(--cream); border: 1px solid var(--border); border-radius: 999px; padding: .45rem 1.1rem; font-weight: 600; color: var(--navy); font-size: .9rem; }
+
 /* Product grid */
 .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem; margin-bottom: 2rem; }
 .product-item {
@@ -295,6 +316,7 @@ a { color: var(--blue); text-decoration: none; }
 /* Responsive */
 @media (max-width: 960px) {
   .product-grid { grid-template-columns: repeat(2, 1fr); }
+  .featured { grid-template-columns: 1fr; gap: 2rem; }
   .footer-4 { grid-template-columns: 1fr 1fr; }
   .loc-inner { grid-template-columns: 1fr; }
   .loc-media { position: static; top: auto; }
