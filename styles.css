@@ -22,10 +22,16 @@
 .reveal { opacity: 0; transition: opacity .6s ease, transform .6s ease; will-change: opacity, transform; }
 .reveal-left { transform: translateX(-42px); }
 .reveal-right { transform: translateX(42px); }
-.reveal-up { transform: translateY(32px); }
+.reveal-up { transform: translateY(36px); }
+.reveal-down { transform: translateY(-32px); }
+.reveal-zoom { transform: scale(.9); }
+.reveal-rotate { transform: translateY(28px) rotate(-3deg); }
+.reveal-fade { transform: none; }
 .reveal.is-visible { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
-  .reveal, .reveal-left, .reveal-right, .reveal-up { opacity: 1 !important; transform: none !important; }
+  .reveal, .reveal-left, .reveal-right, .reveal-up, .reveal-down, .reveal-zoom, .reveal-rotate, .reveal-fade {
+    opacity: 1 !important; transform: none !important; transition: none !important;
+  }
 }
 
 body {
