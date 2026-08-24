@@ -18,11 +18,22 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* Scroll reveal (classes applied by reveal.js only) */
+.reveal { opacity: 0; transition: opacity .6s ease, transform .6s ease; will-change: opacity, transform; }
+.reveal-left { transform: translateX(-42px); }
+.reveal-right { transform: translateX(42px); }
+.reveal-up { transform: translateY(32px); }
+.reveal.is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-left, .reveal-right, .reveal-up { opacity: 1 !important; transform: none !important; }
+}
+
 body {
   font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
   color: var(--text);
   line-height: 1.65;
   background: var(--white);
+  overflow-x: hidden;
 }
 
 .container { width: 90%; max-width: 1180px; margin: 0 auto; }
