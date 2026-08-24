@@ -182,6 +182,23 @@ a { color: var(--blue); text-decoration: none; }
 .about-highlight p { font-size: 1.25rem; font-style: italic; margin-bottom: 1rem; }
 .about-highlight span { color: #cfe0f5; font-weight: 600; }
 
+/* Region cards (homepage service areas) */
+.region-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem; margin-bottom: 1.5rem; }
+.region-card {
+  display: block; background: #fff; border: 1px solid var(--border); border-radius: 16px;
+  padding: 2.2rem 2rem; text-align: center; transition: transform .15s, box-shadow .15s, border-color .15s;
+}
+.region-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--blue); }
+.region-icon {
+  width: 58px; height: 58px; border-radius: 14px; background: var(--blue-light);
+  display: flex; align-items: center; justify-content: center; margin: 0 auto 1.1rem;
+}
+.region-icon svg { width: 28px; height: 28px; color: var(--blue); }
+.region-card h3 { font-size: 1.3rem; margin-bottom: .5rem; }
+.region-card p { color: var(--muted); margin-bottom: 1rem; }
+.region-card .choose-link { color: var(--red); font-weight: 700; }
+.region-card:hover .choose-link { color: var(--red-dark); }
+
 /* Areas */
 .areas-region { margin-bottom: 2rem; }
 .areas-region h3 { text-align: center; color: var(--red); margin-bottom: 1rem; font-size: 1.3rem; }
@@ -357,6 +374,7 @@ section[id] { scroll-margin-top: 90px; }
   .product-grid { grid-template-columns: repeat(2, 1fr); }
   .featured { grid-template-columns: 1fr; gap: 2rem; }
   .chooser-grid { grid-template-columns: 1fr; }
+  .region-grid { grid-template-columns: 1fr; }
   .footer-4 { grid-template-columns: 1fr 1fr; }
   .loc-inner { grid-template-columns: 1fr; }
   .loc-media { position: static; top: auto; }
