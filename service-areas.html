@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Service Areas | USA Water Company</title>
+  <meta name="description" content="USA Water Company provides water treatment and testing across the Phoenix, South Florida / Miami, and Orlando metros." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/svg+xml" href="logo-mark.svg" />
+  <link rel="icon" type="image/jpeg" href="logo.jpg" />
+  <link rel="apple-touch-icon" href="logo-mark.svg" />
+</head>
+<body>
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span>Clean, safe water for every home &amp; business</span>
+      <a href="tel:+18005550123">Call us: (800) 555-0123</a>
+    </div>
+  </div>
+
+  <!-- Header / Nav -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand"><img src="logo-horizontal.svg" alt="USA Water Company logo" /></a>
+      <nav class="nav" id="nav">
+        <a href="services.html">Services</a>
+        <a href="products.html">Products</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="service-areas.html" class="active">Service Areas</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a href="contact.html" class="btn btn-primary nav-cta">Book Free Test</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Page hero -->
+  <section class="hero hero-short">
+    <div class="container center">
+      <span class="pill pill-light">Service Areas</span>
+      <h1>Proudly Serving<br /><span class="accent-light">Your Community</span></h1>
+      <p class="lead center-lead">USA Water Company provides water treatment and testing across three metros. Click a region to learn more.</p>
+    </div>
+  </section>
+
+  <!-- Service Areas -->
+  <section class="section">
+    <div class="container">
+      <div class="region-grid">
+        <a href="phoenix.html" class="region-card">
+          <div class="region-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <h3>Phoenix, AZ Metro</h3>
+          <p>Water treatment across the Valley of the Sun.</p>
+          <span class="choose-link">View area →</span>
+        </a>
+        <a href="south-florida.html" class="region-card">
+          <div class="region-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <h3>South Florida / Miami Metro</h3>
+          <p>Serving the Miami metro and the Gold Coast.</p>
+          <span class="choose-link">View area →</span>
+        </a>
+        <a href="orlando.html" class="region-card">
+          <div class="region-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <h3>Orlando, FL Metro</h3>
+          <p>Water treatment across Central Florida.</p>
+          <span class="choose-link">View area →</span>
+        </a>
+      </div>
+      <p class="center areas-note">Don't see your town? <a href="contact.html">Contact us</a> and we likely serve your area too.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner footer-4">
+      <div class="footer-brand">
+        <img src="logo-horizontal.svg" alt="USA Water Company" />
+        <span class="footer-name">USA Water Company</span>
+        <p>Clean, safe water for every home and business. Locally owned and operated in Phoenix, Miami, and Orlando.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="services.html">Services</a>
+        <a href="products.html">Products</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="reviews.html">Reviews</a>
+      </div>
+      <div class="footer-col">
+        <h4>Service Areas</h4>
+        <a href="service-areas.html">All Areas</a>
+        <a href="phoenix.html">Phoenix, AZ</a>
+        <a href="south-florida.html">South Florida</a>
+        <a href="orlando.html">Orlando, FL</a>
+      </div>
+      <div class="footer-col">
+        <h4>Get in Touch</h4>
+        <a href="tel:+18005550123">(800) 555-0123</a>
+        <a href="mailto:info@usawatercompany.com">info@usawatercompany.com</a>
+        <span>1234 W Example Dr, Phoenix, AZ 85001</span>
+        <span>Monday to Saturday, 8AM to 6PM</span>
+      </div>
+    </div>
+    <div class="footer-bottom"><div class="container"><span>© 2026 USA Water Company. All rights reserved.</span></div></div>
+  </footer>
+
+  <script>
+    document.getElementById('hamburger').addEventListener('click', function () {
+      document.getElementById('nav').classList.toggle('open');
+    });
+  </script>
+  <script src="reveal.js"></script>
+</body>
+</html>
