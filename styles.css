@@ -235,6 +235,8 @@ a { color: var(--blue); text-decoration: none; }
 .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
 .contact-list { list-style: none; margin-top: 1.4rem; }
 .contact-list li { padding: .7rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: .7rem; }
+.contact-list-center { max-width: 620px; margin: 0 auto; }
+.calendly-inline-widget { border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--border); background: #fff; }
 .ico-c { width: 20px; height: 20px; color: var(--blue); flex-shrink: 0; }
 .contact-inner textarea { font-family: inherit; }
 
