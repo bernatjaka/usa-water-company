@@ -236,6 +236,12 @@ a { color: var(--blue); text-decoration: none; }
 .contact-list { list-style: none; margin-top: 1.4rem; }
 .contact-list li { padding: .7rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: .7rem; }
 .contact-list-center { max-width: 620px; margin: 0 auto; }
+.schedule-form-wrap { max-width: 640px; margin: 0 auto; }
+.schedule-form { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 2rem; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: .9rem; }
+.schedule-form input, .schedule-form select, .schedule-form textarea { padding: .85rem; border: 1px solid var(--border); border-radius: 8px; font-size: .95rem; font-family: inherit; width: 100%; }
+.schedule-form input:focus, .schedule-form select:focus, .schedule-form textarea:focus { outline: 2px solid var(--blue); border-color: transparent; }
+.sf-row { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+@media (max-width: 560px) { .sf-row { grid-template-columns: 1fr; } }
 .calendly-inline-widget { border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--border); background: #fff; }
 .ico-c { width: 20px; height: 20px; color: var(--blue); flex-shrink: 0; }
 .contact-inner textarea { font-family: inherit; }
