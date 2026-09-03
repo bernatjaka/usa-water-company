@@ -9,6 +9,7 @@
   <link rel="icon" type="image/svg+xml" href="logo-mark.svg" />
   <link rel="icon" type="image/jpeg" href="logo.jpg" />
   <link rel="apple-touch-icon" href="logo-mark.svg" />
+  <link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css" />
 </head>
 <body>
 
@@ -58,7 +59,7 @@
       </div>
       <div class="hero-card">
         <h3>Book Your Free Water Test</h3>
-        <form onsubmit="handleSubmit(event)">
+        <form onsubmit="openCalendly(event)">
           <input type="text" id="hc-name" placeholder="Full Name" required />
           <input type="tel" placeholder="Phone Number" required />
           <input type="email" id="hc-email" placeholder="Email Address" required />
@@ -70,8 +71,8 @@
             <option>Elevated Drinking System</option>
             <option>Something Else</option>
           </select>
-          <button type="submit" class="btn btn-primary btn-block">Request My Free Test</button>
-          <p class="form-note">No obligation. We'll reach out within 24 hours.</p>
+          <button type="submit" class="btn btn-primary btn-block">Pick a Time for My Free Test</button>
+          <p class="form-note">No obligation. Book instantly on our online calendar.</p>
         </form>
       </div>
     </div>
@@ -304,12 +305,19 @@
         document.getElementById('nav').classList.remove('open');
       });
     });
-    function handleSubmit(e) {
+    var CALENDLY_URL = 'https://calendly.com/jaka-usawaterco/30min';
+    function openCalendly(e) {
       e.preventDefault();
-      alert('Thanks! Your request has been received. We\'ll be in touch within 24 hours.');
-      e.target.reset();
+      var name = (document.getElementById('hc-name') || {}).value || '';
+      var email = (document.getElementById('hc-email') || {}).value || '';
+      if (window.Calendly) {
+        Calendly.initPopupWidget({ url: CALENDLY_URL, prefill: { name: name, email: email } });
+      } else {
+        window.location.href = 'contact.html';
+      }
     }
   </script>
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
   <script src="reveal.js"></script>
 </body>
 </html>

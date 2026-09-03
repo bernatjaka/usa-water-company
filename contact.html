@@ -9,6 +9,7 @@
   <link rel="icon" type="image/svg+xml" href="logo-mark.svg" />
   <link rel="icon" type="image/jpeg" href="logo.jpg" />
   <link rel="apple-touch-icon" href="logo-mark.svg" />
+  <link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css" />
 </head>
 <body>
 
@@ -54,27 +55,7 @@
         <h2>Schedule Your Free Water Test</h2>
         <p class="section-sub">Choose a time that works for you and we'll confirm your free in-home water test. Prefer to talk first? Call or email us below.</p>
       </div>
-      <div class="schedule-form-wrap">
-        <form class="schedule-form" onsubmit="handleSubmit(event)">
-          <div class="sf-row">
-            <input type="text" placeholder="Full Name" required />
-            <input type="tel" placeholder="Phone Number" required />
-          </div>
-          <input type="email" placeholder="Email Address" required />
-          <div class="sf-row">
-            <input type="date" required aria-label="Preferred date" />
-            <select required aria-label="Preferred time">
-              <option value="" disabled selected>Preferred time</option>
-              <option>Morning (8am to 12pm)</option>
-              <option>Afternoon (12pm to 4pm)</option>
-              <option>Evening (4pm to 6pm)</option>
-            </select>
-          </div>
-          <textarea placeholder="Anything we should know? (optional)" rows="3"></textarea>
-          <button type="submit" class="btn btn-primary btn-block">Request My Free Test</button>
-          <p class="form-note">We'll confirm your appointment within 24 hours.</p>
-        </form>
-      </div>
+      <div class="calendly-inline-widget" data-url="https://calendly.com/jaka-usawaterco/30min" style="min-width:320px;height:720px;"></div>
     </div>
   </section>
 
@@ -132,12 +113,8 @@
     document.getElementById('hamburger').addEventListener('click', function () {
       document.getElementById('nav').classList.toggle('open');
     });
-    function handleSubmit(e) {
-      e.preventDefault();
-      alert('Thanks! Your request has been received. We\'ll confirm your appointment within 24 hours.');
-      e.target.reset();
-    }
   </script>
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
   <script src="reveal.js"></script>
 </body>
 </html>
