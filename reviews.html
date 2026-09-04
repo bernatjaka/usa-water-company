@@ -74,6 +74,36 @@
     </div>
   </section>
 
+  <!-- Leave a Review -->
+  <section class="section section-alt" id="leave-review">
+    <div class="container">
+      <div class="section-head center">
+        <span class="pill">Share Your Experience</span>
+        <h2>Leave Us a Review</h2>
+        <p class="section-sub">Worked with USA Water Company? We'd love to hear how it went.</p>
+      </div>
+      <form class="review-form" onsubmit="submitReview(event)">
+        <div class="sf-row">
+          <input type="text" id="rv-name" placeholder="Your Name" required />
+          <input type="text" id="rv-city" placeholder="City (e.g., Scottsdale, AZ)" required />
+        </div>
+        <div class="rating-block">
+          <span class="rating-caption">Your Rating</span>
+          <div class="star-rating">
+            <input type="radio" id="star5" name="rating" value="5" required /><label for="star5" title="5 stars">★</label>
+            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars">★</label>
+            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars">★</label>
+            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars">★</label>
+            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star">★</label>
+          </div>
+        </div>
+        <textarea id="rv-text" placeholder="Tell us about your experience" rows="4" required></textarea>
+        <button type="submit" class="btn btn-primary btn-block">Submit Review</button>
+        <p class="form-note">Your review is sent to our team and may be featured on this page.</p>
+      </form>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="cta-strip">
     <div class="container center">
@@ -120,6 +150,19 @@
     document.getElementById('hamburger').addEventListener('click', function () {
       document.getElementById('nav').classList.toggle('open');
     });
+    function submitReview(e) {
+      e.preventDefault();
+      var name = document.getElementById('rv-name').value;
+      var city = document.getElementById('rv-city').value;
+      var text = document.getElementById('rv-text').value;
+      var checked = document.querySelector('input[name="rating"]:checked');
+      var rating = checked ? checked.value : '';
+      var subject = encodeURIComponent('New website review from ' + name);
+      var body = encodeURIComponent(
+        'Name: ' + name + '\nCity: ' + city + '\nRating: ' + rating + ' out of 5\n\nReview:\n' + text
+      );
+      window.location.href = 'mailto:info@usawaterco.com?subject=' + subject + '&body=' + body;
+    }
   </script>
   <script src="reveal.js"></script>
 </body>
