@@ -21,6 +21,15 @@
     .btn-outline { background: transparent; color: var(--navy); border-color: var(--border); }
     .btn-outline:hover { background: var(--blue-light); }
   </style>
+  <!-- OpenAI conversion pixel -->
+  <script>!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");oaiq("init",{pixelId:"1VNhxFcREChcwBRyd2UR84",debug:true});</script>
+  <script>
+    oaiq(
+      "measure",
+      "appointment_scheduled",
+      { type: "customer_action" }
+    );
+  </script>
 </head>
 <body>
 
