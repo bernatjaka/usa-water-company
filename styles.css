@@ -445,3 +445,26 @@ section[id] { scroll-margin-top: 90px; }
 @media (max-width: 560px) {
   .cards, .trustbar-inner, .steps, .areas-grid, .footer-inner, .product-grid, .footer-4 { grid-template-columns: 1fr; }
 }
+
+/* Promo bar + summer sale section */
+.promobar { background: #f26522; color: #fff; font-size: .92rem; }
+.promobar-inner { display: flex; align-items: center; justify-content: center; gap: 1rem; padding: .6rem 2.2rem; position: relative; flex-wrap: wrap; }
+.promobar p { margin: 0; }
+.promobar-cta { background: #fff; color: #c0392b; font-weight: 800; padding: .35rem 1rem; border-radius: 999px; font-size: .85rem; white-space: nowrap; }
+.promobar-cta:hover { background: #fff4ef; }
+.promobar-close { position: absolute; right: .4rem; top: 50%; transform: translateY(-50%); background: none; border: 0; color: #fff; font-size: 1.5rem; line-height: 1; cursor: pointer; padding: 0 .4rem; opacity: .85; }
+.promobar-close:hover { opacity: 1; }
+
+.promo-wrap { display: grid; grid-template-columns: 0.85fr 1fr; gap: 3rem; align-items: center; }
+.promo-art img { width: 100%; border-radius: 16px; box-shadow: var(--shadow-lg); display: block; }
+.promo-copy h2 { font-size: 2.4rem; margin: .6rem 0 .9rem; }
+.promo-price { color: var(--red); }
+.promo-list { list-style: none; margin: 1.4rem 0 1.8rem; }
+.promo-list li { display: flex; align-items: flex-start; gap: .7rem; padding: .4rem 0; color: var(--text); }
+.promo-list svg { width: 20px; height: 20px; color: var(--red); flex: 0 0 auto; margin-top: 3px; }
+.promo-fine { color: var(--muted); font-size: .85rem; margin-top: 1rem; }
+@media (max-width: 860px) {
+  .promo-wrap { grid-template-columns: 1fr; gap: 2rem; }
+  .promo-art { max-width: 420px; margin: 0 auto; }
+  .promo-copy h2 { font-size: 1.9rem; }
+}
