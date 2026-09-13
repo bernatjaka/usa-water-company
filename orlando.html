@@ -11,6 +11,7 @@
   <link rel="apple-touch-icon" href="logo-mark.svg" />
   <!-- OpenAI conversion pixel -->
   <script>!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");oaiq("init",{pixelId:"1VNhxFcREChcwBRyd2UR84",debug:true});</script>
+  <link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css" />
 </head>
 <body>
 
@@ -54,7 +55,7 @@
       <h1>Water Treatment in<br /><span class="accent-light">Orlando, Florida</span></h1>
       <p class="lead center-lead">Professional water filtration, softening, and free testing for homes and businesses across Central Florida.</p>
       <div class="hero-actions center-actions">
-        <a href="contact.html" class="btn btn-primary">Book a Free Water Test →</a>
+        <a href="#book" class="btn btn-primary">Book a Free Water Test →</a>
         <a href="tel:+14806900600" class="btn btn-ghost">(480) 690-0600</a>
       </div>
     </div>
@@ -78,7 +79,7 @@
           <li>Elevated drinking water for clean, great-tasting water</li>
           <li>Certified testing with a written report</li>
         </ul>
-        <a href="contact.html" class="btn btn-primary">Schedule Your Free Test</a>
+        <a href="#book" class="btn btn-primary">Schedule Your Free Test</a>
       </div>
       <div class="loc-media">
         <div class="map-card">
@@ -102,12 +103,25 @@
     </div>
   </section>
 
+  <!-- Book in this market -->
+  <section class="section" id="book">
+    <div class="container">
+      <div class="section-head center">
+        <span class="pill">Book Online</span>
+        <h2>Schedule Your Free Water Test in Orlando</h2>
+        <p class="section-sub">Pick a time below and your local Orlando team will confirm your free in-home water test.</p>
+      </div>
+      <div id="market-calendar" data-market="orlando" style="min-width:320px;height:720px;"></div>
+      <noscript><p class="center">Please call <a href="tel:+14806900600">(480) 690-0600</a> to book your free water test.</p></noscript>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="cta-strip">
     <div class="container center">
       <h2>Ready for Better Water in Orlando?</h2>
       <p>Book your free in-home water test today. No pressure, no obligation.</p>
-      <a href="contact.html" class="btn btn-light">Get Started</a>
+      <a href="#book" class="btn btn-light">Get Started</a>
     </div>
   </section>
 
@@ -149,6 +163,9 @@
       document.getElementById('nav').classList.toggle('open');
     });
   </script>
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <script src="calendly-redirect.js"></script>
+  <script src="booking.js"></script>
   <script src="promo.js"></script>
   <script src="reveal.js"></script>
 </body>

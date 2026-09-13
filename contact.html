@@ -54,9 +54,15 @@
       <div class="section-head center">
         <span class="pill">Book Online</span>
         <h2>Schedule Your Free Water Test</h2>
-        <p class="section-sub">Choose a time that works for you and we'll confirm your free in-home water test. Prefer to talk first? Call or email us below.</p>
+        <p class="section-sub">Pick your area so the right local team handles your visit, then choose a time that works for you. Prefer to talk first? Call or email us below.</p>
       </div>
-      <div class="calendly-inline-widget" data-url="https://calendly.com/craig-usawaterco/30min" style="min-width:320px;height:720px;"></div>
+      <div class="market-picker" role="group" aria-label="Choose your area">
+        <button type="button" class="market-btn" data-market="phoenix">Phoenix, AZ</button>
+        <button type="button" class="market-btn" data-market="south-florida">South Florida &amp; Miami</button>
+        <button type="button" class="market-btn" data-market="orlando">Orlando, FL</button>
+      </div>
+      <div id="booking-calendar" data-market-default="phoenix" style="min-width:320px;height:720px;"></div>
+      <noscript><p class="center">Please call <a href="tel:+14806900600">(480) 690-0600</a> to book your free water test.</p></noscript>
     </div>
   </section>
 
@@ -119,6 +125,7 @@
   </script>
   <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
   <script src="calendly-redirect.js"></script>
+  <script src="booking.js"></script>
   <script src="promo.js"></script>
   <script src="reveal.js"></script>
 </body>

@@ -468,3 +468,14 @@ section[id] { scroll-margin-top: 90px; }
   .promo-art { max-width: 420px; margin: 0 auto; }
   .promo-copy h2 { font-size: 1.9rem; }
 }
+
+/* Market picker for booking */
+.market-picker { display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.8rem; }
+.market-btn {
+  background: #fff; border: 2px solid var(--border); color: var(--navy);
+  font-weight: 700; font-size: .95rem; padding: .7rem 1.5rem; border-radius: 999px;
+  cursor: pointer; transition: border-color .15s, background .15s, color .15s;
+}
+.market-btn:hover { border-color: var(--blue); }
+.market-btn.is-active { background: var(--red); border-color: var(--red); color: #fff; }
+.market-note { text-align: center; color: var(--muted); font-size: .9rem; margin-bottom: 1.4rem; }
