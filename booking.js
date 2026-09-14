@@ -27,7 +27,8 @@ var DEFAULT_MARKET = 'phoenix';
 */
 var ZIP_PREFIXES = {
   phoenix: ['850', '851', '852', '853'],                 // Phoenix metro, Maricopa County
-  'south-florida': ['330', '331', '332', '333', '334'],  // Miami-Dade, Broward, Palm Beach
+  'south-florida': ['330', '331', '332', '333', '334',   // Miami-Dade, Broward, Palm Beach
+                    '339', '341'],                       // Fort Myers, Cape Coral, Naples
   orlando: ['327', '328', '329', '347']                  // Orlando metro, Kissimmee, Space Coast
 };
 
