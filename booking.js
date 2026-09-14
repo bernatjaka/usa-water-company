@@ -7,7 +7,7 @@
 var MARKETS = {
   phoenix: {
     label: 'Phoenix, AZ',
-    url: 'https://calendly.com/craig-usawaterco/30min'      // Craig
+    url: 'https://calendly.com/d/dv9n-zgw-rp8/phoenix-free-water-test'   // Craig, round robin
   },
   'south-florida': {
     label: 'South Florida & Miami',
