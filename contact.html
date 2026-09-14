@@ -54,14 +54,22 @@
       <div class="section-head center">
         <span class="pill">Book Online</span>
         <h2>Schedule Your Free Water Test</h2>
-        <p class="section-sub">Pick your area so the right local team handles your visit, then choose a time that works for you. Prefer to talk first? Call or email us below.</p>
+        <p class="section-sub">Enter your zip code and we'll show you the next available times with your local team. Prefer to talk first? Call or email us below.</p>
       </div>
-      <div class="market-picker" role="group" aria-label="Choose your area">
+      <form class="zip-form" id="zip-form" novalidate>
+        <label for="zip-input">Enter your zip code to see availability</label>
+        <div class="zip-row">
+          <input type="text" id="zip-input" inputmode="numeric" maxlength="10" placeholder="e.g. 85258" autocomplete="postal-code" required />
+          <button type="submit" class="btn btn-primary">See Times</button>
+        </div>
+        <p class="zip-status" id="zip-status"></p>
+      </form>
+      <div class="market-picker" id="market-fallback" role="group" aria-label="Choose your area" hidden>
         <button type="button" class="market-btn" data-market="phoenix">Phoenix, AZ</button>
         <button type="button" class="market-btn" data-market="south-florida">South Florida &amp; Miami</button>
         <button type="button" class="market-btn" data-market="orlando">Orlando, FL</button>
       </div>
-      <div id="booking-calendar" data-market-default="phoenix" style="min-width:320px;height:720px;"></div>
+      <div id="booking-calendar" style="min-width:320px;height:720px;" hidden></div>
       <noscript><p class="center">Please call <a href="tel:+14806900600">(480) 690-0600</a> to book your free water test.</p></noscript>
     </div>
   </section>

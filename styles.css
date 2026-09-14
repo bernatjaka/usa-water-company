@@ -479,3 +479,18 @@ section[id] { scroll-margin-top: 90px; }
 .market-btn:hover { border-color: var(--blue); }
 .market-btn.is-active { background: var(--red); border-color: var(--red); color: #fff; }
 .market-note { text-align: center; color: var(--muted); font-size: .9rem; margin-bottom: 1.4rem; }
+
+/* Zip code routing */
+.zip-form { max-width: 470px; margin: 0 auto 1.6rem; text-align: center; }
+.zip-form label { display: block; font-weight: 700; color: var(--navy); margin-bottom: .7rem; }
+.zip-row { display: flex; gap: .6rem; justify-content: center; }
+.zip-row input {
+  flex: 1; min-width: 0; padding: .85rem 1.1rem; border: 2px solid var(--border);
+  border-radius: 999px; font-size: 1rem; font-family: inherit; color: var(--text);
+}
+.zip-row input:focus { outline: none; border-color: var(--blue); }
+.zip-row .btn { white-space: nowrap; }
+.zip-status { margin-top: .8rem; font-size: .92rem; min-height: 1.2em; }
+.zip-status.is-found { color: var(--muted); }
+.zip-status.is-error { color: var(--red); }
+.zip-status a { color: var(--red); font-weight: 700; text-decoration: underline; }
