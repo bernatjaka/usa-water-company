@@ -73,22 +73,9 @@
           <input type="text" id="hc-name" placeholder="Full Name" required />
           <input type="tel" placeholder="Phone Number" required />
           <input type="email" id="hc-email" placeholder="Email Address" required />
-          <select id="hc-market" required>
-            <option value="" disabled selected>Where are you located?</option>
-            <option value="phoenix">Phoenix, AZ</option>
-            <option value="south-florida">South Florida &amp; Miami</option>
-            <option value="orlando">Orlando, FL</option>
-          </select>
-          <select required>
-            <option value="" disabled selected>What do you need?</option>
-            <option>Water Filtration</option>
-            <option>Water Softening</option>
-            <option>Water Testing</option>
-            <option>Elevated Drinking System</option>
-            <option>Something Else</option>
-          </select>
+          <input type="text" id="hc-zip" inputmode="numeric" maxlength="10" placeholder="Zip Code" autocomplete="postal-code" required />
           <button type="submit" class="btn btn-primary btn-block">Pick a Time for My Free Test</button>
-          <p class="form-note">No obligation. Book instantly on our online calendar.</p>
+          <p class="form-note" id="hc-note">No obligation. Book instantly on our online calendar.</p>
         </form>
       </div>
     </div>
@@ -383,7 +370,16 @@
       e.preventDefault();
       var name = (document.getElementById('hc-name') || {}).value || '';
       var email = (document.getElementById('hc-email') || {}).value || '';
-      var market = (document.getElementById('hc-market') || {}).value || DEFAULT_MARKET;
+      var zip = ((document.getElementById('hc-zip') || {}).value || '').trim();
+      var note = document.getElementById('hc-note');
+      var market = marketForZip(zip);
+      if (!market) {
+        note.className = 'form-note is-error';
+        note.innerHTML = 'We do not have a team in ' + zip + ' yet. Call <a href="tel:+14806900600">(480) 690-0600</a> and we will see what we can do.';
+        return;
+      }
+      note.className = 'form-note';
+      note.textContent = 'No obligation. Book instantly on our online calendar.';
       if (window.Calendly) {
         Calendly.initPopupWidget({ url: marketUrl(market), prefill: { name: name, email: email } });
       } else {

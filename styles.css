@@ -494,3 +494,5 @@ section[id] { scroll-margin-top: 90px; }
 .zip-status.is-found { color: var(--muted); }
 .zip-status.is-error { color: var(--red); }
 .zip-status a { color: var(--red); font-weight: 700; text-decoration: underline; }
+.form-note.is-error { color: var(--red); font-weight: 600; }
+.form-note.is-error a { color: var(--red); text-decoration: underline; }
