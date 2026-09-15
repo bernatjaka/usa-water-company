@@ -15,7 +15,7 @@ var MARKETS = {
   },
   orlando: {
     label: 'Orlando, FL',
-    url: 'https://calendly.com/craig-usawaterco/30min'      // TODO: Roy
+    url: 'https://calendly.com/d/dvwy-6hj-3jp/orlando-free-water-test'      // LeRoy Henderson
   }
 };
 var DEFAULT_MARKET = 'phoenix';
