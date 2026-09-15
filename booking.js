@@ -11,7 +11,7 @@ var MARKETS = {
   },
   'south-florida': {
     label: 'South Florida & Miami',
-    url: 'https://calendly.com/craig-usawaterco/30min'      // TODO: Rick Toplak
+    url: 'https://calendly.com/d/dz66-7h6-fht/south-florida-free-water-test'  // Rick Toplak
   },
   orlando: {
     label: 'Orlando, FL',
