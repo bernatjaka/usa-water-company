@@ -34,25 +34,32 @@
   /* Scene geometry, recomputed on resize so it stays responsive. */
   var S = {};
   function layout() {
-    /* Sits in the right third on wide screens so the copy has the left. */
+    /* One vertical run, laid out as fractions of the viewport height so
+       every stage keeps its order no matter the screen size. */
     var wide = W > 900;
     var cx = wide ? W * 0.72 : W * 0.5;
-    var pipeW = wide ? Math.max(40, Math.min(78, W * 0.055))
-                     : Math.max(34, Math.min(62, W * 0.13));
-    var tankW = pipeW * 2.9;
-    var tankH = Math.min(H * 0.34, tankW * 1.5);
-    var mainY = Math.max(H * 0.23, 170);   /* clears the promo bar, top bar and sticky header */
-    var tankY = Math.max(H * 0.40, mainY + pipeW * 2.4);
+    var pipeW = wide ? Math.max(36, Math.min(72, W * 0.052))
+                     : Math.max(30, Math.min(56, W * 0.12));
+
+    var mainY  = Math.max(H * 0.20, 150);   /* clears the site header */
+    var tankY  = H * 0.36;
+    var tankH  = H * 0.26;
+    var tankW  = Math.min(pipeW * 2.9, W * 0.26);
+    var outTop = tankY + tankH;             /* 0.62H */
+    var spoutY = H * 0.73;
+    var glassH = H * 0.16;
+
     S = {
       cx: cx, pipeW: pipeW,
-      mainY: mainY, mainX0: -20, meterX: cx - pipeW * 3.4,
+      mainY: mainY, mainX0: -20, meterX: Math.max(pipeW * 1.2, cx - pipeW * 3.4),
       inletTop: mainY, inletBot: tankY,
       tankX: cx - tankW / 2, tankY: tankY, tankW: tankW, tankH: tankH,
-      bedY: tankY + tankH * 0.52,                 // top of the media bed
-      outTop: tankY + tankH, outBot: H * 0.755,
-      spoutY: H * 0.755, spoutX: cx + pipeW * 1.7,
-      glassX: cx + pipeW * 1.7 - pipeW * 0.95, glassY: H * 0.80,
-      glassW: pipeW * 1.9, glassH: H * 0.135
+      bedY: tankY + tankH * 0.52,
+      outTop: outTop, outBot: spoutY,
+      spoutY: spoutY, spoutX: cx + pipeW * 1.7,
+      glassX: cx + pipeW * 1.7 - pipeW * 0.95,
+      glassY: spoutY + H * 0.05,
+      glassW: pipeW * 1.9, glassH: glassH
     };
   }
 
@@ -312,7 +319,7 @@
     },
     unlock: function () { locked = false; },
     debug: function () {
-      return { W:Math.round(W), H:Math.round(H), shown:+shown.toFixed(2), progress:+progress.toFixed(2),
+      return { W:Math.round(W), H:Math.round(H), shown:+shown.toFixed(2), progress:+progress.toFixed(2), mainY:Math.round(S.mainY),
                inletBot:Math.round(S.inletBot), tankY:Math.round(S.tankY),
                tankH:Math.round(S.tankH), outTop:Math.round(S.outTop),
                outBot:Math.round(S.outBot), pipeW:Math.round(S.pipeW) };
