@@ -5,14 +5,14 @@
   --paper:#f4f3ef; --ink:#14181d; --muted:#6b7684;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
-html, body { height:100%; }
+html { scroll-behavior:smooth; overflow-x:clip; }
 body {
   background:var(--paper); color:var(--ink);
   font-family:'Archivo', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
 }
 
-.wr { position:relative; min-height:100vh; min-height:100svh; display:flex; flex-direction:column; }
+.wr { position:relative; }
 
 /* Ink. Sits behind everything and drifts on its own. */
 /* Ink lives off to the side so the type always sits on clean paper. */
@@ -124,4 +124,53 @@ body {
 }
 @media (prefers-reduced-motion: reduce) {
   .ink, .panel.is-on, .line { transition:none !important; animation:none !important; }
+}
+
+/* ===== Scroll narrative ===== */
+/* Ink is driven by scroll via --p (0 to 1), set from JS. */
+.ink {
+  --p: 0;
+  transform: translate3d(calc(var(--p) * 18vw), -50%, 0)
+             scale(calc(.72 + var(--p) * .72))
+             rotate(calc(var(--p) * 42deg));
+}
+.ink.in { opacity: calc(.35 + var(--p) * .65); }
+
+.scroller { position:relative; z-index:2; }
+.scene {
+  position:relative;
+  min-height:100vh; min-height:100svh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:6rem 1.8rem;
+  opacity:0; transform:translate3d(0,40px,0);
+  transition:opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1);
+}
+.scene.lit { opacity:1; transform:none; }
+
+.scene-h {
+  font-family:'Anton', Impact, sans-serif; font-weight:400; text-transform:uppercase;
+  color:var(--navy); font-size:clamp(2.3rem, 8vw, 5.6rem); line-height:.98; letter-spacing:.005em;
+}
+.scene-p { max-width:34rem; margin-top:1.6rem; font-size:1.05rem; line-height:1.65; color:var(--muted); }
+.scene-p.sm { font-size:.9rem; margin-top:1.1rem; }
+.scene .btn { margin-top:2.4rem; }
+
+/* Scroll cue */
+.cue {
+  position:absolute; bottom:3.4rem; left:50%; transform:translateX(-50%);
+  font-size:.68rem; font-weight:700; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--muted); display:flex; flex-direction:column; align-items:center; gap:.85rem;
+}
+.cue-line { display:block; width:1px; height:48px; background:linear-gradient(to bottom, transparent, var(--navy)); opacity:.4; }
+.cue { animation:bob 2.4s ease-in-out infinite; }
+@keyframes bob { 0%,100% { transform:translate(-50%,0); } 50% { transform:translate(-50%,7px); } }
+
+/* Quiz takes over, page stops scrolling */
+body.quiz-on { overflow:hidden; }
+body.quiz-on .scroller { display:none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .scene { opacity:1; transform:none; }
+  .cue { animation:none; }
+  .ink { transform:translate3d(0,-50%,0) scale(1) !important; }
 }

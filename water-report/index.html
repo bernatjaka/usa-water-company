@@ -45,14 +45,33 @@
     <a class="wr-close" href="../index.html" aria-label="Close">&times;</a>
   </header>
 
-  <main class="wr-stage">
-
-    <!-- 0, title card -->
-    <section class="panel is-on" data-panel="0">
+  <!-- Scroll narrative. Hands over to the quiz at the end. -->
+  <div class="scroller" id="scroller">
+    <section class="scene" data-scene="1">
       <h1 class="title">The Water<br />Report</h1>
-      <p class="sub">Find out what is really in the water coming out of your tap. Takes about sixty seconds and costs nothing.</p>
-      <button class="btn" data-go="1">Check My Water</button>
+      <p class="cue" aria-hidden="true">
+        <span class="cue-line"></span>
+        Scroll
+      </p>
     </section>
+
+    <section class="scene" data-scene="2">
+      <h2 class="scene-h">What's really<br />in your water?</h2>
+    </section>
+
+    <section class="scene" data-scene="3">
+      <h2 class="scene-h">Hard water. Chlorine.<br />Things you can't taste.</h2>
+      <p class="scene-p">Most homeowners have never seen an honest reading of their own tap.</p>
+    </section>
+
+    <section class="scene" data-scene="4">
+      <h2 class="scene-h">Have you ever checked<br />what's in your water?</h2>
+      <button class="btn" data-go="1">Check My Water</button>
+      <p class="scene-p sm">Sixty seconds. No cost.</p>
+    </section>
+  </div>
+
+  <main class="wr-stage" id="stage" hidden>
 
     <!-- 1 to 3, the sentence builds a line at a time -->
     <section class="panel" data-panel="1" data-panel-group="q">

@@ -12,7 +12,9 @@
     panels[el.getAttribute('data-panel')] = el;
   });
 
-  var ink   = document.getElementById('ink');
+  var ink      = document.getElementById('ink');
+  var stage    = document.getElementById('stage');
+  var scroller = document.getElementById('scroller');
   var err   = document.getElementById('err');
   var fine  = document.getElementById('fine');
   var prev  = document.getElementById('prev');
@@ -162,13 +164,50 @@
 
   next.addEventListener('click', advance);
   prev.addEventListener('click', goBack);
-  document.querySelectorAll('[data-go]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      step = Number(b.getAttribute('data-go'));
-      showPanel(step); paintLines();
+  /* ---- Scroll narrative ---- */
+
+  /* Ink position and scale track scroll progress through the intro. */
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      var max = Math.max(1, scroller.offsetHeight - window.innerHeight);
+      var p = Math.min(1, Math.max(0, window.scrollY / max));
+      ink.style.setProperty('--p', p.toFixed(4));
+      ticking = false;
     });
+  }
+
+  /* Each scene fades up as it enters, and stays lit once seen. */
+  var scenes = document.querySelectorAll('.scene');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) e.target.classList.add('lit');
+      });
+    }, { threshold: 0.35 });
+    scenes.forEach(function (sc) { io.observe(sc); });
+  } else {
+    scenes.forEach(function (sc) { sc.classList.add('lit'); });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  /* Handing over from the narrative to the quiz. */
+  function openQuiz() {
+    document.body.classList.add('quiz-on');
+    stage.hidden = false;
+    step = 1; showPanel(1); paintLines();
+    window.scrollTo(0, 0);
+    ink.style.setProperty('--p', '1');
+  }
+
+  document.querySelectorAll('[data-go]').forEach(function (b) {
+    b.addEventListener('click', openQuiz);
   });
 
-  showPanel(0);
   requestAnimationFrame(function () { ink.classList.add('in'); });
 })();
