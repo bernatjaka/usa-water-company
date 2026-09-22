@@ -425,6 +425,28 @@
   onScroll();
 
   /* Handing over from the narrative to the quiz. */
+  /* iOS ignores overflow:hidden on body, so the page behind has to be
+     pinned explicitly and the scroll position restored afterwards.
+     Without this the touch can land on the page rather than the overlay,
+     which reads as the report simply not scrolling. */
+  var lockedScrollY = 0;
+  function lockPage() {
+    lockedScrollY = window.scrollY || window.pageYOffset || 0;
+    document.body.style.position = 'fixed';
+    document.body.style.top = (-lockedScrollY) + 'px';
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.classList.add('wr-open');
+  }
+  function unlockPage() {
+    document.body.classList.remove('wr-open');
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    window.scrollTo(0, lockedScrollY);
+  }
+
   function openModal() {
     /* carry over the zip if they already typed it on the prompt */
     var ask = document.getElementById('ask-zip');
@@ -445,12 +467,12 @@
       if (note) note.textContent = '';
     }
     modal.hidden = false;
-    document.body.classList.add('wr-open');
+    lockPage();
     step = 1; showPanel(1); paintLines();
   }
   function closeModal() {
     modal.hidden = true;
-    document.body.classList.remove('wr-open');
+    unlockPage();
   }
   if (opener) opener.addEventListener('click', openModal);
   var askZip = document.getElementById('ask-zip');
