@@ -24,7 +24,7 @@
    layer, so even if the toggle ever missed, it could not show through. */
 .wr-block ~ section,
 .wr-block ~ footer,
-.wr-block ~ div { position:relative; z-index:1; }
+.wr-block ~ div:not(.wr-modal) { position:relative; z-index:1; }
 
 .wr-pin .sys { position:absolute; inset:0; width:100%; height:100%; }
 
@@ -64,7 +64,7 @@
 
 /* ---- Quiz overlay ---- */
 .wr-modal {
-  position:fixed; inset:0; z-index:9999; background:var(--wrPaper);
+  position:fixed !important; inset:0; z-index:9999 !important; background:var(--wrPaper);
   display:flex; flex-direction:column; animation:wrIn .32s ease both;
   font-family:'Archivo', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
   color:var(--wrInk);
@@ -177,3 +177,53 @@ body.wr-open { overflow:hidden; }
 .wr-ask-slot input:focus { outline:none; border-bottom-color:var(--wrRed); }
 .wr-ask .btn { margin-top:2.6rem; }
 .wr-ask-note { min-height:1.4em; margin-top:1.1rem; color:var(--wrRed); font-weight:600; font-size:.95rem; }
+
+/* ---- Report ---- */
+.wr-report { max-width:1000px !important; }
+.wr-modal .rtitle .wr-accent { color:var(--wrRed); }
+.wr-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:1rem; margin:2rem 0 0; text-align:left; }
+
+.wr-card {
+  position:relative; background:#fff; border:1px solid rgba(13,35,64,.10);
+  border-radius:4px; padding:1.5rem 1.4rem; text-align:center;
+}
+.wr-card h3 { font-size:1.02rem; font-weight:700; color:var(--wrNavy); margin-bottom:.9rem; }
+.wr-card-lead { font-size:.66rem; letter-spacing:.14em; text-transform:uppercase;
+                color:var(--wrMuted); font-weight:600; }
+.wr-card-times {
+  font-family:'Anton', Impact, sans-serif; font-weight:400;
+  font-size:clamp(2rem, 5vw, 2.9rem); line-height:1.05; color:var(--wrRed); margin:.35rem 0;
+}
+.wr-card-rows { margin-top:1.1rem; font-size:.84rem; }
+.wr-card-rows > div { display:flex; justify-content:space-between; gap:1rem;
+                      padding:.34rem 0; border-top:1px solid rgba(13,35,64,.07); }
+.wr-card-rows dt { color:var(--wrMuted); }
+.wr-card-rows dd { color:var(--wrNavy); font-weight:600; }
+
+/* held back until they book */
+.wr-card.is-locked { user-select:none; }
+.wr-card.is-locked h3,
+.wr-card.is-locked .wr-card-times,
+.wr-card.is-locked .wr-card-rows,
+.wr-card.is-locked .wr-card-lead { filter:blur(7px); opacity:.55; }
+.wr-card.is-locked::after {
+  content:''; position:absolute; inset:0; border-radius:4px;
+  background:linear-gradient(to bottom, rgba(244,243,239,0) 0%, rgba(244,243,239,.75) 100%);
+}
+
+.wr-gate {
+  margin-top:1.4rem; padding:2.2rem 1.6rem;
+  background:var(--wrNavy); color:#fff; border-radius:4px; text-align:center;
+}
+.wr-gate[hidden] { display:none; }
+.wr-gate h3 { font-family:'Anton', Impact, sans-serif; font-weight:400; text-transform:uppercase;
+              font-size:clamp(1.4rem, 3.4vw, 2.1rem); line-height:1.05;
+              color:#fff;   /* the site sets headings navy, which is invisible here */ }
+.wr-gate p { max-width:38rem; margin:.9rem auto 1.6rem; color:#c8d6e8; line-height:1.6; font-size:.97rem; }
+.wr-gate .btn { background:var(--wrRed); }
+.wr-gate .btn:hover { background:#fff; color:var(--wrNavy); }
+.wr-gate-list { list-style:none; margin:1.6rem auto 0; max-width:34rem;
+                display:grid; gap:.45rem; font-size:.86rem; color:#a9bdd6; }
+.wr-gate-list li::before { content:'✓'; color:#fff; margin-right:.5rem; font-weight:700; }
+
+@media (max-width:760px) { .wr-grid { grid-template-columns:1fr; } }

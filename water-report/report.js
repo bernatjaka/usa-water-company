@@ -117,51 +117,87 @@
   }
 
   /*
-    PLACEHOLDER REPORT.
-    Real per-market water data goes here once we agree the source.
-    The market lookup is already live via booking.js.
+    The report. A quarter of it is open, the rest is held back until they
+    book, which is the whole point: the free test is what unlocks it.
   */
+  function fmt(n) {
+    if (n >= 100) return Math.round(n).toLocaleString();
+    if (n >= 10)  return n.toFixed(1);
+    return n.toFixed(1);
+  }
+
+  function contaminantCard(c, locked) {
+    var times = timesOver(c);
+    var el = document.createElement('div');
+    el.className = 'wr-card' + (locked ? ' is-locked' : '');
+    el.innerHTML =
+      '<h3>' + c.name + '</h3>' +
+      '<p class="wr-card-lead">Your water contains</p>' +
+      '<div class="wr-card-times">' + fmt(times) + ' times</div>' +
+      '<p class="wr-card-lead">the recommended health guideline</p>' +
+      '<dl class="wr-card-rows">' +
+        '<div><dt>This utility</dt><dd>' + c.level + ' ' + c.unit + '</dd></div>' +
+        '<div><dt>EWG health guideline</dt><dd>' + c.guideline + ' ' + c.unit + '</dd></div>' +
+        '<div><dt>Legal limit</dt><dd>' +
+          (c.legal === null ? 'No legal limit' : c.legal + ' ' + c.unit) + '</dd></div>' +
+      '</dl>';
+    return el;
+  }
+
   function buildReport() {
-    var name = fields[1].el.value.trim();
-    var zip  = fields[2].el.value.trim();
+    var name = (fields[1].el.value || '').trim();
+    var zip  = (fields[2].el.value || '').trim();
     var key  = (typeof marketForZip === 'function') ? marketForZip(zip) : null;
-    var covered = !!key;
+    var data = key && typeof WATER_DATA !== 'undefined' ? WATER_DATA[key] : null;
 
-    document.getElementById('r-zip').textContent = zip;
-    document.getElementById('r-title').textContent = covered
-      ? name + ', your water needs a closer look'
-      : 'We do not cover ' + zip + ' yet';
-
-    document.getElementById('r-sub').textContent = covered
-      ? 'Based on what is typically found in ' + MARKETS[key].label + ' water. These are area figures, not a measurement of your tap. A free in-home test is the only way to know what is actually coming out of your faucet.'
-      : 'We are not in your area yet, but call us on (480) 690-0600 and we will see what we can do.';
-
-    var cards = document.getElementById('r-cards');
+    var titleEl = document.getElementById('r-title');
+    var subEl   = document.getElementById('r-sub');
+    var cards   = document.getElementById('r-cards');
+    var cta     = document.getElementById('r-cta');
+    var zipEl   = document.getElementById('r-zip');
+    if (zipEl) zipEl.textContent = zip;
     cards.innerHTML = '';
-    if (covered) {
-      [
-        { h: 'Water hardness',  v: 'Placeholder', p: 'Real figure for this area goes here.' , bad: true },
-        { h: 'Chlorine',        v: 'Placeholder', p: 'Real figure for this area goes here.' },
-        { h: 'Total dissolved solids', v: 'Placeholder', p: 'Real figure for this area goes here.' }
-      ].forEach(function (c) {
-        var d = document.createElement('div');
-        d.className = 'card';
-        d.innerHTML = '<h3>' + c.h + '</h3><div class="val' + (c.bad ? ' bad' : '') + '">' + c.v + '</div><p>' + c.p + '</p>';
-        cards.appendChild(d);
-      });
-    }
 
-    var cta = document.getElementById('r-cta');
-    /* Keep whatever base path the markup already uses, this runs both on
-       the standalone page and embedded on the homepage. */
-    var base = (cta.getAttribute('href') || 'contact.html').split('?')[0];
-    if (covered) {
-      cta.textContent = 'Book My Free In-Home Test';
-      cta.href = base + '?zip=' + encodeURIComponent(zip);
-    } else {
+    if (!data) {
+      titleEl.textContent = 'We do not cover ' + zip + ' yet';
+      subEl.textContent = 'We are not in your area yet. Call us on (480) 690-0600 and we will see what we can do.';
       cta.textContent = 'Call (480) 690-0600';
       cta.href = 'tel:+14806900600';
+      step = 5; showPanel(5);
+      return;
     }
+
+    var over = data.contaminants
+      .filter(function (c) { return timesOver(c) > 1; })
+      .sort(function (a2, b2) { return timesOver(b2) - timesOver(a2); });
+    var list = over.length ? over : data.contaminants.slice();
+
+    var first = name ? name.split(' ')[0] : 'there';
+    titleEl.innerHTML = first + ', here is what is in<br /><span class="wr-accent">' + zip + '</span> tap water';
+    subEl.innerHTML = 'Measured by ' + data.utility + ' and published by the ' + data.source +
+      '. These are figures for the water supplied to your area, not a test of your own tap.';
+
+    var shown = Math.max(1, Math.min(WATER_FREE_COUNT, list.length));
+    for (var i = 0; i < list.length; i++) {
+      cards.appendChild(contaminantCard(list[i], i >= shown));
+    }
+
+    /* the gate */
+    var hidden = list.length - shown;
+    var gate = document.getElementById('r-gate');
+    if (gate) {
+      gate.hidden = hidden <= 0;
+      var gt = document.getElementById('r-gate-title');
+      var gs = document.getElementById('r-gate-sub');
+      if (gt) gt.textContent = hidden + ' more result' + (hidden === 1 ? '' : 's') + ' in your area';
+      if (gs) gs.textContent =
+        'Your full report, and a test of the water actually coming out of your taps, is done in person by a certified technician. It is free and takes about an hour.';
+    }
+
+    var base = (cta.getAttribute('href') || 'contact.html').split('?')[0];
+    if (base.indexOf('tel:') === 0) base = 'contact.html';
+    cta.textContent = 'Pick a Time for My Free Test';
+    cta.href = base + '?zip=' + encodeURIComponent(zip);
 
     try {
       sessionStorage.setItem('uwc-zip', zip);

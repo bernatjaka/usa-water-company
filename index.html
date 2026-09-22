@@ -6,7 +6,7 @@
   <title>USA Water Company | Water Filtration, Softening &amp; Testing</title>
   <meta name="description" content="USA Water Company provides professional water filtration, softening, and certified testing for homes and businesses in Phoenix, Miami, and Orlando. Start with a free test." />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="water-report/report.css?v=202609221433" />
+  <link rel="stylesheet" href="water-report/report.css?v=202609221505" />
   <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="logo-mark.svg" />
   <link rel="icon" type="image/jpeg" href="logo.jpg" />
@@ -395,13 +395,25 @@
         <div class="bar"><span id="barfill"></span></div>
       </section>
 
-      <section class="panel" data-panel="5">
+      <section class="panel wr-report" data-panel="5">
         <p class="eyebrow">Water report for <span id="r-zip"></span></p>
         <h2 class="rtitle" id="r-title">Your Water Report</h2>
         <p class="rsub" id="r-sub"></p>
-        <div class="cards" id="r-cards"></div>
-        <a class="btn" id="r-cta" href="contact.html">Book My Free In-Home Test</a>
-        <p class="fine">A certified technician tests your actual tap water and gives you a full written report. No cost, no obligation.</p>
+
+        <div class="wr-grid" id="r-cards"></div>
+
+        <div class="wr-gate" id="r-gate" hidden>
+          <h3 id="r-gate-title">More results in your area</h3>
+          <p id="r-gate-sub"></p>
+          <a class="btn" id="r-cta" href="contact.html">Pick a Time for My Free Test</a>
+          <ul class="wr-gate-list">
+            <li>A certified technician tests the water at your own taps</li>
+            <li>Full written report, explained in plain language</li>
+            <li>Free, about an hour, and no obligation to buy anything</li>
+          </ul>
+        </div>
+
+        <p class="fine">Area figures come from the EWG Tap Water Database and reflect water supplied to your area, not a test of your own tap.</p>
       </section>
 
     </div>
@@ -479,8 +491,9 @@
   </script>
   <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
   <script src="calendly-redirect.js"></script>
-  <script src="water-report/system.js?v=202609221433"></script>
-  <script src="water-report/report.js?v=202609221433"></script>
+  <script src="water-report/data.js?v=202609221505"></script>
+  <script src="water-report/system.js?v=202609221505"></script>
+  <script src="water-report/report.js?v=202609221505"></script>
   <script src="booking.js"></script>
   <script src="promo.js"></script>
   <script src="reveal.js"></script>
