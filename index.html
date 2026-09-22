@@ -6,7 +6,7 @@
   <title>USA Water Company | Water Filtration, Softening &amp; Testing</title>
   <meta name="description" content="USA Water Company provides professional water filtration, softening, and certified testing for homes and businesses in Phoenix, Miami, and Orlando. Start with a free test." />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="water-report/report.css?v=20260922172909" />
+  <link rel="stylesheet" href="water-report/report.css?v=20260922173852" />
   <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="logo-mark.svg" />
   <link rel="icon" type="image/jpeg" href="logo.jpg" />
@@ -98,39 +98,6 @@
       </p>
       <button class="btn btn-primary" id="wr-open">Check My Water</button>
       <p class="wr-ask-note" id="ask-note"></p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Hero -->
-  <section class="hero" id="home">
-    <span class="hero-glow hero-glow-1" aria-hidden="true"></span>
-    <span class="hero-glow hero-glow-2" aria-hidden="true"></span>
-    <div class="container hero-inner">
-      <div class="hero-copy">
-        <span class="pill pill-light">Trusted Local Water Experts</span>
-        <h1>Cleaner, Safer Water<br /><span class="accent">for Your Home &amp; Business</span></h1>
-        <p class="lead">USA Water Company delivers professional water filtration, softening, and certified testing, so every glass, shower, and appliance runs on water you can trust.</p>
-        <div class="hero-actions">
-          <a href="contact.html" class="btn btn-primary">Get a Free Water Test</a>
-          <a href="services.html" class="btn btn-ghost">Explore Services</a>
-        </div>
-        <div class="hero-trust">
-          <span><svg class="ico-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Licensed &amp; Insured</span>
-          <span><svg class="ico-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Certified Technicians</span>
-          <span><svg class="ico-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>100% Satisfaction Guarantee</span>
-        </div>
-      </div>
-      <div class="hero-card">
-        <h3>Book Your Free Water Test</h3>
-        <form onsubmit="openCalendly(event)">
-          <input type="text" id="hc-name" placeholder="Full Name" required />
-          <input type="tel" placeholder="Phone Number" required />
-          <input type="email" id="hc-email" placeholder="Email Address" required />
-          <input type="text" id="hc-zip" inputmode="numeric" maxlength="10" placeholder="Zip Code" autocomplete="postal-code" required />
-          <button type="submit" class="btn btn-primary btn-block">Pick a Time for My Free Test</button>
-          <p class="form-note" id="hc-note">No obligation. Book instantly on our online calendar.</p>
-        </form>
       </div>
     </div>
   </section>
@@ -362,6 +329,39 @@
     </div>
   </section>
 
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <span class="hero-glow hero-glow-1" aria-hidden="true"></span>
+    <span class="hero-glow hero-glow-2" aria-hidden="true"></span>
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <span class="pill pill-light">Trusted Local Water Experts</span>
+        <h1>Cleaner, Safer Water<br /><span class="accent">for Your Home &amp; Business</span></h1>
+        <p class="lead">USA Water Company delivers professional water filtration, softening, and certified testing, so every glass, shower, and appliance runs on water you can trust.</p>
+        <div class="hero-actions">
+          <a href="contact.html" class="btn btn-primary">Get a Free Water Test</a>
+          <a href="services.html" class="btn btn-ghost">Explore Services</a>
+        </div>
+        <div class="hero-trust">
+          <span><svg class="ico-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Licensed &amp; Insured</span>
+          <span><svg class="ico-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Certified Technicians</span>
+          <span><svg class="ico-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>100% Satisfaction Guarantee</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h3>Book Your Free Water Test</h3>
+        <form onsubmit="openCalendly(event)">
+          <input type="text" id="hc-name" placeholder="Full Name" required />
+          <input type="tel" placeholder="Phone Number" required />
+          <input type="email" id="hc-email" placeholder="Email Address" required />
+          <input type="text" id="hc-zip" inputmode="numeric" maxlength="10" placeholder="Zip Code" autocomplete="postal-code" required />
+          <button type="submit" class="btn btn-primary btn-block">Pick a Time for My Free Test</button>
+          <p class="form-note" id="hc-note">No obligation. Book instantly on our online calendar.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="cta-strip">
     <div class="container center">
@@ -541,9 +541,9 @@
   </script>
   <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
   <script src="calendly-redirect.js"></script>
-  <script src="water-report/data.js?v=20260922172909"></script>
-  <script src="water-report/system.js?v=20260922172909"></script>
-  <script src="water-report/report.js?v=20260922172909"></script>
+  <script src="water-report/data.js?v=20260922173852"></script>
+  <script src="water-report/system.js?v=20260922173852"></script>
+  <script src="water-report/report.js?v=20260922173852"></script>
   <script src="booking.js"></script>
   <script src="promo.js"></script>
   <script src="reveal.js"></script>
