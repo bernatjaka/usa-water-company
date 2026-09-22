@@ -109,20 +109,20 @@
     return (S.cx - S.mainX0) + (S.inletBot - S.mainY) - r * 0.43;   /* ~arc shortening */
   }
 
-  /* Down from the tank, then out along the manifold both ways. */
-  function outletPath() {
-    var r = Math.min(S.pipeW * 0.8, (S.manX1 - S.cx) * 0.4, (S.manY - S.outTop) * 0.4);
+  /* One continuous run from the tank out to a fixture, with rounded
+     elbows at the tee and at the drop, so the clean side reads the same
+     as the inlet rather than as stacked rectangles. */
+  function branchPath(fx, fy) {
     ctx.beginPath();
     ctx.moveTo(S.cx, S.outTop);
-    ctx.lineTo(S.cx, S.manY);
-    return S.manY - S.outTop;
-  }
-
-  function manifoldPath() {
-    ctx.beginPath();
-    ctx.moveTo(S.manX0, S.manY);
-    ctx.lineTo(S.manX1, S.manY);
-    return S.manX1 - S.manX0;
+    var dx = fx - S.cx;
+    if (Math.abs(dx) < 2) { ctx.lineTo(fx, fy); return (fy - S.outTop); }
+    var r = Math.min(S.pipeW * 0.75, Math.abs(dx) * 0.45, (fy - S.manY) * 0.45,
+                     (S.manY - S.outTop) * 0.45);
+    ctx.arcTo(S.cx, S.manY, fx, S.manY, r);
+    ctx.arcTo(fx, S.manY, fx, fy, r);
+    ctx.lineTo(fx, fy);
+    return (S.manY - S.outTop) + Math.abs(dx) + (fy - S.manY) - r * 0.86;
   }
 
   /* Position along the inlet path, used to carry particles round the bend. */
@@ -308,22 +308,61 @@
     ctx.strokeStyle = 'rgba(13,35,64,.30)'; ctx.lineWidth = 2;
     roundRect(S.tankX, S.tankY, S.tankW, S.tankH, S.pipeW * 0.42); ctx.stroke();
 
-    /* --- outlet, clean, down to the manifold --- */
-    var outLen = outletPath();
-    ctx.lineCap = 'butt'; ctx.lineJoin = 'round';
-    ctx.strokeStyle = 'rgba(13,35,64,.07)'; ctx.lineWidth = S.pipeW; ctx.stroke();
-    manifoldPath(); ctx.stroke();
+    /* --- clean side: three branches, each one continuous run --- */
+    var CLEAN = '#7f9fcb';        /* opaque: the three branches share a trunk */
+    var SHELL = '#e8e7e2';
+    var branches = [
+      { x: S.showerX, y: S.showerY },
+      { x: S.tapX,    y: S.tapY    },
+      { x: S.appX,    y: S.appY    }
+    ];
 
-    var outP = Math.max(0, Math.min(1, (p - 0.56) / 0.14));
-    var manP = Math.max(0, Math.min(1, (p - 0.66) / 0.12));
-    var CLEAN = 'rgba(42,94,170,.55)';
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
 
+    /* shells */
+    for (var bx = 0; bx < branches.length; bx++) {
+      branchPath(branches[bx].x, branches[bx].y);
+      ctx.strokeStyle = SHELL;
+      ctx.lineWidth = (bx === 1 ? S.pipeW : S.pipeW * 0.62);
+      ctx.stroke();
+    }
+
+    /* water, revealed along each branch in turn */
+    var outP = Math.max(0, Math.min(1, (p - 0.54) / 0.30));
     if (outP > 0) {
-      outletPath();
-      ctx.strokeStyle = CLEAN; ctx.lineWidth = S.pipeW * 0.84;
-      ctx.setLineDash([outLen * outP, outLen + 40]); ctx.stroke();
-      ctx.setLineDash([]);
+      for (var bw = 0; bw < branches.length; bw++) {
+        var bLen = branchPath(branches[bw].x, branches[bw].y);
+        ctx.strokeStyle = CLEAN;
+        ctx.lineWidth = (bw === 1 ? S.pipeW * 0.84 : S.pipeW * 0.50);
+        ctx.setLineDash([bLen * outP, bLen + 60]);
+        ctx.stroke();
+        ctx.setLineDash([]);
 
+        if (!REDUCED && bw === 1) {
+          branchPath(branches[bw].x, branches[bw].y);
+          ctx.strokeStyle = 'rgba(255,255,255,.26)';
+          ctx.lineWidth = (bw === 1 ? S.pipeW * 0.26 : S.pipeW * 0.16);
+          ctx.setLineDash([S.pipeW * 0.4, S.pipeW * 1.9]);
+          ctx.lineDashOffset = -(t * 2.4) % (S.pipeW * 2.3);
+          ctx.stroke();
+          ctx.lineDashOffset = 0;
+        }
+        if (!REDUCED) {
+          if (outP < 0.999) {
+            branchPath(branches[bw].x, branches[bw].y);
+            ctx.strokeStyle = SHELL;
+            ctx.lineWidth = (bw === 1 ? S.pipeW : S.pipeW * 0.62);
+            ctx.setLineDash([bLen - bLen * outP + 60, bLen * 2]);
+            ctx.lineDashOffset = -(bLen * outP);
+            ctx.stroke();
+            ctx.lineDashOffset = 0;
+          }
+          ctx.setLineDash([]);
+        }
+      }
+
+      /* bubbles in the trunk */
+      if (!REDUCED && t % 8 === 0 && bubbles.length < 24) spawnBubble();
       for (var bi = bubbles.length - 1; bi >= 0; bi--) {
         var bu = bubbles[bi];
         if (!REDUCED) bu.y -= bu.v;
@@ -331,36 +370,16 @@
         ctx.strokeStyle = 'rgba(255,255,255,.7)'; ctx.lineWidth = 1;
         ctx.beginPath(); ctx.arc(bu.x, bu.y, bu.r, 0, 6.2832); ctx.stroke();
       }
-      if (!REDUCED && t % 8 === 0 && bubbles.length < 26) spawnBubble();
     }
-
-    /* manifold fills outward from the centre both ways */
-    if (manP > 0) {
-      var halfL = S.cx - S.manX0, halfR = S.manX1 - S.cx;
-      ctx.strokeStyle = CLEAN; ctx.lineWidth = S.pipeW * 0.84;
-      ctx.beginPath();
-      ctx.moveTo(S.cx - halfL * manP, S.manY);
-      ctx.lineTo(S.cx + halfR * manP, S.manY);
-      ctx.stroke();
-    }
+    ctx.lineCap = 'butt';
 
     /* --- the three fixtures --- */
     var NAVY_S = 'rgba(13,35,64,.55)';
-    function riser(x, toY, on) {
-      ctx.strokeStyle = 'rgba(13,35,64,.07)'; ctx.lineWidth = S.pipeW * 0.5;
-      ctx.beginPath(); ctx.moveTo(x, S.manY); ctx.lineTo(x, toY); ctx.stroke();
-      if (on > 0) {
-        ctx.strokeStyle = CLEAN; ctx.lineWidth = S.pipeW * 0.38;
-        ctx.beginPath(); ctx.moveTo(x, S.manY);
-        ctx.lineTo(x, S.manY + (toY - S.manY) * on); ctx.stroke();
-      }
-    }
 
     var useP = Math.max(0, Math.min(1, (p - 0.74) / 0.26));
     var jig = REDUCED ? 0 : Math.sin(t * 0.3) * 0.8;
 
     /* 1, shower */
-    riser(S.showerX, S.showerY, Math.min(1, useP * 3));
     var hw = S.pipeW * 1.5, hh = S.pipeW * 0.38;
     ctx.fillStyle = NAVY_S;
     ctx.beginPath();
@@ -384,7 +403,6 @@
     }
 
     /* 2, kitchen tap into a glass */
-    riser(S.tapX, S.tapY, Math.min(1, useP * 3));
     var neck = S.pipeW * 0.85;
     ctx.strokeStyle = NAVY_S; ctx.lineWidth = S.pipeW * 0.24; ctx.lineCap = 'round';
     ctx.beginPath();
@@ -412,7 +430,6 @@
     ctx.stroke();
 
     /* 3, washing machine */
-    riser(S.appX, S.appY, Math.min(1, useP * 3));
     var aw = S.appW, ah = S.appH, ax = S.appX - aw / 2, ay = S.appY;
     ctx.fillStyle = '#fff'; roundRect(ax, ay, aw, ah, 5); ctx.fill();
     if (useP > 0.2) {
