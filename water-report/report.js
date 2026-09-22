@@ -12,7 +12,7 @@
     panels[el.getAttribute('data-panel')] = el;
   });
 
-  var ink      = document.getElementById('ink');
+  var ink      = document.getElementById('ink');   // removed in favour of the canvas, kept optional
   var stage    = document.getElementById('stage');
   var scroller = document.getElementById('scroller');
   var err   = document.getElementById('err');
@@ -100,7 +100,7 @@
     var zip = fields[2].el.value.trim();
     document.getElementById('b-zip').textContent = zip;
     step = 4; showPanel(4);
-    ink.classList.add('shift');
+    if (ink) ink.classList.add('shift');
     var fill = document.getElementById('barfill');
     fill.style.width = '0';
     requestAnimationFrame(function () {
@@ -174,7 +174,8 @@
     requestAnimationFrame(function () {
       var max = Math.max(1, scroller.offsetHeight - window.innerHeight);
       var p = Math.min(1, Math.max(0, window.scrollY / max));
-      ink.style.setProperty('--p', p.toFixed(4));
+      if (ink) ink.style.setProperty('--p', p.toFixed(4));
+      if (window.WaterSystem) window.WaterSystem.set(p);
       ticking = false;
     });
   }
@@ -202,12 +203,17 @@
     stage.hidden = false;
     step = 1; showPanel(1); paintLines();
     window.scrollTo(0, 0);
-    ink.style.setProperty('--p', '1');
+    if (ink) ink.style.setProperty('--p', '1');
+    if (window.WaterSystem) window.WaterSystem.set(1);
   }
 
   document.querySelectorAll('[data-go]').forEach(function (b) {
     b.addEventListener('click', openQuiz);
   });
 
-  requestAnimationFrame(function () { ink.classList.add('in'); });
+  requestAnimationFrame(function () {
+    if (ink) ink.classList.add('in');
+    var sys = document.getElementById('sys');
+    if (sys) sys.classList.add('in');
+  });
 })();

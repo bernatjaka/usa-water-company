@@ -15,30 +15,8 @@
 
 <div class="wr" id="wr">
 
-  <!-- ink that reacts to each step -->
-  <svg class="ink" id="ink" viewBox="0 0 900 900" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
-    <defs>
-      <filter id="bleed" x="-30%" y="-30%" width="160%" height="160%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="4" seed="7" result="noise">
-          <animate attributeName="baseFrequency" dur="26s"
-                   values="0.012 0.02; 0.02 0.012; 0.012 0.02" repeatCount="indefinite" />
-        </feTurbulence>
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="90" xChannelSelector="R" yChannelSelector="G" />
-        <feGaussianBlur stdDeviation="2" />
-      </filter>
-      <radialGradient id="inkfill" cx="42%" cy="40%" r="62%">
-        <stop offset="0%"  stop-color="#bcd8f4" stop-opacity=".22" />
-        <stop offset="55%" stop-color="#7fb2e8" stop-opacity=".34" />
-        <stop offset="100%" stop-color="#2a5eaa" stop-opacity=".46" />
-      </radialGradient>
-    </defs>
-    <g filter="url(#bleed)">
-      <circle id="blob" cx="450" cy="450" r="250" fill="url(#inkfill)" />
-      <circle cx="330" cy="330" r="92"  fill="#7fb2e8" opacity=".16" />
-      <circle cx="588" cy="556" r="68"  fill="#bcd8f4" opacity=".20" />
-      <circle cx="600" cy="320" r="34"  fill="#2a5eaa" opacity=".14" />
-    </g>
-  </svg>
+  <!-- Scroll-driven filtration scene -->
+  <canvas class="sys" id="sys" aria-hidden="true"></canvas>
 
   <header class="wr-bar">
     <span class="wr-tag">Your Water Report</span>
@@ -56,16 +34,17 @@
     </section>
 
     <section class="scene" data-scene="2">
-      <h2 class="scene-h">What's really<br />in your water?</h2>
+      <h2 class="scene-h">This is what<br />enters your home</h2>
+      <p class="scene-p">Hardness minerals, chlorine, sediment, and whatever the pipes pick up on the way.</p>
     </section>
 
     <section class="scene" data-scene="3">
-      <h2 class="scene-h">Hard water. Chlorine.<br />Things you can't taste.</h2>
-      <p class="scene-p">Most homeowners have never seen an honest reading of their own tap.</p>
+      <h2 class="scene-h">A whole home system<br />catches it</h2>
+      <p class="scene-p">Carbon filtration and softening strip it out before it reaches a single tap in the house.</p>
     </section>
 
     <section class="scene" data-scene="4">
-      <h2 class="scene-h">Have you ever checked<br />what's in your water?</h2>
+      <h2 class="scene-h">This is what<br />should come out</h2>
       <button class="btn" data-go="1">Check My Water</button>
       <p class="scene-p sm">Sixty seconds. No cost.</p>
     </section>
@@ -117,6 +96,7 @@
 </div>
 
 <script src="../booking.js"></script>
+<script src="system.js"></script>
 <script src="report.js"></script>
 </body>
 </html>

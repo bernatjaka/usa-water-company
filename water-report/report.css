@@ -14,6 +14,25 @@ body {
 
 .wr { position:relative; }
 
+/* Filtration scene. Fixed, full height, sits behind the copy. */
+.sys {
+  position:fixed; top:0; left:0; width:100vw; height:100vh; height:100svh;
+  z-index:0; pointer-events:none;
+  opacity:0; transition:opacity 1.2s ease;
+}
+.sys.in { opacity:1; }
+
+/* Text sits to one side so the system stays readable behind it. */
+.scene { text-align:left; align-items:flex-start; }
+.scene > * { max-width:min(46ch, 42vw); }
+.scene-h, .title { text-shadow:0 0 26px var(--paper), 0 0 10px var(--paper); }
+
+@media (max-width:900px) {
+  .scene { text-align:center; align-items:center; }
+  .scene > * { max-width:100%; }
+  .sys { opacity:.35 !important; }
+}
+
 /* Ink. Sits behind everything and drifts on its own. */
 /* Ink lives off to the side so the type always sits on clean paper. */
 .ink {
