@@ -71,13 +71,12 @@
   function spawnDirty() {
     if (!S.pipeW) return;
     dirty.push({
-      x: S.mainX0 - Math.random() * 60,
-      y: S.mainY + (Math.random() - 0.5) * (S.pipeW * 0.55),
+      d: -Math.random() * 60,                 /* distance travelled along the run */
+      off: (Math.random() - 0.5) * (S.pipeW * 0.5),   /* sideways drift in the pipe */
       r: 1.3 + Math.random() * 2.4,
-      v: 1.4 + Math.random() * 1.8,
+      v: 1.5 + Math.random() * 1.9,
       c: Math.random() < 0.45 ? RUST : DIRT,
-      w: Math.random() * 6.28,
-      turned: false
+      w: Math.random() * 6.28
     });
   }
   function spawnBubble() {
@@ -94,6 +93,43 @@
     ctx.fillStyle = fill;
     ctx.fillRect(x - w / 2, y1, w, y2 - y1);
   }
+  /* The inlet is one path: in from the street, round the elbow, down into
+     the house. Water is revealed along it with a dash, which is what makes
+     the corner read as flow rather than two rectangles meeting. */
+  function inletPath() {
+    var r = Math.min(S.pipeW * 0.9, (S.cx - S.mainX0) * 0.4, (S.inletBot - S.mainY) * 0.4);
+    ctx.beginPath();
+    ctx.moveTo(S.mainX0, S.mainY);
+    ctx.arcTo(S.cx, S.mainY, S.cx, S.inletBot, r);
+    ctx.lineTo(S.cx, S.inletBot);
+    return (S.cx - S.mainX0) + (S.inletBot - S.mainY) - r * 0.43;   /* ~arc shortening */
+  }
+
+  function outletPath() {
+    var r = Math.min(S.pipeW * 0.8, (S.spoutX - S.cx) * 0.4);
+    ctx.beginPath();
+    ctx.moveTo(S.cx, S.outTop);
+    ctx.arcTo(S.cx, S.spoutY, S.spoutX, S.spoutY, r);
+    ctx.lineTo(S.spoutX, S.spoutY);
+    return (S.spoutY - S.outTop) + (S.spoutX - S.cx) - r * 0.43;
+  }
+
+  /* Position along the inlet path, used to carry particles round the bend. */
+  function inletAt(d) {
+    var horiz = S.cx - S.mainX0;
+    var r = Math.min(S.pipeW * 0.9, horiz * 0.4, (S.inletBot - S.mainY) * 0.4);
+    var straight = horiz - r;
+    if (d <= straight) return { x: S.mainX0 + d, y: S.mainY, turning: 0 };
+    var arcLen = r * Math.PI / 2;
+    if (d <= straight + arcLen) {
+      var a = (d - straight) / arcLen;                  /* 0 to 1 round the bend */
+      var ang = -Math.PI / 2 + a * (Math.PI / 2);
+      return { x: S.cx - r + Math.cos(ang) * r,
+               y: S.mainY + r + Math.sin(ang) * r, turning: 1 };
+    }
+    return { x: S.cx, y: S.mainY + r + (d - straight - arcLen), turning: 2 };
+  }
+
   function roundRect(x, y, w, h, r) {
     ctx.beginPath();
     ctx.moveTo(x + r, y);
@@ -124,70 +160,67 @@
     ctx.clearRect(0, 0, W, H);
 
     /* How far the water has descended through the whole run. */
-    var frontMain  = S.mainX0 + (S.cx - S.mainX0) * Math.min(1, p / 0.14);
-    var frontInlet = S.inletTop + (S.inletBot - S.inletTop) *
-                     Math.max(0, Math.min(1, (p - 0.12) / 0.26));
     var tankFill   = Math.max(0, Math.min(1, (p - 0.34) / 0.28));
     var frontOut   = S.outTop + (S.outBot - S.outTop) * Math.max(0, Math.min(1, (p - 0.60) / 0.20));
     var pour       = Math.max(0, Math.min(1, (p - 0.76) / 0.24));
 
-    /* --- street main coming in from the utility --- */
-    ctx.fillStyle = 'rgba(13,35,64,.06)';
-    ctx.fillRect(S.mainX0, S.mainY - S.pipeW / 2, S.cx - S.mainX0 + S.pipeW / 2, S.pipeW);
-    if (frontMain > S.mainX0) {
-      var mg = ctx.createLinearGradient(S.mainX0, 0, frontMain, 0);
-      mg.addColorStop(0, 'rgba(146,112,64,.78)');
-      mg.addColorStop(1, 'rgba(160,134,88,.58)');
-      ctx.fillStyle = mg;
-      ctx.fillRect(S.mainX0, S.mainY - S.pipeW * 0.41, frontMain - S.mainX0, S.pipeW * 0.82);
-    }
+    /* --- one continuous run: street main, elbow, down into the house --- */
+    var inletLen = inletPath();
+    ctx.lineCap = 'butt'; ctx.lineJoin = 'round';
 
-    /* water meter on the main */
-    var mw = S.pipeW * 1.05, mh = S.pipeW * 0.86;
-    ctx.fillStyle = '#fff';
-    roundRect(S.meterX - mw / 2, S.mainY - mh / 2, mw, mh, 5); ctx.fill();
-    ctx.strokeStyle = 'rgba(13,35,64,.38)'; ctx.lineWidth = 2;
-    roundRect(S.meterX - mw / 2, S.mainY - mh / 2, mw, mh, 5); ctx.stroke();
-    ctx.strokeStyle = 'rgba(13,35,64,.30)'; ctx.lineWidth = 1.6;
-    ctx.beginPath(); ctx.arc(S.meterX, S.mainY, mh * 0.26, 0, 6.2832); ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(S.meterX, S.mainY);
-    var ang = -1.2 + Math.sin(t * 0.04) * 0.9;
-    ctx.lineTo(S.meterX + Math.cos(ang) * mh * 0.2, S.mainY + Math.sin(ang) * mh * 0.2);
+    /* conduit shell */
+    ctx.strokeStyle = 'rgba(13,35,64,.07)';
+    ctx.lineWidth = S.pipeW;
     ctx.stroke();
 
-    ctx.fillStyle = 'rgba(13,35,64,.45)';
-    ctx.font = '600 ' + Math.max(9, S.pipeW * 0.20) + 'px Archivo, Helvetica, Arial, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('CITY SUPPLY', S.meterX, S.mainY + mh * 1.05);
-    ctx.textAlign = 'left';
+    /* water, revealed along the path so it turns the corner properly */
+    var runP = Math.min(1, p / 0.38);
+    if (runP > 0) {
+      var travelled = inletLen * runP;
+      inletPath();
+      var wg = ctx.createLinearGradient(S.mainX0, 0, S.cx, S.inletBot);
+      wg.addColorStop(0, 'rgba(146,112,64,.80)');
+      wg.addColorStop(1, 'rgba(163,138,94,.62)');
+      ctx.strokeStyle = wg;
+      ctx.lineWidth = S.pipeW * 0.84;
+      ctx.setLineDash([travelled, inletLen + 40]);
+      ctx.stroke();
 
-    /* --- inlet pipe down into the house --- */
-    pipe(S.cx, S.mainY, S.inletBot, S.pipeW, 'rgba(13,35,64,.06)');
-    if (frontInlet > S.mainY) {
-      var g = ctx.createLinearGradient(0, S.mainY, 0, frontInlet);
-      g.addColorStop(0, 'rgba(146,112,64,.78)');
-      g.addColorStop(1, 'rgba(160,134,88,.58)');
-      pipe(S.cx, S.mainY, frontInlet, S.pipeW * 0.82, g);
+      /* moving highlights, this is what sells it as flowing */
+      if (!REDUCED) {
+        inletPath();
+        ctx.strokeStyle = 'rgba(255,255,255,.20)';
+        ctx.lineWidth = S.pipeW * 0.28;
+        ctx.setLineDash([S.pipeW * 0.55, S.pipeW * 2.3]);
+        ctx.lineDashOffset = -(t * 2.2) % (S.pipeW * 2.85);
+        ctx.stroke();
+        ctx.lineDashOffset = 0;
+
+        /* paint the dry remainder back over, so highlights never appear
+           beyond the water front. A rect clip cannot express "first N
+           units along a bent path", which is what caused the blocks. */
+        if (runP < 0.999) {
+        var rest = inletLen - travelled + 40;
+        inletPath();
+        ctx.strokeStyle = 'rgba(13,35,64,.07)';
+        ctx.lineWidth = S.pipeW;
+        ctx.setLineDash([rest, inletLen * 2]);
+        ctx.lineDashOffset = -travelled;
+        ctx.stroke();
+        ctx.lineDashOffset = 0;
+        }
+      }
+      ctx.setLineDash([]);
     }
 
-    /* --- contaminants falling --- */
+    /* --- contaminants riding the run --- */
     if (!REDUCED && p > 0.02 && t % 4 === 0 && dirty.length < 90) spawnDirty();
     for (var i = dirty.length - 1; i >= 0; i--) {
       var d = dirty[i];
+      if (!REDUCED) d.d += d.v;
       d.w += 0.06;
-      if (!REDUCED) {
-        if (!d.turned) {
-          d.x += d.v;                      /* along the street main */
-          if (d.x >= S.cx) { d.turned = true; d.x = S.cx + (Math.random() - 0.5) * (S.pipeW * 0.5); }
-        } else {
-          d.y += d.v;                      /* down into the house */
-        }
-      }
-      var dx = d.turned ? d.x + Math.sin(d.w) * 2.2 : d.x;
-      var dy = d.turned ? d.y : d.y + Math.sin(d.w) * 1.4;
-      if (d.turned && d.y >= S.bedY - d.r) {
-        /* trapped in the media, but the bed only shows so much */
+      var pt = inletAt(d.d);
+      if (pt.y >= S.bedY - d.r && pt.turning === 2) {
         if (caught.length > 150) caught.shift();
         caught.push({ x: S.tankX + 8 + Math.random() * (S.tankW - 16),
                       y: S.bedY + 3 + Math.random() * (S.tankY + S.tankH - S.bedY - 8),
@@ -195,13 +228,34 @@
         dirty.splice(i, 1);
         continue;
       }
-      /* only visible once the water has actually reached it */
-      if (!d.turned && d.x > frontMain) continue;
-      if (d.turned && d.y > frontInlet) continue;
-      ctx.fillStyle = d.c; ctx.globalAlpha = .72;
-      ctx.beginPath(); ctx.arc(dx, dy, d.r, 0, 6.2832); ctx.fill();
+      if (d.d > inletLen * runP) continue;     /* not reached by the water yet */
+      var wob = Math.sin(d.w) * 1.8;
+      var px = pt.x + (pt.turning === 2 ? d.off + wob : 0);
+      var py = pt.y + (pt.turning === 2 ? 0 : d.off + wob);
+      ctx.fillStyle = d.c; ctx.globalAlpha = .70;
+      ctx.beginPath(); ctx.arc(px, py, d.r, 0, 6.2832); ctx.fill();
       ctx.globalAlpha = 1;
     }
+
+    /* --- water meter on the main --- */
+    var mw = S.pipeW * 1.05, mh = S.pipeW * 0.86;
+    ctx.fillStyle = '#fff';
+    roundRect(S.meterX - mw / 2, S.mainY - mh / 2, mw, mh, 5); ctx.fill();
+    ctx.strokeStyle = 'rgba(13,35,64,.34)'; ctx.lineWidth = 2;
+    roundRect(S.meterX - mw / 2, S.mainY - mh / 2, mw, mh, 5); ctx.stroke();
+    ctx.strokeStyle = 'rgba(13,35,64,.28)'; ctx.lineWidth = 1.6;
+    ctx.beginPath(); ctx.arc(S.meterX, S.mainY, mh * 0.26, 0, 6.2832); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(S.meterX, S.mainY);
+    var ang2 = -1.2 + Math.sin(t * 0.04) * 0.9;
+    ctx.lineTo(S.meterX + Math.cos(ang2) * mh * 0.2, S.mainY + Math.sin(ang2) * mh * 0.2);
+    ctx.stroke();
+
+    ctx.fillStyle = 'rgba(13,35,64,.42)';
+    ctx.font = '600 ' + Math.max(9, S.pipeW * 0.20) + 'px Archivo, Helvetica, Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('CITY SUPPLY', S.meterX, S.mainY + mh * 1.05);
+    ctx.textAlign = 'left';
 
     /* --- tank --- */
     ctx.save();
@@ -243,44 +297,76 @@
     ctx.strokeStyle = 'rgba(13,35,64,.30)'; ctx.lineWidth = 2;
     roundRect(S.tankX, S.tankY, S.tankW, S.tankH, S.pipeW * 0.42); ctx.stroke();
 
-    /* --- outlet, now clean --- */
-    pipe(S.cx, S.outTop, S.outBot, S.pipeW, 'rgba(13,35,64,.06)');
-    if (frontOut > S.outTop) {
-      pipe(S.cx, S.outTop, frontOut, S.pipeW * 0.82, 'rgba(42,94,170,.62)');
-    }
-    if (!REDUCED && frontOut > S.outTop + 10 && t % 7 === 0 && bubbles.length < 40) spawnBubble();
-    for (var b = bubbles.length - 1; b >= 0; b--) {
-      var bu = bubbles[b];
-      bu.y -= bu.v;
-      if (bu.y < S.outTop) { bubbles.splice(b, 1); continue; }
-      if (bu.y > frontOut) continue;
-      ctx.strokeStyle = 'rgba(255,255,255,.75)'; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.arc(bu.x, bu.y, bu.r, 0, 6.2832); ctx.stroke();
-    }
-
-    /* --- spout and glass --- */
-    ctx.strokeStyle = NAVY; ctx.lineWidth = Math.max(4, S.pipeW * 0.16);
-    ctx.lineCap = 'round';
-    ctx.beginPath();
-    ctx.moveTo(S.cx, S.spoutY);
-    ctx.lineTo(S.spoutX, S.spoutY);
-    ctx.lineTo(S.spoutX, S.spoutY + S.glassH * 0.22);
+    /* --- outlet, now clean, one path round to the spout --- */
+    var outLen = outletPath();
+    ctx.lineCap = 'butt'; ctx.lineJoin = 'round';
+    ctx.strokeStyle = 'rgba(13,35,64,.07)';
+    ctx.lineWidth = S.pipeW;
     ctx.stroke();
 
+    var outP = Math.max(0, Math.min(1, (p - 0.58) / 0.22));
+    if (outP > 0) {
+      outletPath();
+      ctx.strokeStyle = 'rgba(42,94,170,.55)';
+      ctx.lineWidth = S.pipeW * 0.84;
+      ctx.setLineDash([outLen * outP, outLen + 40]);
+      ctx.stroke();
+
+      if (!REDUCED) {
+        outletPath();
+        ctx.strokeStyle = 'rgba(255,255,255,.28)';
+        ctx.lineWidth = S.pipeW * 0.26;
+        ctx.setLineDash([S.pipeW * 0.45, S.pipeW * 2.0]);
+        ctx.lineDashOffset = -(t * 2.6) % (S.pipeW * 2.45);
+        ctx.stroke();
+        ctx.lineDashOffset = 0;
+
+        if (outP < 0.999) {
+        var oRest = outLen - outLen * outP + 40;
+        outletPath();
+        ctx.strokeStyle = 'rgba(13,35,64,.07)';
+        ctx.lineWidth = S.pipeW;
+        ctx.setLineDash([oRest, outLen * 2]);
+        ctx.lineDashOffset = -(outLen * outP);
+        ctx.stroke();
+        ctx.lineDashOffset = 0;
+        }
+      }
+      ctx.setLineDash([]);
+
+      /* bubbles rising in the clean side */
+      if (t % 8 === 0 && bubbles.length < 30) spawnBubble();
+      for (var bi = bubbles.length - 1; bi >= 0; bi--) {
+        var bu = bubbles[bi];
+        if (!REDUCED) bu.y -= bu.v;
+        if (bu.y < S.outTop) { bubbles.splice(bi, 1); continue; }
+        ctx.strokeStyle = 'rgba(255,255,255,.7)'; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.arc(bu.x, bu.y, bu.r, 0, 6.2832); ctx.stroke();
+      }
+    }
+
+    /* --- glass --- */
     var gx = S.glassX, gy = S.glassY, gw = S.glassW, gh = S.glassH;
     if (pour > 0) {
-      ctx.fillStyle = 'rgba(42,94,170,.34)';
-      var jitter = REDUCED ? 0 : Math.sin(t * 0.3) * 0.8;
-      ctx.fillRect(S.spoutX - 2 + jitter, S.spoutY + S.glassH * 0.22, 4, gy - S.spoutY - S.glassH * 0.22 + 4);
+      var jitter = REDUCED ? 0 : Math.sin(t * 0.3) * 0.9;
+      var sg = ctx.createLinearGradient(0, S.spoutY, 0, gy);
+      sg.addColorStop(0, 'rgba(42,94,170,.50)');
+      sg.addColorStop(1, 'rgba(42,94,170,.34)');
+      ctx.fillStyle = sg;
+      ctx.fillRect(S.spoutX - S.pipeW * 0.10 + jitter, S.spoutY,
+                   S.pipeW * 0.20, gy - S.spoutY + 6);
+
       var lvl = gh * 0.80 * pour;
-      ctx.fillStyle = 'rgba(42,94,170,.48)';
+      ctx.fillStyle = 'rgba(42,94,170,.42)';
       ctx.fillRect(gx + 3, gy + gh - lvl, gw - 6, lvl);
-      ctx.fillStyle = 'rgba(188,216,244,.55)';
-      ctx.fillRect(gx + 3, gy + gh - lvl, gw - 6, 3);
+      ctx.fillStyle = 'rgba(210,231,250,.75)';
+      ctx.fillRect(gx + 3, gy + gh - lvl, gw - 6, 2.5);
     }
-    ctx.strokeStyle = 'rgba(13,35,64,.42)'; ctx.lineWidth = 2;
+    ctx.strokeStyle = 'rgba(13,35,64,.40)'; ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
     ctx.beginPath();
-    ctx.moveTo(gx, gy); ctx.lineTo(gx + 2, gy + gh); ctx.lineTo(gx + gw - 2, gy + gh); ctx.lineTo(gx + gw, gy);
+    ctx.moveTo(gx, gy); ctx.lineTo(gx + 2, gy + gh);
+    ctx.lineTo(gx + gw - 2, gy + gh); ctx.lineTo(gx + gw, gy);
     ctx.stroke();
   }
 
