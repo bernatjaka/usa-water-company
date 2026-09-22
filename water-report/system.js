@@ -20,6 +20,7 @@
 
   var W=0, H=0, DPR=1;
   var progress = 0;      // 0 to 1, from scroll
+  var locked = false;    // test hook, see WaterSystem.lock
   var shown = 0;         // eased follower so motion stays smooth
 
   function resize() {
@@ -40,10 +41,12 @@
                      : Math.max(34, Math.min(62, W * 0.13));
     var tankW = pipeW * 2.9;
     var tankH = Math.min(H * 0.34, tankW * 1.5);
-    var tankY = H * 0.30;
+    var mainY = Math.max(H * 0.23, 170);   /* clears the promo bar, top bar and sticky header */
+    var tankY = Math.max(H * 0.40, mainY + pipeW * 2.4);
     S = {
       cx: cx, pipeW: pipeW,
-      inletTop: -10, inletBot: tankY,
+      mainY: mainY, mainX0: -20, meterX: cx - pipeW * 3.4,
+      inletTop: mainY, inletBot: tankY,
       tankX: cx - tankW / 2, tankY: tankY, tankW: tankW, tankH: tankH,
       bedY: tankY + tankH * 0.52,                 // top of the media bed
       outTop: tankY + tankH, outBot: H * 0.755,
@@ -59,13 +62,15 @@
   var bubbles = []; // clean water below the filter
 
   function spawnDirty() {
-    S.pipeW && dirty.push({
-      x: S.cx + (Math.random() - 0.5) * (S.pipeW * 0.62),
-      y: S.inletTop - Math.random() * 40,
+    if (!S.pipeW) return;
+    dirty.push({
+      x: S.mainX0 - Math.random() * 60,
+      y: S.mainY + (Math.random() - 0.5) * (S.pipeW * 0.55),
       r: 1.3 + Math.random() * 2.4,
-      v: 0.9 + Math.random() * 1.5,
+      v: 1.4 + Math.random() * 1.8,
       c: Math.random() < 0.45 ? RUST : DIRT,
-      w: Math.random() * 6.28
+      w: Math.random() * 6.28,
+      turned: false
     });
   }
   function spawnBubble() {
@@ -96,33 +101,79 @@
   function frame() {
     t += 1;
     shown += (progress - shown) * 0.08;
+    draw();
+    requestAnimationFrame(frame);
+  }
+
+  function draw() {
     var p = shown;
 
     ctx.clearRect(0, 0, W, H);
 
     /* How far the water has descended through the whole run. */
-    var frontInlet = S.inletTop + (S.inletBot - S.inletTop) * Math.min(1, p / 0.42);
-    var tankFill   = Math.max(0, Math.min(1, (p - 0.34) / 0.30));
-    var frontOut   = S.outTop + (S.outBot - S.outTop) * Math.max(0, Math.min(1, (p - 0.60) / 0.22));
-    var pour       = Math.max(0, Math.min(1, (p - 0.78) / 0.22));
+    var frontMain  = S.mainX0 + (S.cx - S.mainX0) * Math.min(1, p / 0.14);
+    var frontInlet = S.inletTop + (S.inletBot - S.inletTop) *
+                     Math.max(0, Math.min(1, (p - 0.12) / 0.26));
+    var tankFill   = Math.max(0, Math.min(1, (p - 0.34) / 0.28));
+    var frontOut   = S.outTop + (S.outBot - S.outTop) * Math.max(0, Math.min(1, (p - 0.60) / 0.20));
+    var pour       = Math.max(0, Math.min(1, (p - 0.76) / 0.24));
 
-    /* --- inlet pipe --- */
-    pipe(S.cx, 0, S.inletBot, S.pipeW, 'rgba(13,35,64,.06)');
-    if (frontInlet > 0) {
-      var g = ctx.createLinearGradient(0, 0, 0, frontInlet);
+    /* --- street main coming in from the utility --- */
+    ctx.fillStyle = 'rgba(13,35,64,.06)';
+    ctx.fillRect(S.mainX0, S.mainY - S.pipeW / 2, S.cx - S.mainX0 + S.pipeW / 2, S.pipeW);
+    if (frontMain > S.mainX0) {
+      var mg = ctx.createLinearGradient(S.mainX0, 0, frontMain, 0);
+      mg.addColorStop(0, 'rgba(146,112,64,.78)');
+      mg.addColorStop(1, 'rgba(160,134,88,.58)');
+      ctx.fillStyle = mg;
+      ctx.fillRect(S.mainX0, S.mainY - S.pipeW * 0.41, frontMain - S.mainX0, S.pipeW * 0.82);
+    }
+
+    /* water meter on the main */
+    var mw = S.pipeW * 1.05, mh = S.pipeW * 0.86;
+    ctx.fillStyle = '#fff';
+    roundRect(S.meterX - mw / 2, S.mainY - mh / 2, mw, mh, 5); ctx.fill();
+    ctx.strokeStyle = 'rgba(13,35,64,.38)'; ctx.lineWidth = 2;
+    roundRect(S.meterX - mw / 2, S.mainY - mh / 2, mw, mh, 5); ctx.stroke();
+    ctx.strokeStyle = 'rgba(13,35,64,.30)'; ctx.lineWidth = 1.6;
+    ctx.beginPath(); ctx.arc(S.meterX, S.mainY, mh * 0.26, 0, 6.2832); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(S.meterX, S.mainY);
+    var ang = -1.2 + Math.sin(t * 0.04) * 0.9;
+    ctx.lineTo(S.meterX + Math.cos(ang) * mh * 0.2, S.mainY + Math.sin(ang) * mh * 0.2);
+    ctx.stroke();
+
+    ctx.fillStyle = 'rgba(13,35,64,.45)';
+    ctx.font = '600 ' + Math.max(9, S.pipeW * 0.20) + 'px Archivo, Helvetica, Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('CITY SUPPLY', S.meterX, S.mainY + mh * 1.05);
+    ctx.textAlign = 'left';
+
+    /* --- inlet pipe down into the house --- */
+    pipe(S.cx, S.mainY, S.inletBot, S.pipeW, 'rgba(13,35,64,.06)');
+    if (frontInlet > S.mainY) {
+      var g = ctx.createLinearGradient(0, S.mainY, 0, frontInlet);
       g.addColorStop(0, 'rgba(146,112,64,.78)');
       g.addColorStop(1, 'rgba(160,134,88,.58)');
-      pipe(S.cx, 0, frontInlet, S.pipeW * 0.82, g);
+      pipe(S.cx, S.mainY, frontInlet, S.pipeW * 0.82, g);
     }
 
     /* --- contaminants falling --- */
     if (!REDUCED && p > 0.02 && t % 4 === 0 && dirty.length < 90) spawnDirty();
     for (var i = dirty.length - 1; i >= 0; i--) {
       var d = dirty[i];
-      d.y += d.v * (REDUCED ? 0 : 1);
       d.w += 0.06;
-      var dx = d.x + Math.sin(d.w) * 2.2;
-      if (d.y >= S.bedY - d.r) {
+      if (!REDUCED) {
+        if (!d.turned) {
+          d.x += d.v;                      /* along the street main */
+          if (d.x >= S.cx) { d.turned = true; d.x = S.cx + (Math.random() - 0.5) * (S.pipeW * 0.5); }
+        } else {
+          d.y += d.v;                      /* down into the house */
+        }
+      }
+      var dx = d.turned ? d.x + Math.sin(d.w) * 2.2 : d.x;
+      var dy = d.turned ? d.y : d.y + Math.sin(d.w) * 1.4;
+      if (d.turned && d.y >= S.bedY - d.r) {
         /* trapped in the media, but the bed only shows so much */
         if (caught.length > 150) caught.shift();
         caught.push({ x: S.tankX + 8 + Math.random() * (S.tankW - 16),
@@ -131,9 +182,11 @@
         dirty.splice(i, 1);
         continue;
       }
-      if (d.y > frontInlet) { continue; }   // stays hidden until water reaches it
+      /* only visible once the water has actually reached it */
+      if (!d.turned && d.x > frontMain) continue;
+      if (d.turned && d.y > frontInlet) continue;
       ctx.fillStyle = d.c; ctx.globalAlpha = .72;
-      ctx.beginPath(); ctx.arc(dx, d.y, d.r, 0, 6.2832); ctx.fill();
+      ctx.beginPath(); ctx.arc(dx, dy, d.r, 0, 6.2832); ctx.fill();
       ctx.globalAlpha = 1;
     }
 
@@ -216,8 +269,6 @@
     ctx.beginPath();
     ctx.moveTo(gx, gy); ctx.lineTo(gx + 2, gy + gh); ctx.lineTo(gx + gw - 2, gy + gh); ctx.lineTo(gx + gw, gy);
     ctx.stroke();
-
-    requestAnimationFrame(frame);
   }
 
   window.addEventListener('resize', resize);
@@ -227,7 +278,7 @@
   /* Scroll feeds the animation. */
   /* When embedded, drive progress from how far through our own block we are. */
   function selfScroll() {
-    if (!block) return;   /* cheap, runs straight off the scroll event */
+    if (!block || locked) return;   /* cheap, runs straight off the scroll event */
     var r = block.getBoundingClientRect();
     var span = Math.max(1, r.height - window.innerHeight);
     var p = Math.min(1, Math.max(0, -r.top / span));
@@ -245,6 +296,14 @@
       if (snap) shown = progress;
     },
     reset: function () { dirty.length = 0; caught.length = 0; bubbles.length = 0; },
+    /* Hold the scene at a fixed point and redraw once. Used to inspect a
+       given stage without scrolling; scroll input is ignored while held. */
+    lock: function (p) {
+      locked = true;
+      progress = shown = Math.max(0, Math.min(1, p));
+      draw();
+    },
+    unlock: function () { locked = false; },
     debug: function () {
       return { W:Math.round(W), H:Math.round(H), shown:+shown.toFixed(2), progress:+progress.toFixed(2),
                inletBot:Math.round(S.inletBot), tankY:Math.round(S.tankY),

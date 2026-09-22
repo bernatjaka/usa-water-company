@@ -11,14 +11,20 @@
    distance; scrolling swaps which caption is showing. The whole pinned
    layer only appears while the block fills the viewport, so it can never
    bleed over the nav above or the hero below. */
-.wr-block { position:relative; height:300vh; background:var(--wrPaper); }
+.wr-block { position:relative; height:200vh; background:var(--wrPaper); }
 
 .wr-pin {
   position:fixed; top:0; left:0; width:100vw; height:100vh; height:100svh;
-  z-index:1; pointer-events:none;
-  opacity:0; visibility:hidden; transition:opacity .35s ease;
+  z-index:0; pointer-events:none;
+  opacity:0; display:none;
 }
-.wr-block.active .wr-pin { opacity:1; visibility:visible; }
+.wr-block.active .wr-pin { opacity:1; display:block; }
+
+/* Belt and braces: everything after the block paints above the pinned
+   layer, so even if the toggle ever missed, it could not show through. */
+.wr-block ~ section,
+.wr-block ~ footer,
+.wr-block ~ div { position:relative; z-index:1; }
 
 .wr-pin .sys { position:absolute; inset:0; width:100%; height:100%; }
 
@@ -53,7 +59,7 @@
 @media (max-width:900px) {
   .wr-scene { padding:0 1.3rem; }
   .wr-txt { max-width:100%; }
-  .wr-pin .sys { opacity:.35; }
+  .wr-pin .sys { opacity:.38; }
 }
 
 /* ---- Quiz overlay ---- */
