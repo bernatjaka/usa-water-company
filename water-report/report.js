@@ -203,25 +203,39 @@
     scenes.forEach(function (sc) { sc.classList.add('lit'); });
   }
 
-  /* Scenes light as they arrive, and the fixed canvas only shows while the
-     block is on screen so it never floats over the rest of the page.
-     Computed straight from scroll position, which is deterministic. */
+  /* The pinned layer is only shown while the block fills the whole
+     viewport, so it can never overlap the nav above or the hero below.
+     Scroll through the block picks exactly one caption. */
   if (block) {
     var wrScenes = block.querySelectorAll('.wr-scene');
 
-    /* Three rect reads, cheap enough to run straight off the scroll event.
-       Deliberately not rAF throttled: a throttle flag that only clears
-       inside the frame callback gets stuck whenever frames are paused. */
+    /* Keep the captions clear of the site's sticky header. */
+    var siteHeader = document.querySelector('.header');
+    function setHeaderOffset() {
+      var h = siteHeader ? siteHeader.getBoundingClientRect().height : 0;
+      block.style.setProperty('--wrHeader', Math.round(h) + 'px');
+    }
+    setHeaderOffset();
+    window.addEventListener('resize', setHeaderOffset);
+
     function paintBlock() {
       var vh = window.innerHeight;
       var r = block.getBoundingClientRect();
-      block.classList.toggle('active', r.bottom > 0 && r.top < vh);
+
+      /* Show while the block covers most of the screen. Using coverage
+         rather than "top <= 0" avoids a blank strip on first paint, when
+         the header still sits above the block. */
+      var covered = Math.min(r.bottom, vh) - Math.max(r.top, 0);
+      var owns = covered >= vh * 0.75;
+      block.classList.toggle('active', owns);
+
+      var span = Math.max(1, r.height - vh);
+      var p = Math.min(1, Math.max(0, -r.top / span));
+      var idx = p < 0.34 ? 1 : (p < 0.68 ? 2 : 3);
 
       for (var i = 0; i < wrScenes.length; i++) {
-        var sr = wrScenes[i].getBoundingClientRect();
-        var mid = sr.top + sr.height / 2;          // lit while its middle
-        wrScenes[i].classList.toggle('on',         // is inside the viewport
-          mid > -vh * 0.15 && mid < vh * 1.15);
+        wrScenes[i].classList.toggle('on',
+          owns && Number(wrScenes[i].getAttribute('data-wr')) === idx);
       }
     }
 
