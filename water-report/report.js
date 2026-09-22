@@ -164,14 +164,31 @@
     if (zipEl) zipEl.textContent = zip;
     cards.innerHTML = '';
 
+    var copyTo = document.querySelector('.wr-copyto');
+    var gate = document.getElementById('r-gate');
+
     if (!data) {
-      titleEl.textContent = 'We do not cover ' + zip + ' yet';
-      subEl.textContent = 'We are not in your area yet. Call us on (480) 690-0600 and we will see what we can do.';
+      /* Outside the service area. Still a lead, so never a dead end. */
+      titleEl.innerHTML = 'We are not in <span class="wr-accent">' + zip + '</span> yet';
+      subEl.textContent = 'We cover the Phoenix, South Florida and Orlando metros today, and we are opening new areas. Give us a call and we will tell you where we are heading next.';
+      if (copyTo) copyTo.hidden = true;
+      if (gate) {
+        gate.hidden = false;
+        var gt0 = document.getElementById('r-gate-title');
+        var gs0 = document.getElementById('r-gate-sub');
+        if (gt0) gt0.textContent = 'Tell us where you are';
+        if (gs0) gs0.textContent = 'If we are coming to your area we will let you know, and if a neighbour of yours is already asking, that moves you up the list.';
+        var list0 = gate.querySelector('.wr-gate-list');
+        if (list0) list0.hidden = true;
+      }
       cta.textContent = 'Call (480) 690-0600';
       cta.href = 'tel:+14806900600';
       step = 5; showPanel(5);
       return;
     }
+    if (copyTo) copyTo.hidden = false;
+    var listBack = document.querySelector('.wr-gate-list');
+    if (listBack) listBack.hidden = false;
 
     var over = data.contaminants
       .filter(function (c) { return timesOver(c) > 1; })
@@ -190,7 +207,6 @@
 
     /* the gate */
     var hidden = list.length - shown;
-    var gate = document.getElementById('r-gate');
     if (gate) {
       gate.hidden = hidden <= 0;
       var gt = document.getElementById('r-gate-title');
