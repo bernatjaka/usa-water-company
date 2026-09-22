@@ -62,9 +62,10 @@
       outTop: outTop, outBot: manY, spoutY: manY,
       manY: manY, manX0: showerX, manX1: appX,
 
-      showerX: showerX, showerY: manY + pipeW * 1.5,
-      tapX: tapX,       tapY: manY + pipeW * 1.2,
-      appX: appX,       appY: manY + pipeW * 1.1,
+      /* all three drop to the same level so the row reads straight */
+      showerX: showerX, showerY: manY + pipeW * 1.35,
+      tapX: tapX,       tapY: manY + pipeW * 1.35,
+      appX: appX,       appY: manY + pipeW * 1.35,
 
       glassW: pipeW * 1.7, glassH: H * 0.095,
       appW: pipeW * 2.3,   appH: H * 0.125
@@ -451,8 +452,8 @@
     ctx.textAlign = 'center';
     var labY = Math.max(S.showerY + hh + S.pipeW * 2.5, gy + gh, ay + ah) + S.pipeW * 0.78;
     ctx.fillText('SHOWER', S.showerX, labY);
-    ctx.fillText('KITCHEN', S.tapX, labY);
-    ctx.fillText('LAUNDRY', S.appX, labY);
+    ctx.fillText('DRINKING WATER', S.tapX, labY);
+    ctx.fillText('APPLIANCES', S.appX, labY);
     ctx.textAlign = 'left';
   }
 
