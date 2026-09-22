@@ -250,6 +250,24 @@
 
   /* Handing over from the narrative to the quiz. */
   function openModal() {
+    /* carry over the zip if they already typed it on the prompt */
+    var ask = document.getElementById('ask-zip');
+    var note = document.getElementById('ask-note');
+    if (ask) {
+      var z = (ask.value || '').trim();
+      if (z) {
+        if (!/^\d{5}$/.test(z)) {
+          if (note) note.textContent = 'Please enter a 5 digit zip code.';
+          ask.focus();
+          return;
+        }
+        if (fields[2] && fields[2].el) {
+          fields[2].el.value = z;
+          autosize(fields[2].el);
+        }
+      }
+      if (note) note.textContent = '';
+    }
     modal.hidden = false;
     document.body.classList.add('wr-open');
     step = 1; showPanel(1); paintLines();
@@ -259,6 +277,16 @@
     document.body.classList.remove('wr-open');
   }
   if (opener) opener.addEventListener('click', openModal);
+  var askZip = document.getElementById('ask-zip');
+  if (askZip) {
+    askZip.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); openModal(); }
+    });
+    askZip.addEventListener('input', function () {
+      var n = document.getElementById('ask-note');
+      if (n) n.textContent = '';
+    });
+  }
   if (closer) closer.addEventListener('click', closeModal);
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && modal && !modal.hidden) closeModal();

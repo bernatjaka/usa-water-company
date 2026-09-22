@@ -6,7 +6,7 @@
   <title>USA Water Company | Water Filtration, Softening &amp; Testing</title>
   <meta name="description" content="USA Water Company provides professional water filtration, softening, and certified testing for homes and businesses in Phoenix, Miami, and Orlando. Start with a free test." />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="water-report/report.css?v=202609221418" />
+  <link rel="stylesheet" href="water-report/report.css?v=202609221433" />
   <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="logo-mark.svg" />
   <link rel="icon" type="image/jpeg" href="logo.jpg" />
@@ -70,10 +70,22 @@
       <div class="wr-scene" data-wr="3">
         <div class="wr-txt">
           <h2>This is what<br /><span class="accent">should come out</span></h2>
-          <p>Want to know what is actually in yours? Takes about sixty seconds.</p>
-          <button class="btn btn-primary" id="wr-open">Check My Water</button>
+          <p>Want to know what is actually in yours?</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Zip prompt, straight after the scene -->
+  <section class="wr-ask" id="wr-ask">
+    <div class="wr-ask-inner">
+      <h2 class="wr-ask-h">Have you ever checked what's in your water?</h2>
+      <p class="wr-ask-line">I live in
+        <span class="wr-ask-slot"><input id="ask-zip" type="text" inputmode="numeric"
+          maxlength="5" autocomplete="postal-code" placeholder="[ zip code ]" /></span>
+      </p>
+      <button class="btn btn-primary" id="wr-open">Check My Water</button>
+      <p class="wr-ask-note" id="ask-note"></p>
     </div>
   </section>
 
@@ -467,8 +479,8 @@
   </script>
   <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
   <script src="calendly-redirect.js"></script>
-  <script src="water-report/system.js?v=202609221418"></script>
-  <script src="water-report/report.js?v=202609221418"></script>
+  <script src="water-report/system.js?v=202609221433"></script>
+  <script src="water-report/report.js?v=202609221433"></script>
   <script src="booking.js"></script>
   <script src="promo.js"></script>
   <script src="reveal.js"></script>
