@@ -16,9 +16,14 @@
 .wr-pin {
   position:fixed; top:0; left:0; width:100vw; height:100vh; height:100svh;
   z-index:0; pointer-events:none;
-  opacity:0; display:none;
+  /* opacity is driven from scroll so the scene fades out as the section
+     hands over, rather than cutting. visibility, not display, so the
+     canvas keeps its size and the fade can actually animate. */
+  opacity:0; visibility:hidden;
+  transform:translate3d(0, var(--wrLift, 0px), 0);
+  transition:visibility 0s linear .45s;
 }
-.wr-block.active .wr-pin { opacity:1; display:block; }
+.wr-block.active .wr-pin { visibility:visible; transition:visibility 0s; }
 
 /* Belt and braces: everything after the block paints above the pinned
    layer, so even if the toggle ever missed, it could not show through. */
@@ -149,11 +154,14 @@ body.wr-open { overflow:hidden; }
 .wr-ask {
   --wrNavy:#0d2340; --wrRed:#c0392b; --wrPaper:#f4f3ef; --wrMuted:#6b7684;
   position:relative; z-index:1;
+  opacity:0; transform:translate3d(0,26px,0);
+  transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1);
   background:var(--wrPaper);
   min-height:82vh; display:flex; align-items:center; justify-content:center;
   padding:6rem clamp(1.4rem, 6vw, 5rem);
   text-align:center;
 }
+.wr-ask.lit { opacity:1; transform:none; }
 .wr-ask-inner { max-width:60rem; }
 .wr-ask-h {
   font-family:'Archivo', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;

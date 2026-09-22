@@ -254,16 +254,32 @@
     setHeaderOffset();
     window.addEventListener('resize', setHeaderOffset);
 
+    var pin = block.querySelector('.wr-pin');
+    var ask = document.getElementById('wr-ask');
+
     function paintBlock() {
       var vh = window.innerHeight;
       var r = block.getBoundingClientRect();
 
-      /* Show while the block covers most of the screen. Using coverage
-         rather than "top <= 0" avoids a blank strip on first paint, when
-         the header still sits above the block. */
+      /* How much of the screen the section still owns, 0 to 1. */
       var covered = Math.min(r.bottom, vh) - Math.max(r.top, 0);
-      var owns = covered >= vh * 0.75;
+      var ratio = Math.max(0, Math.min(1, covered / vh));
+
+      /* Stay mounted until it has almost gone, and fade with the ratio so
+         the scene dissolves into the next section instead of cutting. */
+      var owns = ratio > 0.04;
       block.classList.toggle('active', owns);
+      if (pin) {
+        var fade = Math.max(0, Math.min(1, (ratio - 0.04) / 0.42));
+        pin.style.opacity = fade.toFixed(3);
+        pin.style.setProperty('--wrLift', ((1 - fade) * -26).toFixed(1) + 'px');
+      }
+
+      /* the prompt underneath rises in as the scene goes */
+      if (ask) {
+        var ar = ask.getBoundingClientRect();
+        ask.classList.toggle('lit', ar.top < vh * 0.85 && ar.bottom > 0);
+      }
 
       var span = Math.max(1, r.height - vh);
       var p = Math.min(1, Math.max(0, -r.top / span));
@@ -271,7 +287,7 @@
 
       for (var i = 0; i < wrScenes.length; i++) {
         wrScenes[i].classList.toggle('on',
-          owns && Number(wrScenes[i].getAttribute('data-wr')) === idx);
+          ratio > 0.55 && Number(wrScenes[i].getAttribute('data-wr')) === idx);
       }
     }
 
