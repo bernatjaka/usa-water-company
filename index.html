@@ -6,7 +6,7 @@
   <title>USA Water Company | Water Filtration, Softening &amp; Testing</title>
   <meta name="description" content="USA Water Company provides professional water filtration, softening, and certified testing for homes and businesses in Phoenix, Miami, and Orlando. Start with a free test." />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="water-report/report.css?v=202609221603" />
+  <link rel="stylesheet" href="water-report/report.css?v=202609221609" />
   <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="logo-mark.svg" />
   <link rel="icon" type="image/jpeg" href="logo.jpg" />
@@ -377,17 +377,13 @@
             <span class="slot"><input id="f-zip" type="text" inputmode="numeric" autocomplete="postal-code"
               placeholder="[ zip code ]" maxlength="5" /></span>
           </p>
-          <p class="line" data-line="3">Send my report to
-            <span class="slot"><input id="f-email" type="email" autocomplete="email"
-              placeholder="[ email address ]" maxlength="60" /></span>
-          </p>
         </div>
         <p class="err" id="err" role="alert"></p>
         <div class="nav">
           <button class="link" id="prev">Previous</button>
           <button class="btn" id="next">Next</button>
         </div>
-        <p class="fine" id="fine">We will send your report here. No spam, and you can unsubscribe any time.</p>
+        <p class="fine" id="fine">No email needed. Your results show straight away.</p>
       </section>
 
       <section class="panel" data-panel="4">
@@ -413,6 +409,14 @@
           </ul>
         </div>
 
+        <div class="wr-copyto">
+          <button type="button" class="link" id="wr-mailme">Email me a copy of this report</button>
+          <form class="wr-copyto-form" id="wr-mailform" hidden>
+            <input type="email" id="wr-mailinput" placeholder="your@email.com" autocomplete="email" />
+            <button type="submit" class="btn btn-sm">Send it</button>
+          </form>
+          <p class="wr-copyto-done" id="wr-mailok" hidden>Sent. Check your inbox.</p>
+        </div>
         <p class="fine">Area figures come from the EWG Tap Water Database and reflect water supplied to your area, not a test of your own tap.</p>
       </section>
 
@@ -491,9 +495,9 @@
   </script>
   <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
   <script src="calendly-redirect.js"></script>
-  <script src="water-report/data.js?v=202609221603"></script>
-  <script src="water-report/system.js?v=202609221603"></script>
-  <script src="water-report/report.js?v=202609221603"></script>
+  <script src="water-report/data.js?v=202609221609"></script>
+  <script src="water-report/system.js?v=202609221609"></script>
+  <script src="water-report/report.js?v=202609221609"></script>
   <script src="booking.js"></script>
   <script src="promo.js"></script>
   <script src="reveal.js"></script>

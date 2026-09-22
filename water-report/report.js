@@ -27,14 +27,16 @@
   var next  = document.getElementById('next');
   var lines = document.querySelectorAll('.line');
 
+  /* Name and zip only. No email gate: the report is the thing that sells
+     the visit, so putting a field in front of it just loses people. An
+     optional copy by email is offered after they have seen it. */
   var fields = {
-    1: { el: document.getElementById('f-name'),  label: 'name'  },
-    2: { el: document.getElementById('f-zip'),   label: 'zip'   },
-    3: { el: document.getElementById('f-email'), label: 'email' }
+    1: { el: document.getElementById('f-name'), label: 'name' },
+    2: { el: document.getElementById('f-zip'),  label: 'zip'  }
   };
 
   var step = 0;          // 0 title, 1 to 3 questions, 4 building, 5 report
-  var LAST_QUESTION = 3;
+  var LAST_QUESTION = 2;
 
   /* Inputs grow with their contents so the sentence stays tight. */
   function autosize(input) {
@@ -66,7 +68,7 @@
       line.classList.toggle('done', n < step);
     });
     prev.hidden = (step <= 1);
-    next.textContent = (step === LAST_QUESTION) ? 'Get My Report' : 'Next';
+    next.textContent = (step === LAST_QUESTION) ? 'Show My Results' : 'Next';
     fine.style.visibility = (step === LAST_QUESTION) ? 'visible' : 'hidden';
     var f = fields[step];
     if (f) { setTimeout(function () { f.el.focus(); }, 340); }
@@ -82,9 +84,6 @@
     if (f.label === 'zip') {
       if (!/^\d{5}$/.test(v)) { return 'Please enter a 5 digit zip code.'; }
     }
-    if (f.label === 'email') {
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) { return 'Please enter a valid email address.'; }
-    }
     return true;
   }
 
@@ -92,7 +91,14 @@
     var check = validate();
     if (check !== true) { err.textContent = check; fields[step].el.focus(); return; }
     err.textContent = '';
-    if (step < LAST_QUESTION) { step++; paintLines(); return; }
+    if (step < LAST_QUESTION) {
+      /* zip already supplied on the prompt, so skip straight to results */
+      var zipEl = fields[2] && fields[2].el;
+      if (step === 1 && zipEl && /^\d{5}$/.test((zipEl.value || '').trim())) {
+        runBuild(); return;
+      }
+      step++; paintLines(); return;
+    }
     runBuild();
   }
 
@@ -205,6 +211,28 @@
     } catch (e) {}
 
     step = 5; showPanel(5);
+  }
+
+  /* Optional copy by email, offered only once the report is on screen. */
+  var mailBtn = document.getElementById('wr-mailme');
+  var mailForm = document.getElementById('wr-mailform');
+  var mailOk = document.getElementById('wr-mailok');
+  if (mailBtn && mailForm) {
+    mailBtn.addEventListener('click', function () {
+      mailForm.hidden = false;
+      mailBtn.hidden = true;
+      var i = document.getElementById('wr-mailinput');
+      if (i) i.focus();
+    });
+    mailForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var i = document.getElementById('wr-mailinput');
+      var v = (i && i.value || '').trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) { i.focus(); return; }
+      /* TODO: wire to the mail service once one is chosen */
+      mailForm.hidden = true;
+      if (mailOk) mailOk.hidden = false;
+    });
   }
 
   next.addEventListener('click', advance);
