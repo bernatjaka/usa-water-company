@@ -58,7 +58,7 @@
       mainY: mainY, mainX0: -20, meterX: Math.max(pipeW * 1.4, cx - pipeW * 4.2),
       inletTop: mainY, inletBot: tankY,
       tankX: cx - tankW / 2, tankY: tankY, tankW: tankW, tankH: tankH,
-      bedY: tankY + tankH * 0.52,
+      bedY: tankY + tankH * 0.42,   /* higher bed, so the dirty layer above it is visible */
       outTop: outTop, outBot: manY, spoutY: manY,
       manY: manY, manX0: showerX, manX1: appX,
 
@@ -172,7 +172,8 @@
     ctx.clearRect(0, 0, W, H);
 
     /* How far the water has descended through the whole run. */
-    var tankFill   = Math.max(0, Math.min(1, (p - 0.34) / 0.28));
+    /* Strictly in order: nothing starts until the stage before it finishes. */
+    var tankFill   = Math.max(0, Math.min(1, (p - 0.32) / 0.26));
     var frontOut   = S.outTop + (S.outBot - S.outTop) * Math.max(0, Math.min(1, (p - 0.60) / 0.20));
     var pour       = Math.max(0, Math.min(1, (p - 0.76) / 0.24));
 
@@ -186,7 +187,7 @@
     ctx.stroke();
 
     /* water, revealed along the path so it turns the corner properly */
-    var runP = Math.min(1, p / 0.38);
+    var runP = Math.min(1, p / 0.32);
     if (runP > 0) {
       var travelled = inletLen * runP;
       inletPath();
@@ -280,12 +281,28 @@
     /* water inside, murky at the top, clearing toward the bed */
     if (tankFill > 0) {
       var wy = S.tankY + S.tankH * (1 - tankFill);
-      var tg = ctx.createLinearGradient(0, S.tankY, 0, S.tankY + S.tankH);
-      tg.addColorStop(0, 'rgba(146,112,64,.62)');
-      tg.addColorStop(.5, 'rgba(120,150,185,.48)');
-      tg.addColorStop(1, 'rgba(42,94,170,.52)');
-      ctx.fillStyle = tg;
-      ctx.fillRect(S.tankX, wy, S.tankW, S.tankY + S.tankH - wy);
+      var bottom = S.tankY + S.tankH;
+
+      /* below the bed it has been through the media, so it is clean */
+      var cleanTop = Math.max(wy, S.bedY);
+      if (bottom > cleanTop) {
+        ctx.fillStyle = 'rgba(42,94,170,.48)';
+        ctx.fillRect(S.tankX, cleanTop, S.tankW, bottom - cleanTop);
+      }
+      /* above the bed it is still the water that came in */
+      if (wy < S.bedY) {
+        var dg = ctx.createLinearGradient(0, wy, 0, S.bedY);
+        dg.addColorStop(0, 'rgba(146,112,64,.66)');
+        dg.addColorStop(1, 'rgba(150,130,100,.42)');
+        ctx.fillStyle = dg;
+        ctx.fillRect(S.tankX, wy, S.tankW, S.bedY - wy);
+      }
+      /* the stream still coming in from the drop above */
+      if (tankFill < 0.995 && !REDUCED) {
+        ctx.fillStyle = 'rgba(146,112,64,.55)';
+        var strX = S.cx + Math.sin(t * 0.26) * 1.4;
+        ctx.fillRect(strX - S.pipeW * 0.13, S.tankY, S.pipeW * 0.26, wy - S.tankY);
+      }
     }
 
     /* media bed */
@@ -329,7 +346,7 @@
     }
 
     /* water, revealed along each branch in turn */
-    var outP = Math.max(0, Math.min(1, (p - 0.54) / 0.30));
+    var outP = Math.max(0, Math.min(1, (p - 0.58) / 0.20));
     if (outP > 0) {
       for (var bw = 0; bw < branches.length; bw++) {
         var bLen = branchPath(branches[bw].x, branches[bw].y);
@@ -377,7 +394,7 @@
     /* --- the three fixtures --- */
     var NAVY_S = 'rgba(13,35,64,.55)';
 
-    var useP = Math.max(0, Math.min(1, (p - 0.74) / 0.26));
+    var useP = Math.max(0, Math.min(1, (p - 0.78) / 0.22));
     var jig = REDUCED ? 0 : Math.sin(t * 0.3) * 0.8;
 
     /* 1, shower */
