@@ -379,6 +379,17 @@
         pin.style.setProperty('--wrLift', ((1 - fade) * -26).toFixed(1) + 'px');
       }
 
+      /* On phones the scene sits under the copy, so tell it where the copy
+         actually ends instead of hoping a fixed fraction clears it. */
+      if (window.WaterSystem && window.WaterSystem.setTop) {
+        if (window.innerWidth <= 900) {
+          var txt = block.querySelector('.wr-scene.on .wr-txt');
+          window.WaterSystem.setTop(txt ? txt.getBoundingClientRect().bottom + 22 : 0);
+        } else {
+          window.WaterSystem.setTop(0);
+        }
+      }
+
       /* the prompt underneath rises in as the scene goes */
       if (ask) {
         var ar = ask.getBoundingClientRect();

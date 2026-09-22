@@ -21,6 +21,7 @@
   var W=0, H=0, DPR=1;
   var progress = 0;      // 0 to 1, from scroll
   var locked = false;    // test hook, see WaterSystem.lock
+  var topLimit = 0;      // on phones, where the copy above ends
   var shown = 0;         // eased follower so motion stays smooth
 
   function resize() {
@@ -51,17 +52,25 @@
       return;
     }
 
-    /* Phone: the copy owns the top of the screen, so the whole system is
-       compressed into the lower half where nothing sits over it. */
+    /* Phone. Sized from the screen it is on, not shrunk down from the
+       desktop numbers, which is what made it look pinched. The run uses
+       about two thirds of the width and the lower half of the height. */
     var cxm = W * 0.5;
-    var pw = Math.max(18, Math.min(30, W * 0.078));
-    var mainYm = H * 0.625;                      /* below the copy, which runs to about .60 */
-    var tankYm = H * 0.665, tankHm = H * 0.095;
-    var tankWm = Math.min(pw * 3.0, W * 0.32);
-    var manYm = H * 0.815;
-    var dropm = pw * 1.1;
+    var pw  = Math.max(22, Math.min(34, W * 0.072));
+    var spreadm = W * 0.335;                 /* manifold spans ~67% of the screen */
+    var tankWm  = Math.min(W * 0.40, pw * 5.2);
+
+    /* Start below whatever copy is actually on screen, measured, rather
+       than a guessed fraction that breaks whenever the text changes. */
+    var mainYm = Math.max(H * 0.38, Math.min(H * 0.60, topLimit));
+    var room   = H - mainYm;                 /* the whole run has to fit in here */
+    var tankYm = mainYm + room * 0.10;
+    var tankHm = room * 0.26;
+    var manYm  = mainYm + room * 0.60;
+    var dropm  = pw * 1.0;
+
     setGeom(cxm, pw, mainYm, tankYm, tankHm, tankWm, manYm, dropm,
-            pw * 2.9, H * 0.042, H * 0.054);
+            spreadm, room * 0.12, room * 0.15);
   }
 
   function setGeom(cx, pipeW, mainY, tankY, tankH, tankW, manY, drop, spread, glassH, appH) {
@@ -518,8 +527,15 @@
       if (W && H) draw();
     },
     unlock: function () { locked = false; },
+    /* Phones: tell the scene where the copy above it ends. */
+    setTop: function (y) {
+      y = Math.round(y || 0);
+      if (Math.abs(y - topLimit) < 4) return;
+      topLimit = y;
+      layout();
+    },
     debug: function () {
-      return { W:Math.round(W), H:Math.round(H), shown:+shown.toFixed(2), progress:+progress.toFixed(2), mainY:Math.round(S.mainY),
+      return { W:Math.round(W), H:Math.round(H), shown:+shown.toFixed(2), progress:+progress.toFixed(2), mainY:Math.round(S.mainY), rightEdge:Math.round(S.appX + S.appW/2), bottomEdge:Math.round(S.appY + S.appH), leftEdge:Math.round(S.showerX - S.pipeW*0.9),
                inletBot:Math.round(S.inletBot), tankY:Math.round(S.tankY),
                tankH:Math.round(S.tankH), outTop:Math.round(S.outTop),
                outBot:Math.round(S.outBot), pipeW:Math.round(S.pipeW) };

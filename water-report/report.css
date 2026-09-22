@@ -66,11 +66,12 @@
      is read through the animation. */
   .wr-scene {
     align-items:flex-start;
-    padding:calc(var(--wrHeader, 0px) + 3vh) 1.2rem 0;
+    padding:calc(var(--wrHeader, 0px) + 1.6vh) 1.1rem 0;
   }
   .wr-txt { max-width:100%; }
-  .wr-scene h2 { font-size:clamp(1.9rem, 8.4vw, 2.7rem); text-shadow:none; }
-  .wr-scene p  { font-size:.96rem; max-width:30ch; text-shadow:none; }
+  .wr-scene h2 { font-size:clamp(1.65rem, 7.2vw, 2.3rem); line-height:.98; margin:.6rem 0 .7rem; text-shadow:none; }
+  .wr-scene p  { font-size:.88rem; line-height:1.5; max-width:36ch; text-shadow:none; }
+  .wr-scene .pill { font-size:.62rem; padding:.3rem .8rem; }
   .wr-pin .sys { opacity:.9; }        /* no overlap now, so let it show */
 }
 
