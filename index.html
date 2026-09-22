@@ -50,6 +50,29 @@
     </div>
   </header>
 
+  <!-- Water report: pinned filtration scene with copy scrolling over it -->
+  <section class="wr-block" id="wr-block">
+    <div class="wr-sticky">
+      <canvas class="sys" id="sys" aria-hidden="true"></canvas>
+      <div class="wr-copy">
+        <div class="wr-scene" data-wr="1">
+          <span class="pill">The Water Report</span>
+          <h2>This is what<br /><span class="accent">enters your home</span></h2>
+          <p>Hardness minerals, chlorine, sediment, and whatever the pipes pick up on the way.</p>
+        </div>
+        <div class="wr-scene" data-wr="2">
+          <h2>A whole home system<br /><span class="accent">catches it</span></h2>
+          <p>Carbon filtration and softening strip it out before it reaches a single tap in the house.</p>
+        </div>
+        <div class="wr-scene" data-wr="3">
+          <h2>This is what<br /><span class="accent">should come out</span></h2>
+          <p>Want to know what is actually in yours? Takes about sixty seconds.</p>
+          <button class="btn btn-primary" id="wr-open">Check My Water</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Hero -->
   <section class="hero" id="home">
     <span class="hero-glow hero-glow-1" aria-hidden="true"></span>
@@ -79,29 +102,6 @@
           <button type="submit" class="btn btn-primary btn-block">Pick a Time for My Free Test</button>
           <p class="form-note" id="hc-note">No obligation. Book instantly on our online calendar.</p>
         </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- Water report: pinned filtration scene with copy scrolling over it -->
-  <section class="wr-block" id="wr-block">
-    <div class="wr-sticky">
-      <canvas class="sys" id="sys" aria-hidden="true"></canvas>
-      <div class="wr-copy">
-        <div class="wr-scene" data-wr="1">
-          <span class="pill">The Water Report</span>
-          <h2>This is what<br /><span class="accent">enters your home</span></h2>
-          <p>Hardness minerals, chlorine, sediment, and whatever the pipes pick up on the way.</p>
-        </div>
-        <div class="wr-scene" data-wr="2">
-          <h2>A whole home system<br /><span class="accent">catches it</span></h2>
-          <p>Carbon filtration and softening strip it out before it reaches a single tap in the house.</p>
-        </div>
-        <div class="wr-scene" data-wr="3">
-          <h2>This is what<br /><span class="accent">should come out</span></h2>
-          <p>Want to know what is actually in yours? Takes about sixty seconds.</p>
-          <button class="btn btn-primary" id="wr-open">Check My Water</button>
-        </div>
       </div>
     </div>
   </section>

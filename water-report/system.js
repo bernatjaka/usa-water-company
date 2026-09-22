@@ -123,7 +123,8 @@
       d.w += 0.06;
       var dx = d.x + Math.sin(d.w) * 2.2;
       if (d.y >= S.bedY - d.r) {
-        /* trapped in the media */
+        /* trapped in the media, but the bed only shows so much */
+        if (caught.length > 150) caught.shift();
         caught.push({ x: S.tankX + 8 + Math.random() * (S.tankW - 16),
                       y: S.bedY + 3 + Math.random() * (S.tankY + S.tankH - S.bedY - 8),
                       r: d.r, c: d.c });
