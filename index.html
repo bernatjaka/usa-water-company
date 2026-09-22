@@ -6,7 +6,7 @@
   <title>USA Water Company | Water Filtration, Softening &amp; Testing</title>
   <meta name="description" content="USA Water Company provides professional water filtration, softening, and certified testing for homes and businesses in Phoenix, Miami, and Orlando. Start with a free test." />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="water-report/report.css?v=20260922172012" />
+  <link rel="stylesheet" href="water-report/report.css?v=20260922172909" />
   <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="logo-mark.svg" />
   <link rel="icon" type="image/jpeg" href="logo.jpg" />
@@ -78,7 +78,19 @@
 
   <!-- Zip prompt, straight after the scene -->
   <section class="wr-ask" id="wr-ask">
-    <div class="wr-ask-inner">
+    <div class="wr-ask-grid">
+
+      <!-- Introduction. Facade only, the player loads on press. -->
+      <div class="wr-ask-video" id="intro-video">
+        <button type="button" class="wr-vid-play" id="intro-play" aria-label="Play introduction">
+          <img src="https://i.vimeocdn.com/video/2203967809-2a0e4359fa5d62fe4c5bffce1d17a70b7fd5d063d36066f3b82388254fc122d9-d_640?region=us"
+               alt="" loading="lazy" />
+          <span class="wr-vid-icon" aria-hidden="true"></span>
+          <span class="wr-vid-label">Meet USA Water Company<br /><small>34 seconds</small></span>
+        </button>
+      </div>
+
+      <div class="wr-ask-inner">
       <h2 class="wr-ask-h">Have you ever checked what's in your water?</h2>
       <p class="wr-ask-line">I live in
         <span class="wr-ask-slot"><input id="ask-zip" type="text" inputmode="numeric"
@@ -86,6 +98,7 @@
       </p>
       <button class="btn btn-primary" id="wr-open">Check My Water</button>
       <p class="wr-ask-note" id="ask-note"></p>
+      </div>
     </div>
   </section>
 
@@ -528,9 +541,9 @@
   </script>
   <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
   <script src="calendly-redirect.js"></script>
-  <script src="water-report/data.js?v=20260922172012"></script>
-  <script src="water-report/system.js?v=20260922172012"></script>
-  <script src="water-report/report.js?v=20260922172012"></script>
+  <script src="water-report/data.js?v=20260922172909"></script>
+  <script src="water-report/system.js?v=20260922172909"></script>
+  <script src="water-report/report.js?v=20260922172909"></script>
   <script src="booking.js"></script>
   <script src="promo.js"></script>
   <script src="reveal.js"></script>

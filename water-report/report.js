@@ -278,6 +278,23 @@
     });
   }
 
+  /* Introduction video on the prompt. Same facade, nothing fetched until
+     someone actually presses play. */
+  var introWrap = document.getElementById('intro-video');
+  var introPlay = document.getElementById('intro-play');
+  if (introWrap && introPlay) {
+    introPlay.addEventListener('click', function () {
+      var f = document.createElement('iframe');
+      f.src = 'https://player.vimeo.com/video/1229332477' +
+              '?autoplay=1&title=0&byline=0&portrait=0&dnt=1';
+      f.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
+      f.setAttribute('allowfullscreen', '');
+      f.setAttribute('title', 'USA Water Company introduction');
+      introWrap.innerHTML = '';
+      introWrap.appendChild(f);
+    });
+  }
+
   /* Assume the sale: the report hands straight to a calendar, in place. */
   var calLoaded = false;
   function showBooking() {
