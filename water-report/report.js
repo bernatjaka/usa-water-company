@@ -203,21 +203,31 @@
     scenes.forEach(function (sc) { sc.classList.add('lit'); });
   }
 
-  /* Captions swap over the pinned scene. */
+  /* Scenes light as they arrive, and the fixed canvas only shows while the
+     block is on screen so it never floats over the rest of the page.
+     Computed straight from scroll position, which is deterministic. */
   if (block) {
     var wrScenes = block.querySelectorAll('.wr-scene');
-    function paintScenes() {
+
+    /* Three rect reads, cheap enough to run straight off the scroll event.
+       Deliberately not rAF throttled: a throttle flag that only clears
+       inside the frame callback gets stuck whenever frames are paused. */
+    function paintBlock() {
+      var vh = window.innerHeight;
       var r = block.getBoundingClientRect();
-      var span = Math.max(1, r.height - window.innerHeight);
-      var p = Math.min(1, Math.max(0, -r.top / span));
-      var idx = p < 0.34 ? 1 : (p < 0.68 ? 2 : 3);
-      wrScenes.forEach(function (sc) {
-        sc.classList.toggle('on', Number(sc.getAttribute('data-wr')) === idx);
-      });
+      block.classList.toggle('active', r.bottom > 0 && r.top < vh);
+
+      for (var i = 0; i < wrScenes.length; i++) {
+        var sr = wrScenes[i].getBoundingClientRect();
+        var mid = sr.top + sr.height / 2;          // lit while its middle
+        wrScenes[i].classList.toggle('on',         // is inside the viewport
+          mid > -vh * 0.15 && mid < vh * 1.15);
+      }
     }
-    window.addEventListener('scroll', paintScenes, { passive: true });
-    window.addEventListener('resize', paintScenes);
-    paintScenes();
+
+    window.addEventListener('scroll', paintBlock, { passive: true });
+    window.addEventListener('resize', paintBlock);
+    paintBlock();
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });

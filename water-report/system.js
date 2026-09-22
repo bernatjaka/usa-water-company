@@ -227,7 +227,7 @@
   /* Scroll feeds the animation. */
   /* When embedded, drive progress from how far through our own block we are. */
   function selfScroll() {
-    if (!block) return;
+    if (!block) return;   /* cheap, runs straight off the scroll event */
     var r = block.getBoundingClientRect();
     var span = Math.max(1, r.height - window.innerHeight);
     var p = Math.min(1, Math.max(0, -r.top / span));
