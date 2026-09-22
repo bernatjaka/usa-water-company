@@ -6,7 +6,7 @@
   <title>USA Water Company | Water Filtration, Softening &amp; Testing</title>
   <meta name="description" content="USA Water Company provides professional water filtration, softening, and certified testing for homes and businesses in Phoenix, Miami, and Orlando. Start with a free test." />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="water-report/report.css?v=202609221618" />
+  <link rel="stylesheet" href="water-report/report.css?v=202609221626" />
   <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="logo-mark.svg" />
   <link rel="icon" type="image/jpeg" href="logo.jpg" />
@@ -401,7 +401,7 @@
         <div class="wr-gate" id="r-gate" hidden>
           <h3 id="r-gate-title">More results in your area</h3>
           <p id="r-gate-sub"></p>
-          <a class="btn" id="r-cta" href="contact.html">Pick a Time for My Free Test</a>
+          <button type="button" class="btn" id="r-cta">Pick a Time for My Free Test</button>
           <ul class="wr-gate-list">
             <li>A certified technician tests the water at your own taps</li>
             <li>Full written report, explained in plain language</li>
@@ -420,6 +420,22 @@
         <p class="fine">Area figures come from the EWG Tap Water Database and reflect water supplied to your area, not a test of your own tap.</p>
       </section>
 
+      <!-- Booking, straight after the report. Assume the sale. -->
+      <section class="panel wr-book" data-panel="6">
+        <p class="eyebrow">Your free in-home test</p>
+        <h2 class="rtitle">Pick a day<br /><span class="wr-accent">that suits you</span></h2>
+        <p class="rsub" id="b-sub">A certified technician tests the water at your own taps and walks you through the full results. Free, about an hour, no obligation.</p>
+        <div id="wr-cal" style="min-width:320px;height:660px;"></div>
+        <button type="button" class="link" id="wr-backtoreport">Back to my results</button>
+      </section>
+
+    </div>
+
+    <div class="wr-sticky-cta" id="wr-stickycta" hidden>
+      <div class="wr-sticky-inner">
+        <span class="wr-sticky-text" id="wr-sticky-text">See your full results</span>
+        <button type="button" class="btn" id="wr-sticky-btn">Pick a Time for My Free Test</button>
+      </div>
     </div>
   </div>
 
@@ -495,9 +511,9 @@
   </script>
   <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
   <script src="calendly-redirect.js"></script>
-  <script src="water-report/data.js?v=202609221618"></script>
-  <script src="water-report/system.js?v=202609221618"></script>
-  <script src="water-report/report.js?v=202609221618"></script>
+  <script src="water-report/data.js?v=202609221626"></script>
+  <script src="water-report/system.js?v=202609221626"></script>
+  <script src="water-report/report.js?v=202609221626"></script>
   <script src="booking.js"></script>
   <script src="promo.js"></script>
   <script src="reveal.js"></script>

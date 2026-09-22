@@ -249,3 +249,29 @@ body.wr-open { overflow:hidden; }
 .wr-modal .btn.btn-sm { padding:.62rem 1.3rem; font-size:.9rem; }
 .wr-copyto-done { margin-top:.5rem; font-size:.88rem; color:var(--wrMuted); }
 .wr-copyto-done[hidden] { display:none; }
+
+/* Sticky ask, so the booking button is never scrolled out of reach */
+.wr-sticky-cta {
+  position:sticky; bottom:0; z-index:5;
+  background:rgba(244,243,239,.94); backdrop-filter:blur(8px);
+  border-top:1px solid rgba(13,35,64,.10);
+  padding:.9rem clamp(1rem,4vw,2rem);
+}
+.wr-sticky-cta[hidden] { display:none; }
+.wr-sticky-inner {
+  max-width:1000px; margin:0 auto;
+  display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+}
+.wr-sticky-text { font-size:.92rem; font-weight:600; color:var(--wrNavy); }
+.wr-sticky-cta .btn { background:var(--wrRed); padding:.85rem 1.8rem; }
+.wr-sticky-cta .btn:hover { background:var(--wrNavy); }
+@media (max-width:620px) {
+  .wr-sticky-inner { justify-content:center; }
+  .wr-sticky-text { display:none; }
+  .wr-sticky-cta .btn { width:100%; }
+}
+
+/* Booking step */
+.wr-book { max-width:900px !important; }
+.wr-book #wr-cal { margin-top:1.6rem; }
+.wr-book .link { margin-top:1.2rem; }

@@ -55,11 +55,16 @@
     });
   });
 
+  var stickyBar = document.getElementById('wr-stickycta');
+
   function showPanel(n) {
     Object.keys(panels).forEach(function (k) { panels[k].classList.remove('is-on'); });
     var group = (n >= 1 && n <= LAST_QUESTION) ? '1' : String(n);
-    panels[group].classList.add('is-on');
+    if (panels[group]) panels[group].classList.add('is-on');
+    /* the ask follows the report, and gets out of the way on the calendar */
+    if (stickyBar) stickyBar.hidden = (n !== 5) || !stickyAllowed;
   }
+  var stickyAllowed = false;
 
   function paintLines() {
     lines.forEach(function (line) {
@@ -182,7 +187,8 @@
         if (list0) list0.hidden = true;
       }
       cta.textContent = 'Call (480) 690-0600';
-      cta.href = 'tel:+14806900600';
+      cta.onclick = function () { window.location.href = 'tel:+14806900600'; };
+      stickyAllowed = false;
       step = 5; showPanel(5);
       return;
     }
@@ -216,10 +222,11 @@
         'Your full report, and a test of the water actually coming out of your taps, is done in person by a certified technician. It is free and takes about an hour.';
     }
 
-    var base = (cta.getAttribute('href') || 'contact.html').split('?')[0];
-    if (base.indexOf('tel:') === 0) base = 'contact.html';
     cta.textContent = 'Pick a Time for My Free Test';
-    cta.href = base + '?zip=' + encodeURIComponent(zip);
+    cta.onclick = null;
+    stickyAllowed = true;
+    var st = document.getElementById('wr-sticky-text');
+    if (st) st.textContent = hidden + ' more result' + (hidden === 1 ? '' : 's') + ' unlock with your free test';
 
     try {
       sessionStorage.setItem('uwc-zip', zip);
@@ -250,6 +257,37 @@
       if (mailOk) mailOk.hidden = false;
     });
   }
+
+  /* Assume the sale: the report hands straight to a calendar, in place. */
+  var calLoaded = false;
+  function showBooking() {
+    var zip = (fields[2].el.value || '').trim();
+    var key = (typeof marketForZip === 'function') ? marketForZip(zip) : null;
+    if (!key) { window.location.href = 'tel:+14806900600'; return; }
+
+    var sub = document.getElementById('b-sub');
+    if (sub && typeof MARKETS !== 'undefined' && MARKETS[key]) {
+      sub.textContent = 'A certified technician from our ' + MARKETS[key].label +
+        ' team tests the water at your own taps and walks you through the full results. ' +
+        'Free, about an hour, no obligation.';
+    }
+
+    var el = document.getElementById('wr-cal');
+    if (el && !calLoaded && typeof loadMarketCalendar === 'function') {
+      loadMarketCalendar(key, el);
+      calLoaded = true;
+    }
+    step = 6; showPanel(6);
+    var body = document.querySelector('.wr-modal-body');
+    if (body) body.scrollTop = 0;
+  }
+
+  var ctaBtn = document.getElementById('r-cta');
+  if (ctaBtn) ctaBtn.addEventListener('click', showBooking);
+  var stickyBtn = document.getElementById('wr-sticky-btn');
+  if (stickyBtn) stickyBtn.addEventListener('click', showBooking);
+  var backBtn = document.getElementById('wr-backtoreport');
+  if (backBtn) backBtn.addEventListener('click', function () { step = 5; showPanel(5); });
 
   next.addEventListener('click', advance);
   prev.addEventListener('click', goBack);
