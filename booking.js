@@ -125,6 +125,14 @@ function initZipRouter() {
     })(btns[i]);
   }
 
+  /* Arriving from the water report with a zip already known, skip the retype. */
+  var fromReport = (new URLSearchParams(window.location.search)).get('zip');
+  if (!fromReport) { try { fromReport = sessionStorage.getItem('uwc-zip'); } catch (e) {} }
+  if (fromReport) {
+    var preKey = marketForZip(fromReport);
+    if (preKey) { input.value = fromReport; show(preKey, fromReport); }
+  }
+
   var change = document.getElementById('zip-change');
   if (change) {
     change.addEventListener('click', function (e) {

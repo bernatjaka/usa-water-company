@@ -1,0 +1,127 @@
+/* The Water Report, a fill-in-the-blank flow.
+   Deliberately its own stylesheet, it shares nothing with the main site. */
+:root {
+  --navy:#0d2340; --blue:#2a5eaa; --red:#c0392b; --red-dark:#97281e;
+  --paper:#f4f3ef; --ink:#14181d; --muted:#6b7684;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { height:100%; }
+body {
+  background:var(--paper); color:var(--ink);
+  font-family:'Archivo', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+
+.wr { position:relative; min-height:100vh; min-height:100svh; display:flex; flex-direction:column; }
+
+/* Ink. Sits behind everything and drifts on its own. */
+/* Ink lives off to the side so the type always sits on clean paper. */
+.ink {
+  position:fixed; top:50%; left:-14vw;
+  width:min(78vh, 60vw); height:min(78vh, 60vw);
+  z-index:0; pointer-events:none;
+  opacity:0; transform:translate3d(0,-50%,0) scale(.84);
+  transition:opacity 1.6s ease, transform 2.4s cubic-bezier(.2,.7,.2,1);
+}
+.ink.in { opacity:1; transform:translate3d(0,-50%,0) scale(1); }
+.ink.shift { transform:translate3d(6vw,-50%,0) scale(1.12); }
+@media (max-width:820px) {
+  .ink { left:-30vw; width:88vw; height:88vw; opacity:.55; }
+  .ink.in { opacity:.55; }
+}
+
+.wr-bar {
+  position:relative; z-index:3; display:flex; align-items:center; justify-content:space-between;
+  padding:1.4rem 1.8rem;
+}
+.wr-tag { font-size:.72rem; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--navy); }
+.wr-close { font-size:1.9rem; line-height:1; color:var(--navy); text-decoration:none; opacity:.55; }
+.wr-close:hover { opacity:1; }
+
+.wr-stage {
+  position:relative; z-index:2; flex:1;
+  display:flex; align-items:center; justify-content:center;
+  padding:1rem 1.8rem 4rem;
+}
+
+/* Panels cross-fade, only one is mounted at a time. */
+.panel { display:none; width:100%; max-width:860px; text-align:center; }
+.panel.is-on { display:block; animation:rise .7s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes rise { from { opacity:0; transform:translate3d(0,22px,0); } to { opacity:1; transform:none; } }
+
+.title {
+  font-family:'Anton', Impact, sans-serif; font-weight:400;
+  font-size:clamp(3.2rem, 11vw, 8rem); line-height:.92;
+  text-transform:uppercase; letter-spacing:.01em; color:var(--navy);
+}
+.sub { max-width:34rem; margin:1.6rem auto 2.4rem; font-size:1.05rem; line-height:1.6; color:var(--muted); }
+
+/* The sentence. Lines appear as the visitor answers. */
+.sentence { font-family:'Anton', Impact, sans-serif; text-transform:uppercase; color:var(--navy); }
+.line {
+  font-size:clamp(1.9rem, 6.2vw, 4.2rem); line-height:1.12; letter-spacing:.005em;
+  opacity:0; transform:translate3d(0,16px,0); pointer-events:none;
+  max-height:0; overflow:hidden;
+  transition:opacity .55s ease, transform .55s cubic-bezier(.2,.7,.2,1), max-height .55s ease;
+}
+.line.show { opacity:1; transform:none; pointer-events:auto; max-height:3em; }
+.line.done { opacity:.32; }
+
+.slot { display:inline-block; }
+.slot input {
+  font:inherit; color:var(--navy); background:transparent;
+  border:0; border-bottom:3px solid rgba(13,35,64,.16);
+  padding:0 .12em .04em; text-align:center; text-transform:uppercase;
+  width:8ch; min-width:6ch; max-width:min(92vw, 20ch);
+  transition:border-color .2s, width .18s ease;
+}
+.slot input::placeholder { color:rgba(13,35,64,.26); }
+.slot input:focus { outline:none; border-bottom-color:var(--red); }
+.slot input#f-email { text-transform:lowercase; }
+
+.err { min-height:1.4em; margin-top:1.1rem; color:var(--red); font-weight:600; font-size:.95rem; }
+
+.nav { display:flex; align-items:center; justify-content:center; gap:1.6rem; margin-top:1.4rem; }
+.link {
+  background:none; border:0; font:inherit; font-weight:600; color:var(--navy);
+  border-bottom:1px solid var(--navy); cursor:pointer; padding:.2rem 0; opacity:.75;
+}
+.link:hover { opacity:1; }
+.link[hidden] { display:none; }
+
+.btn {
+  display:inline-block; background:var(--navy); color:#fff; border:0;
+  font:inherit; font-weight:700; font-size:1rem;
+  padding:1rem 2.6rem; border-radius:2px; cursor:pointer; text-decoration:none;
+  transition:background .18s, transform .18s;
+}
+.btn:hover { background:var(--red); transform:translateY(-2px); }
+.btn[disabled] { opacity:.35; cursor:not-allowed; transform:none; background:var(--navy); }
+
+.fine { margin-top:1.8rem; font-size:.8rem; line-height:1.6; color:var(--muted); max-width:32rem; margin-inline:auto; }
+
+/* Building */
+.building { font-family:'Anton', Impact, sans-serif; text-transform:uppercase; color:var(--navy);
+            font-size:clamp(1.3rem, 3.6vw, 2.2rem); line-height:1.25; }
+.bar { width:min(340px, 74vw); height:3px; margin:2rem auto 0; background:rgba(13,35,64,.12); overflow:hidden; }
+.bar span { display:block; height:100%; width:0; background:var(--red); }
+
+/* Report */
+.eyebrow { font-size:.72rem; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--muted); }
+.rtitle { font-family:'Anton', Impact, sans-serif; font-weight:400; text-transform:uppercase; color:var(--navy);
+          font-size:clamp(2.1rem, 7vw, 4.4rem); line-height:1; margin:.6rem 0 1rem; }
+.rsub { max-width:36rem; margin:0 auto 2.2rem; color:var(--muted); line-height:1.65; }
+.cards { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-bottom:2.4rem; text-align:left; }
+.card { background:#fff; border:1px solid rgba(13,35,64,.1); padding:1.3rem; }
+.card h3 { font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-bottom:.5rem; font-weight:700; }
+.card .val { font-family:'Anton', Impact, sans-serif; font-size:1.9rem; color:var(--navy); line-height:1; }
+.card p { margin-top:.5rem; font-size:.88rem; color:var(--muted); line-height:1.5; }
+.card .val.bad { color:var(--red); }
+
+@media (max-width:760px) {
+  .cards { grid-template-columns:1fr; }
+  .wr-stage { padding:1rem 1.2rem 3rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ink, .panel.is-on, .line { transition:none !important; animation:none !important; }
+}

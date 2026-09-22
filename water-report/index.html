@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Water Report | USA Water Company</title>
+  <meta name="description" content="Find out what is really in your water. Enter your zip code and get a free water report for your area." />
+  <link rel="icon" type="image/svg+xml" href="../logo-mark.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="report.css" />
+</head>
+<body>
+
+<div class="wr" id="wr">
+
+  <!-- ink that reacts to each step -->
+  <svg class="ink" id="ink" viewBox="0 0 900 900" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <filter id="bleed" x="-30%" y="-30%" width="160%" height="160%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="4" seed="7" result="noise">
+          <animate attributeName="baseFrequency" dur="26s"
+                   values="0.012 0.02; 0.02 0.012; 0.012 0.02" repeatCount="indefinite" />
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="90" xChannelSelector="R" yChannelSelector="G" />
+        <feGaussianBlur stdDeviation="2" />
+      </filter>
+      <radialGradient id="inkfill" cx="42%" cy="40%" r="62%">
+        <stop offset="0%"  stop-color="#bcd8f4" stop-opacity=".22" />
+        <stop offset="55%" stop-color="#7fb2e8" stop-opacity=".34" />
+        <stop offset="100%" stop-color="#2a5eaa" stop-opacity=".46" />
+      </radialGradient>
+    </defs>
+    <g filter="url(#bleed)">
+      <circle id="blob" cx="450" cy="450" r="250" fill="url(#inkfill)" />
+      <circle cx="330" cy="330" r="92"  fill="#7fb2e8" opacity=".16" />
+      <circle cx="588" cy="556" r="68"  fill="#bcd8f4" opacity=".20" />
+      <circle cx="600" cy="320" r="34"  fill="#2a5eaa" opacity=".14" />
+    </g>
+  </svg>
+
+  <header class="wr-bar">
+    <span class="wr-tag">Your Water Report</span>
+    <a class="wr-close" href="../index.html" aria-label="Close">&times;</a>
+  </header>
+
+  <main class="wr-stage">
+
+    <!-- 0, title card -->
+    <section class="panel is-on" data-panel="0">
+      <h1 class="title">The Water<br />Report</h1>
+      <p class="sub">Find out what is really in the water coming out of your tap. Takes about sixty seconds and costs nothing.</p>
+      <button class="btn" data-go="1">Check My Water</button>
+    </section>
+
+    <!-- 1 to 3, the sentence builds a line at a time -->
+    <section class="panel" data-panel="1" data-panel-group="q">
+      <div class="sentence">
+        <p class="line" data-line="1">I'm
+          <span class="slot"><input id="f-name" type="text" autocomplete="given-name"
+            placeholder="[ your name ]" maxlength="24" /></span>
+        </p>
+        <p class="line" data-line="2">I live in
+          <span class="slot"><input id="f-zip" type="text" inputmode="numeric" autocomplete="postal-code"
+            placeholder="[ zip code ]" maxlength="5" /></span>
+        </p>
+        <p class="line" data-line="3">Send my report to
+          <span class="slot"><input id="f-email" type="email" autocomplete="email"
+            placeholder="[ email address ]" maxlength="60" /></span>
+        </p>
+      </div>
+      <p class="err" id="err" role="alert"></p>
+      <div class="nav">
+        <button class="link" id="prev">Previous</button>
+        <button class="btn" id="next">Next</button>
+      </div>
+      <p class="fine" id="fine">We will send your report here. No spam, and you can unsubscribe any time.</p>
+    </section>
+
+    <!-- 4, building -->
+    <section class="panel" data-panel="4">
+      <p class="building" id="building">Reading water quality data for <span id="b-zip"></span></p>
+      <div class="bar"><span id="barfill"></span></div>
+    </section>
+
+    <!-- 5, the report, placeholder content for now -->
+    <section class="panel" data-panel="5">
+      <p class="eyebrow">Water report for <span id="r-zip"></span></p>
+      <h2 class="rtitle" id="r-title">Your Water Report</h2>
+      <p class="rsub" id="r-sub"></p>
+      <div class="cards" id="r-cards"></div>
+      <a class="btn" id="r-cta" href="../contact.html">Book My Free In-Home Test</a>
+      <p class="fine">A certified technician tests your actual tap water and gives you a full written report. No cost, no obligation.</p>
+    </section>
+
+  </main>
+</div>
+
+<script src="../booking.js"></script>
+<script src="report.js"></script>
+</body>
+</html>
