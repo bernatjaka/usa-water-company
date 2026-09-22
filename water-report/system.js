@@ -99,6 +99,12 @@
 
   var t = 0;
   function frame() {
+    /* The pinned layer is display:none until its section is on screen,
+       which makes the canvas 0x0. Re-measure whenever that changes,
+       otherwise we would draw into nothing forever. */
+    if (cv.clientWidth !== W || cv.clientHeight !== H) resize();
+    if (!W || !H) { requestAnimationFrame(frame); return; }
+
     t += 1;
     shown += (progress - shown) * 0.08;
     draw();
@@ -301,7 +307,8 @@
     lock: function (p) {
       locked = true;
       progress = shown = Math.max(0, Math.min(1, p));
-      draw();
+      if (cv.clientWidth !== W || cv.clientHeight !== H) resize();
+      if (W && H) draw();
     },
     unlock: function () { locked = false; },
     debug: function () {
