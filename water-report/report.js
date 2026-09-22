@@ -12,9 +12,15 @@
     panels[el.getAttribute('data-panel')] = el;
   });
 
-  var ink      = document.getElementById('ink');   // removed in favour of the canvas, kept optional
+  var ink      = document.getElementById('ink');   // standalone only, optional
   var stage    = document.getElementById('stage');
   var scroller = document.getElementById('scroller');
+
+  /* Embedded on the homepage */
+  var block  = document.getElementById('wr-block');
+  var modal  = document.getElementById('wr-modal');
+  var opener = document.getElementById('wr-open');
+  var closer = document.getElementById('wr-close');
   var err   = document.getElementById('err');
   var fine  = document.getElementById('fine');
   var prev  = document.getElementById('prev');
@@ -146,9 +152,12 @@
     }
 
     var cta = document.getElementById('r-cta');
+    /* Keep whatever base path the markup already uses, this runs both on
+       the standalone page and embedded on the homepage. */
+    var base = (cta.getAttribute('href') || 'contact.html').split('?')[0];
     if (covered) {
       cta.textContent = 'Book My Free In-Home Test';
-      cta.href = '../contact.html?zip=' + encodeURIComponent(zip);
+      cta.href = base + '?zip=' + encodeURIComponent(zip);
     } else {
       cta.textContent = 'Call (480) 690-0600';
       cta.href = 'tel:+14806900600';
@@ -169,6 +178,7 @@
   /* Ink position and scale track scroll progress through the intro. */
   var ticking = false;
   function onScroll() {
+    if (!scroller) return;
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(function () {
@@ -181,7 +191,7 @@
   }
 
   /* Each scene fades up as it enters, and stays lit once seen. */
-  var scenes = document.querySelectorAll('.scene');
+  var scenes = document.querySelectorAll('.scene');   // standalone page only
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
@@ -193,12 +203,45 @@
     scenes.forEach(function (sc) { sc.classList.add('lit'); });
   }
 
+  /* Captions swap over the pinned scene. */
+  if (block) {
+    var wrScenes = block.querySelectorAll('.wr-scene');
+    function paintScenes() {
+      var r = block.getBoundingClientRect();
+      var span = Math.max(1, r.height - window.innerHeight);
+      var p = Math.min(1, Math.max(0, -r.top / span));
+      var idx = p < 0.34 ? 1 : (p < 0.68 ? 2 : 3);
+      wrScenes.forEach(function (sc) {
+        sc.classList.toggle('on', Number(sc.getAttribute('data-wr')) === idx);
+      });
+    }
+    window.addEventListener('scroll', paintScenes, { passive: true });
+    window.addEventListener('resize', paintScenes);
+    paintScenes();
+  }
+
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll);
   onScroll();
 
   /* Handing over from the narrative to the quiz. */
+  function openModal() {
+    modal.hidden = false;
+    document.body.classList.add('wr-open');
+    step = 1; showPanel(1); paintLines();
+  }
+  function closeModal() {
+    modal.hidden = true;
+    document.body.classList.remove('wr-open');
+  }
+  if (opener) opener.addEventListener('click', openModal);
+  if (closer) closer.addEventListener('click', closeModal);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal && !modal.hidden) closeModal();
+  });
+
   function openQuiz() {
+    if (!stage) return;
     document.body.classList.add('quiz-on');
     stage.hidden = false;
     step = 1; showPanel(1); paintLines();

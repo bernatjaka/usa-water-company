@@ -2,101 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="refresh" content="0; url=/#wr-block" />
+  <link rel="canonical" href="https://www.usawatercompany.com/" />
   <title>The Water Report | USA Water Company</title>
-  <meta name="description" content="Find out what is really in your water. Enter your zip code and get a free water report for your area." />
-  <link rel="icon" type="image/svg+xml" href="../logo-mark.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="report.css" />
+  <script>window.location.replace('/#wr-block');</script>
 </head>
 <body>
-
-<div class="wr" id="wr">
-
-  <!-- Scroll-driven filtration scene -->
-  <canvas class="sys" id="sys" aria-hidden="true"></canvas>
-
-  <header class="wr-bar">
-    <span class="wr-tag">Your Water Report</span>
-    <a class="wr-close" href="../index.html" aria-label="Close">&times;</a>
-  </header>
-
-  <!-- Scroll narrative. Hands over to the quiz at the end. -->
-  <div class="scroller" id="scroller">
-    <section class="scene" data-scene="1">
-      <h1 class="title">The Water<br />Report</h1>
-      <p class="cue" aria-hidden="true">
-        <span class="cue-line"></span>
-        Scroll
-      </p>
-    </section>
-
-    <section class="scene" data-scene="2">
-      <h2 class="scene-h">This is what<br />enters your home</h2>
-      <p class="scene-p">Hardness minerals, chlorine, sediment, and whatever the pipes pick up on the way.</p>
-    </section>
-
-    <section class="scene" data-scene="3">
-      <h2 class="scene-h">A whole home system<br />catches it</h2>
-      <p class="scene-p">Carbon filtration and softening strip it out before it reaches a single tap in the house.</p>
-    </section>
-
-    <section class="scene" data-scene="4">
-      <h2 class="scene-h">This is what<br />should come out</h2>
-      <button class="btn" data-go="1">Check My Water</button>
-      <p class="scene-p sm">Sixty seconds. No cost.</p>
-    </section>
-  </div>
-
-  <main class="wr-stage" id="stage" hidden>
-
-    <!-- 1 to 3, the sentence builds a line at a time -->
-    <section class="panel" data-panel="1" data-panel-group="q">
-      <div class="sentence">
-        <p class="line" data-line="1">I'm
-          <span class="slot"><input id="f-name" type="text" autocomplete="given-name"
-            placeholder="[ your name ]" maxlength="24" /></span>
-        </p>
-        <p class="line" data-line="2">I live in
-          <span class="slot"><input id="f-zip" type="text" inputmode="numeric" autocomplete="postal-code"
-            placeholder="[ zip code ]" maxlength="5" /></span>
-        </p>
-        <p class="line" data-line="3">Send my report to
-          <span class="slot"><input id="f-email" type="email" autocomplete="email"
-            placeholder="[ email address ]" maxlength="60" /></span>
-        </p>
-      </div>
-      <p class="err" id="err" role="alert"></p>
-      <div class="nav">
-        <button class="link" id="prev">Previous</button>
-        <button class="btn" id="next">Next</button>
-      </div>
-      <p class="fine" id="fine">We will send your report here. No spam, and you can unsubscribe any time.</p>
-    </section>
-
-    <!-- 4, building -->
-    <section class="panel" data-panel="4">
-      <p class="building" id="building">Reading water quality data for <span id="b-zip"></span></p>
-      <div class="bar"><span id="barfill"></span></div>
-    </section>
-
-    <!-- 5, the report, placeholder content for now -->
-    <section class="panel" data-panel="5">
-      <p class="eyebrow">Water report for <span id="r-zip"></span></p>
-      <h2 class="rtitle" id="r-title">Your Water Report</h2>
-      <p class="rsub" id="r-sub"></p>
-      <div class="cards" id="r-cards"></div>
-      <a class="btn" id="r-cta" href="../contact.html">Book My Free In-Home Test</a>
-      <p class="fine">A certified technician tests your actual tap water and gives you a full written report. No cost, no obligation.</p>
-    </section>
-
-  </main>
-</div>
-
-<script src="../booking.js"></script>
-<script src="system.js"></script>
-<script src="report.js"></script>
+  <p>Taking you to <a href="/#wr-block">The Water Report</a>.</p>
 </body>
 </html>

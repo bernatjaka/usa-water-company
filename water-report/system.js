@@ -9,6 +9,7 @@
 */
 (function () {
   var cv = document.getElementById('sys');
+  var block = document.getElementById('wr-block');   // when embedded in a page
   if (!cv || !cv.getContext) return;
   var ctx = cv.getContext('2d');
 
@@ -223,6 +224,20 @@
   requestAnimationFrame(frame);
 
   /* Scroll feeds the animation. */
+  /* When embedded, drive progress from how far through our own block we are. */
+  function selfScroll() {
+    if (!block) return;
+    var r = block.getBoundingClientRect();
+    var span = Math.max(1, r.height - window.innerHeight);
+    var p = Math.min(1, Math.max(0, -r.top / span));
+    progress = p;
+  }
+  if (block) {
+    window.addEventListener('scroll', selfScroll, { passive: true });
+    window.addEventListener('resize', selfScroll);
+    selfScroll();
+  }
+
   window.WaterSystem = {
     set: function (p, snap) {
       progress = Math.max(0, Math.min(1, p));
@@ -230,7 +245,7 @@
     },
     reset: function () { dirty.length = 0; caught.length = 0; bubbles.length = 0; },
     debug: function () {
-      return { W:Math.round(W), H:Math.round(H), shown:+shown.toFixed(2),
+      return { W:Math.round(W), H:Math.round(H), shown:+shown.toFixed(2), progress:+progress.toFixed(2),
                inletBot:Math.round(S.inletBot), tankY:Math.round(S.tankY),
                tankH:Math.round(S.tankH), outTop:Math.round(S.outTop),
                outBot:Math.round(S.outBot), pipeW:Math.round(S.pipeW) };

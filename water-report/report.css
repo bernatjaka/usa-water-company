@@ -193,3 +193,53 @@ body.quiz-on .scroller { display:none; }
   .cue { animation:none; }
   .ink { transform:translate3d(0,-50%,0) scale(1) !important; }
 }
+
+/* ===== Embedded on the homepage ===== */
+/* Pinned scene, copy scrolls over it. */
+.wr-block { position:relative; height:320vh; background:var(--paper); }
+.wr-sticky { position:sticky; top:0; height:100vh; height:100svh; overflow:hidden; }
+.wr-block .sys { position:absolute; width:100%; height:100%; opacity:1; }
+
+.wr-copy { position:absolute; inset:0; display:flex; align-items:center;
+           padding:0 clamp(1.4rem, 6vw, 6rem); pointer-events:none; }
+.wr-scene {
+  position:absolute; max-width:min(44ch, 46vw); pointer-events:auto;
+  opacity:0; transform:translate3d(0,26px,0);
+  transition:opacity .5s ease, transform .5s cubic-bezier(.2,.7,.2,1);
+}
+.wr-scene.on { opacity:1; transform:none; }
+.wr-scene h2 {
+  font-family:'Anton', Impact, sans-serif; font-weight:400; text-transform:uppercase;
+  color:var(--navy); font-size:clamp(2rem, 5.2vw, 4.2rem); line-height:1;
+  margin:.9rem 0 1rem; text-shadow:0 0 30px var(--paper), 0 0 12px var(--paper);
+}
+.wr-scene h2 .accent { color:var(--red); }
+.wr-scene p { color:var(--muted); font-size:1.02rem; line-height:1.65; max-width:32ch;
+              text-shadow:0 0 18px var(--paper); }
+.wr-scene .btn { margin-top:1.6rem; }
+
+@media (max-width:900px) {
+  .wr-block { height:300vh; }
+  .wr-copy { padding:0 1.3rem; align-items:flex-start; padding-top:14vh; }
+  .wr-scene { max-width:100%; }
+  .wr-block .sys { opacity:.4; }
+}
+
+/* ===== Quiz overlay ===== */
+.wr-modal {
+  position:fixed; inset:0; z-index:9999; background:var(--paper);
+  display:flex; flex-direction:column;
+  animation:wrIn .32s ease both;
+}
+@keyframes wrIn { from { opacity:0; } to { opacity:1; } }
+.wr-modal[hidden] { display:none; }
+.wr-modal-bar { display:flex; align-items:center; justify-content:space-between; padding:1.4rem 1.8rem; }
+.wr-modal-bar .wr-tag { font-size:.72rem; font-weight:700; letter-spacing:.22em;
+                        text-transform:uppercase; color:var(--navy); }
+.wr-modal-bar .wr-close { background:none; border:0; font-size:2rem; line-height:1;
+                          color:var(--navy); cursor:pointer; opacity:.55; }
+.wr-modal-bar .wr-close:hover { opacity:1; }
+.wr-modal-body { flex:1; display:flex; align-items:center; justify-content:center;
+                 padding:1rem 1.8rem 4rem; }
+.wr-modal .panel { width:100%; max-width:860px; text-align:center; }
+body.wr-open { overflow:hidden; }
