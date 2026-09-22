@@ -57,7 +57,9 @@
        about two thirds of the width and the lower half of the height. */
     var cxm = W * 0.5;
     var pw  = Math.max(22, Math.min(34, W * 0.072));
-    var spreadm = W * 0.335;                 /* manifold spans ~67% of the screen */
+    /* ~67% of the screen, but never so wide that the end fitting
+       could run off the edge on a narrow phone. */
+    var spreadm = Math.min(W * 0.335, W * 0.5 - pw * 1.15 - 10);
     var tankWm  = Math.min(W * 0.40, pw * 5.2);
 
     /* Start below whatever copy is actually on screen, measured, rather

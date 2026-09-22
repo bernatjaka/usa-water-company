@@ -448,6 +448,9 @@ section[id] { scroll-margin-top: 90px; }
 
 /* Promo bar + summer sale section */
 .promobar { background: #f26522; color: #fff; font-size: .92rem; }
+/* On phones it wraps to three lines plus a button and swallows most of the
+   first screen, so it is desktop only. Remove this block to bring it back. */
+@media (max-width: 760px) { .promobar { display: none; } }
 .promobar-inner { display: flex; align-items: center; justify-content: center; gap: 1rem; padding: .6rem 2.2rem; position: relative; flex-wrap: wrap; }
 .promobar p { margin: 0; }
 .promobar-cta { background: #fff; color: #c0392b; font-weight: 800; padding: .35rem 1rem; border-radius: 999px; font-size: .85rem; white-space: nowrap; }
