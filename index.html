@@ -6,7 +6,7 @@
   <title>USA Water Company | Water Filtration, Softening &amp; Testing</title>
   <meta name="description" content="USA Water Company provides professional water filtration, softening, and certified testing for homes and businesses in Phoenix, Miami, and Orlando. Start with a free test." />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="water-report/report.css?v=20260922171052" />
+  <link rel="stylesheet" href="water-report/report.css?v=20260922171519" />
   <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="logo-mark.svg" />
   <link rel="icon" type="image/jpeg" href="logo.jpg" />
@@ -396,22 +396,23 @@
         <h2 class="rtitle" id="r-title">Your Water Report</h2>
         <p class="rsub" id="r-sub"></p>
 
+        <!-- Craig on what happens next, right under the open results -->
+        <div class="wr-nextsteps" id="r-video" hidden>
+          <button type="button" class="wr-vid-play" id="r-video-play" aria-label="Play video">
+            <img src="https://i.vimeocdn.com/video/2203957080-037091ebc67ef8d4cbc67dcdc3ccad216f7a6850bfa00388a7888b40039553cc-d_640?region=us"
+                 alt="" loading="lazy" />
+            <span class="wr-vid-icon" aria-hidden="true"></span>
+          </button>
+          <div class="wr-nextsteps-copy">
+            <h3>What happens next</h3>
+            <p>Craig, our founder, on what a free in-home test actually involves. 31 seconds.</p>
+          </div>
+        </div>
+
         <div class="wr-grid" id="r-cards"></div>
 
         <div class="wr-gate" id="r-gate" hidden>
-          <div class="wr-gate-grid">
-
-            <!-- Craig on what happens next. Facade first, the player only
-                 loads if they actually press play. -->
-            <div class="wr-gate-video" id="r-video">
-              <button type="button" class="wr-vid-play" id="r-video-play" aria-label="Play video">
-                <img src="https://i.vimeocdn.com/video/2203957080-037091ebc67ef8d4cbc67dcdc3ccad216f7a6850bfa00388a7888b40039553cc-d_640?region=us"
-                     alt="" loading="lazy" />
-                <span class="wr-vid-icon" aria-hidden="true"></span>
-                <span class="wr-vid-label">What happens at your free test<br /><small>31 seconds with Craig, our founder</small></span>
-              </button>
-            </div>
-
+          <div class="wr-gate-grid wr-gate-grid-solo">
             <div class="wr-gate-copy">
               <h3 id="r-gate-title">More results in your area</h3>
               <p id="r-gate-sub"></p>
@@ -527,9 +528,9 @@
   </script>
   <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
   <script src="calendly-redirect.js"></script>
-  <script src="water-report/data.js?v=20260922171052"></script>
-  <script src="water-report/system.js?v=20260922171052"></script>
-  <script src="water-report/report.js?v=20260922171052"></script>
+  <script src="water-report/data.js?v=20260922171519"></script>
+  <script src="water-report/system.js?v=20260922171519"></script>
+  <script src="water-report/report.js?v=20260922171519"></script>
   <script src="booking.js"></script>
   <script src="promo.js"></script>
   <script src="reveal.js"></script>

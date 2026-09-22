@@ -273,6 +273,7 @@
       f.setAttribute('allowfullscreen', '');
       f.setAttribute('title', 'What happens at your free water test');
       vidWrap.innerHTML = '';
+      vidWrap.classList.add('is-playing');
       vidWrap.appendChild(f);
     });
   }
@@ -383,8 +384,12 @@
          actually ends instead of hoping a fixed fraction clears it. */
       if (window.WaterSystem && window.WaterSystem.setTop) {
         if (window.innerWidth <= 900) {
-          var txt = block.querySelector('.wr-scene.on .wr-txt');
-          window.WaterSystem.setTop(txt ? txt.getBoundingClientRect().bottom + 22 : 0);
+          /* fall back to the first caption, otherwise on first paint there
+             is no active scene and the scene guesses a height that puts the
+             pipework straight under the copy */
+          var txt = block.querySelector('.wr-scene.on .wr-txt')
+                 || block.querySelector('.wr-scene .wr-txt');
+          if (txt) window.WaterSystem.setTop(txt.getBoundingClientRect().bottom + 22);
         } else {
           window.WaterSystem.setTop(0);
         }
@@ -409,6 +414,10 @@
     window.addEventListener('scroll', paintBlock, { passive: true });
     window.addEventListener('resize', paintBlock);
     paintBlock();
+    /* the display font changes the copy height once it loads */
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(paintBlock); }
+    setTimeout(paintBlock, 400);
+    setTimeout(paintBlock, 1200);
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
