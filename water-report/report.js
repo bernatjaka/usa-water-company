@@ -185,6 +185,7 @@
         if (gs0) gs0.textContent = 'If we are coming to your area we will let you know, and if a neighbour of yours is already asking, that moves you up the list.';
         var list0 = gate.querySelector('.wr-gate-list');
         if (list0) list0.hidden = true;
+        if (vidWrap) vidWrap.hidden = true;     /* no visit to explain */
       }
       cta.textContent = 'Call (480) 690-0600';
       cta.onclick = function () { window.location.href = 'tel:+14806900600'; };
@@ -195,6 +196,7 @@
     if (copyTo) copyTo.hidden = false;
     var listBack = document.querySelector('.wr-gate-list');
     if (listBack) listBack.hidden = false;
+    if (vidWrap) vidWrap.hidden = false;
 
     var over = data.contaminants
       .filter(function (c) { return timesOver(c) > 1; })
@@ -255,6 +257,23 @@
       /* TODO: wire to the mail service once one is chosen */
       mailForm.hidden = true;
       if (mailOk) mailOk.hidden = false;
+    });
+  }
+
+  /* The player is only fetched if someone actually presses play, so the
+     report stays fast for everyone who does not. */
+  var vidWrap = document.getElementById('r-video');
+  var vidPlay = document.getElementById('r-video-play');
+  if (vidPlay && vidWrap) {
+    vidPlay.addEventListener('click', function () {
+      var f = document.createElement('iframe');
+      f.src = 'https://player.vimeo.com/video/1229323914' +
+              '?autoplay=1&title=0&byline=0&portrait=0&dnt=1';
+      f.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
+      f.setAttribute('allowfullscreen', '');
+      f.setAttribute('title', 'What happens at your free water test');
+      vidWrap.innerHTML = '';
+      vidWrap.appendChild(f);
     });
   }
 
