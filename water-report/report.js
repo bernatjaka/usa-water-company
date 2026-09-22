@@ -327,14 +327,15 @@
   if (block) {
     var wrScenes = block.querySelectorAll('.wr-scene');
 
-    /* Keep the captions clear of the site's sticky header. */
+    /* Keep the captions clear of whatever is above them. At the top of the
+       page that is the promo bar, top bar and header together; once scrolled
+       it is just the sticky header. Recomputed as you scroll so the copy is
+       never clipped. */
     var siteHeader = document.querySelector('.header');
-    function setHeaderOffset() {
+    function headerOffset(rTop) {
       var h = siteHeader ? siteHeader.getBoundingClientRect().height : 0;
-      block.style.setProperty('--wrHeader', Math.round(h) + 'px');
+      return Math.max(h, Math.max(0, rTop || 0));
     }
-    setHeaderOffset();
-    window.addEventListener('resize', setHeaderOffset);
 
     var pin = block.querySelector('.wr-pin');
     var ask = document.getElementById('wr-ask');
@@ -344,6 +345,8 @@
       var r = block.getBoundingClientRect();
 
       /* How much of the screen the section still owns, 0 to 1. */
+      block.style.setProperty('--wrHeader', Math.round(headerOffset(r.top)) + 'px');
+
       var covered = Math.min(r.bottom, vh) - Math.max(r.top, 0);
       var ratio = Math.max(0, Math.min(1, covered / vh));
 

@@ -34,41 +34,51 @@
   /* Scene geometry, recomputed on resize so it stays responsive. */
   var S = {};
   function layout() {
-    /* One vertical run down to a manifold, which branches to the three
-       places a homeowner actually notices: shower, kitchen tap, laundry. */
     var wide = W > 900;
-    var cx = wide ? W * 0.70 : W * 0.5;
-    var pipeW = wide ? Math.max(30, Math.min(58, W * 0.042))
-                     : Math.max(24, Math.min(44, W * 0.10));
 
-    var mainY  = Math.max(H * 0.19, 150);
-    var tankY  = H * 0.31;
-    var tankH  = H * 0.22;
-    var tankW  = Math.min(pipeW * 3.0, W * 0.24);
-    var outTop = tankY + tankH;              /* .53H */
-    var manY   = H * 0.635;                  /* the branch line */
+    if (wide) {
+      /* Desktop: system on the right, copy on the left. */
+      var cx = W * 0.70;
+      var pipeW = Math.max(30, Math.min(58, W * 0.042));
+      var mainY = Math.max(H * 0.19, 150);
+      var tankY = H * 0.31, tankH = H * 0.22;
+      var tankW = Math.min(pipeW * 3.0, W * 0.24);
+      var manY = H * 0.635;
+      var drop = pipeW * 1.35;
+      var glassH = H * 0.095, appH = H * 0.125;
+      var spread = pipeW * 2.9;
+      setGeom(cx, pipeW, mainY, tankY, tankH, tankW, manY, drop, spread, glassH, appH);
+      return;
+    }
 
-    var spread = pipeW * 2.9;
-    var showerX = cx - spread;
-    var tapX    = cx;
-    var appX    = cx + spread;
+    /* Phone: the copy owns the top of the screen, so the whole system is
+       compressed into the lower half where nothing sits over it. */
+    var cxm = W * 0.5;
+    var pw = Math.max(18, Math.min(30, W * 0.078));
+    var mainYm = H * 0.625;                      /* below the copy, which runs to about .60 */
+    var tankYm = H * 0.665, tankHm = H * 0.095;
+    var tankWm = Math.min(pw * 3.0, W * 0.32);
+    var manYm = H * 0.815;
+    var dropm = pw * 1.1;
+    setGeom(cxm, pw, mainYm, tankYm, tankHm, tankWm, manYm, dropm,
+            pw * 2.9, H * 0.042, H * 0.054);
+  }
 
+  function setGeom(cx, pipeW, mainY, tankY, tankH, tankW, manY, drop, spread, glassH, appH) {
+    var showerX = cx - spread, tapX = cx, appX = cx + spread;
     S = {
       cx: cx, pipeW: pipeW,
       mainY: mainY, mainX0: -20, meterX: Math.max(pipeW * 1.4, cx - pipeW * 4.2),
       inletTop: mainY, inletBot: tankY,
       tankX: cx - tankW / 2, tankY: tankY, tankW: tankW, tankH: tankH,
-      bedY: tankY + tankH * 0.42,   /* higher bed, so the dirty layer above it is visible */
-      outTop: outTop, outBot: manY, spoutY: manY,
+      bedY: tankY + tankH * 0.42,
+      outTop: tankY + tankH, outBot: manY, spoutY: manY,
       manY: manY, manX0: showerX, manX1: appX,
-
-      /* all three drop to the same level so the row reads straight */
-      showerX: showerX, showerY: manY + pipeW * 1.35,
-      tapX: tapX,       tapY: manY + pipeW * 1.35,
-      appX: appX,       appY: manY + pipeW * 1.35,
-
-      glassW: pipeW * 1.7, glassH: H * 0.095,
-      appW: pipeW * 2.3,   appH: H * 0.125
+      showerX: showerX, showerY: manY + drop,
+      tapX: tapX,       tapY: manY + drop,
+      appX: appX,       appY: manY + drop,
+      glassW: pipeW * 1.7, glassH: glassH,
+      appW: pipeW * 2.3,   appH: appH
     };
   }
 
