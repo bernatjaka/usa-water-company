@@ -14,17 +14,14 @@ var MARKETS = {
   'south-florida': {
     label: 'South Florida & Miami',
     url: 'https://calendly.com/d/dz66-7h6-fht/south-florida-free-water-test',  // Rick Toplak
-    /* TODO: Rick's number. Fill both lines and South Florida pages switch
-       to it automatically. Until then these pages show the Phoenix number. */
-    phone: null,
-    tel: null
+    phone: '(954) 801-8176',      // Rick Toplak
+    tel: '+19548018176'
   },
   orlando: {
     label: 'Orlando, FL',
     url: 'https://calendly.com/d/dvwy-6hj-3jp/orlando-free-water-test',      // LeRoy Henderson
-    /* TODO: LeRoy's number, same as above. */
-    phone: null,
-    tel: null
+    phone: '(321) 663-6873',      // LeRoy Henderson
+    tel: '+13216636873'
   }
 };
 var DEFAULT_MARKET = 'phoenix';
