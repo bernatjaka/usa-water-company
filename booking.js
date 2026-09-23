@@ -7,15 +7,24 @@
 var MARKETS = {
   phoenix: {
     label: 'Phoenix, AZ',
-    url: 'https://calendly.com/d/dv9n-zgw-rp8/phoenix-free-water-test'   // Craig, round robin
+    url: 'https://calendly.com/d/dv9n-zgw-rp8/phoenix-free-water-test',   // Craig, round robin
+    phone: '(480) 690-0600',
+    tel: '+14806900600'
   },
   'south-florida': {
     label: 'South Florida & Miami',
-    url: 'https://calendly.com/d/dz66-7h6-fht/south-florida-free-water-test'  // Rick Toplak
+    url: 'https://calendly.com/d/dz66-7h6-fht/south-florida-free-water-test',  // Rick Toplak
+    /* TODO: Rick's number. Fill both lines and South Florida pages switch
+       to it automatically. Until then these pages show the Phoenix number. */
+    phone: null,
+    tel: null
   },
   orlando: {
     label: 'Orlando, FL',
-    url: 'https://calendly.com/d/dvwy-6hj-3jp/orlando-free-water-test'      // LeRoy Henderson
+    url: 'https://calendly.com/d/dvwy-6hj-3jp/orlando-free-water-test',      // LeRoy Henderson
+    /* TODO: LeRoy's number, same as above. */
+    phone: null,
+    tel: null
   }
 };
 var DEFAULT_MARKET = 'phoenix';
@@ -84,6 +93,7 @@ function initZipRouter() {
   function show(key, zip) {
     status.className = 'zip-status is-found';
     status.textContent = 'Showing availability for ' + MARKETS[key].label + '.';
+    applyMarketPhone(key);
     el.hidden = false;
     loadMarketCalendar(key, el);
     try { sessionStorage.setItem('uwc-market', key); } catch (e) {}
@@ -142,12 +152,30 @@ function initZipRouter() {
   }
 }
 
+/* Show the local number wherever the market is known, so a Miami visitor
+   is not given an Arizona number to call. Falls back to the head office
+   number for any market that does not have its own yet. */
+function applyMarketPhone(key) {
+  var m = MARKETS[key];
+  if (!m || !m.phone || !m.tel) return;
+  var links = document.querySelectorAll('a[href^="tel:"]');
+  for (var i = 0; i < links.length; i++) {
+    var a = links[i];
+    a.setAttribute('href', 'tel:' + m.tel);
+    /* only rewrite the visible text where it is the number itself */
+    a.textContent = a.textContent.replace(/\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}/, m.phone);
+  }
+  var labels = document.querySelectorAll('[data-phone-text]');
+  for (var j = 0; j < labels.length; j++) { labels[j].textContent = m.phone; }
+}
+
 /* City pages: market is already known, so load that calendar directly. */
 function initSingleMarket() {
   var el = document.getElementById('market-calendar');
   if (!el) return;
   var key = el.getAttribute('data-market') || DEFAULT_MARKET;
   try { sessionStorage.setItem('uwc-market', key); } catch (e) {}
+  applyMarketPhone(key);
   loadMarketCalendar(key, el);
 }
 
