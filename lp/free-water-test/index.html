@@ -19,6 +19,9 @@
 <script>!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");
 oaiq("init",{pixelId:"1VNhxFcREChcwBRyd2UR84",debug:true});
 oaiq("measure","page_viewed",{type:"contents"});</script>
+<!-- Calendly popup, used to book the test once the zip picks a market -->
+<link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css">
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Public+Sans:wght@400..700&display=swap" rel="stylesheet">
@@ -209,6 +212,8 @@ section[id],#top-form{scroll-margin-top:96px}
 .lead-body .field{margin-bottom:12px}
 .lead-body .field input{height:52px}
 .field .req{color:var(--c-red-deep);font-weight:700}
+.field-hint{display:block;margin-top:6px;font-size:13px;line-height:1.4;color:var(--steel)}
+.field-hint.is-bad{color:var(--c-red-deep);font-weight:600}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
 .pick{border:0;padding:0;margin:4px 0 14px}
 .pick legend{font-size:14px;font-weight:600;margin-bottom:8px;padding:0}
@@ -528,7 +533,7 @@ form[hidden]{display:none}
     </div>
     <div class="hero-lead" id="top-form">
       <div class="lead" data-slip="hero"><div class="lead-in">
-  <div class="lead-top"><p class="lead-badge"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>$0, no obligation</p><p class="lead-title">Get your free in-home water test</p><p class="lead-sub">Tell us how to reach you. Your local team will call to set up a time that suits you.</p></div>
+  <div class="lead-top"><p class="lead-badge"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>$0, no obligation</p><p class="lead-title">Get your free in-home water test</p><p class="lead-sub">Tell us how to reach you, then pick a day and time that suits you.</p></div>
   <div class="lead-body">
     <form novalidate>
       <label class="field"><span>Full name <span class="req" aria-hidden="true">*</span></span><input class="js-name" type="text" name="name" autocomplete="name" required aria-required="true"></label>
@@ -536,6 +541,7 @@ form[hidden]{display:none}
         <label class="field"><span>Phone <span class="req" aria-hidden="true">*</span></span><input class="js-phone-in" type="tel" name="phone" inputmode="tel" autocomplete="tel-national" placeholder="(555) 555-5555" required aria-required="true"></label>
         <label class="field"><span>Email <span class="req" aria-hidden="true">*</span></span><input class="js-email" type="email" name="email" autocomplete="email" required aria-required="true"></label>
       </div>
+      <label class="field"><span>Home zip code <span class="req" aria-hidden="true">*</span></span><input class="js-zip" type="text" name="zip" inputmode="numeric" pattern="[0-9]*" autocomplete="postal-code" maxlength="5" placeholder="85001" required aria-required="true"><small class="field-hint js-zip-hint">So we can show times for the team that covers your area.</small></label>
       <fieldset class="pick"><legend>Interested in <small>(optional)</small></legend><div class="pchips"><label class="pchip"><input type="radio" name="product-hero" value="Whole House Filtration"><span>Whole House Filtration</span></label><label class="pchip"><input type="radio" name="product-hero" value="Elevated Drinking System"><span>Elevated Drinking System</span></label><label class="pchip"><input type="radio" name="product-hero" value="Water Softener"><span>Water Softener</span></label><label class="pchip"><input type="radio" name="product-hero" value="Whole Home System (summer sale)"><span>Whole Home System (summer sale)</span></label><label class="pchip"><input type="radio" name="product-hero" value="Not sure yet"><span>Not sure yet</span></label></div></fieldset>
       <div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
       <button class="btn btn-book btn-block" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Request my free water test</button>
@@ -714,6 +720,7 @@ form[hidden]{display:none}
         <label class="field"><span>Phone <span class="req" aria-hidden="true">*</span></span><input class="js-phone-in" type="tel" name="phone" inputmode="tel" autocomplete="tel-national" placeholder="(555) 555-5555" required aria-required="true"></label>
         <label class="field"><span>Email <span class="req" aria-hidden="true">*</span></span><input class="js-email" type="email" name="email" autocomplete="email" required aria-required="true"></label>
       </div>
+      <label class="field"><span>Home zip code <span class="req" aria-hidden="true">*</span></span><input class="js-zip" type="text" name="zip" inputmode="numeric" pattern="[0-9]*" autocomplete="postal-code" maxlength="5" placeholder="85001" required aria-required="true"><small class="field-hint js-zip-hint">So we can show times for the team that covers your area.</small></label>
       <fieldset class="pick"><legend>Interested in <small>(optional)</small></legend><div class="pchips"><label class="pchip"><input type="radio" name="product-mid" value="Whole House Filtration"><span>Whole House Filtration</span></label><label class="pchip"><input type="radio" name="product-mid" value="Elevated Drinking System"><span>Elevated Drinking System</span></label><label class="pchip"><input type="radio" name="product-mid" value="Water Softener"><span>Water Softener</span></label><label class="pchip"><input type="radio" name="product-mid" value="Whole Home System (summer sale)"><span>Whole Home System (summer sale)</span></label><label class="pchip"><input type="radio" name="product-mid" value="Not sure yet"><span>Not sure yet</span></label></div></fieldset>
       <div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
       <button class="btn btn-book btn-block" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Request my free water test</button>
@@ -815,7 +822,7 @@ form[hidden]{display:none}
     </div>
     <div data-reveal="right">
       <div class="lead" data-slip="book"><div class="lead-in">
-  <div class="lead-top"><p class="lead-badge"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>$0, no obligation</p><p class="lead-title">Request your free water test</p><p class="lead-sub">Takes about 30 seconds. We'll call you to schedule.</p></div>
+  <div class="lead-top"><p class="lead-badge"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>$0, no obligation</p><p class="lead-title">Request your free water test</p><p class="lead-sub">Takes about 30 seconds, then you pick your time.</p></div>
   <div class="lead-body">
     <form novalidate>
       <label class="field"><span>Full name <span class="req" aria-hidden="true">*</span></span><input class="js-name" type="text" name="name" autocomplete="name" required aria-required="true"></label>
@@ -823,6 +830,7 @@ form[hidden]{display:none}
         <label class="field"><span>Phone <span class="req" aria-hidden="true">*</span></span><input class="js-phone-in" type="tel" name="phone" inputmode="tel" autocomplete="tel-national" placeholder="(555) 555-5555" required aria-required="true"></label>
         <label class="field"><span>Email <span class="req" aria-hidden="true">*</span></span><input class="js-email" type="email" name="email" autocomplete="email" required aria-required="true"></label>
       </div>
+      <label class="field"><span>Home zip code <span class="req" aria-hidden="true">*</span></span><input class="js-zip" type="text" name="zip" inputmode="numeric" pattern="[0-9]*" autocomplete="postal-code" maxlength="5" placeholder="85001" required aria-required="true"><small class="field-hint js-zip-hint">So we can show times for the team that covers your area.</small></label>
       <fieldset class="pick"><legend>Interested in <small>(optional)</small></legend><div class="pchips"><label class="pchip"><input type="radio" name="product-book" value="Whole House Filtration"><span>Whole House Filtration</span></label><label class="pchip"><input type="radio" name="product-book" value="Elevated Drinking System"><span>Elevated Drinking System</span></label><label class="pchip"><input type="radio" name="product-book" value="Water Softener"><span>Water Softener</span></label><label class="pchip"><input type="radio" name="product-book" value="Whole Home System (summer sale)"><span>Whole Home System (summer sale)</span></label><label class="pchip"><input type="radio" name="product-book" value="Not sure yet"><span>Not sure yet</span></label></div></fieldset>
       <div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
       <button class="btn btn-book btn-block" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Request my free water test</button>
@@ -916,7 +924,7 @@ form[hidden]{display:none}
 <dialog class="modal" id="exitModal" aria-labelledby="exit-title">
   <button class="modal-close" type="button" id="exitClose" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <div class="lead" data-slip="exit"><div class="lead-in">
-  <div class="lead-top"><p class="lead-badge"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>$0, no obligation</p><p class="lead-title" id="exit-title">Wait, your water test is free</p><p class="lead-sub">Leave your details and your local team will call to set up your visit.</p></div>
+  <div class="lead-top"><p class="lead-badge"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>$0, no obligation</p><p class="lead-title" id="exit-title">Wait, your water test is free</p><p class="lead-sub">Leave your details, then pick a day and time that suits you.</p></div>
   <div class="lead-body">
     <form novalidate>
       <label class="field"><span>Full name <span class="req" aria-hidden="true">*</span></span><input class="js-name" type="text" name="name" autocomplete="name" required aria-required="true"></label>
@@ -924,6 +932,7 @@ form[hidden]{display:none}
         <label class="field"><span>Phone <span class="req" aria-hidden="true">*</span></span><input class="js-phone-in" type="tel" name="phone" inputmode="tel" autocomplete="tel-national" placeholder="(555) 555-5555" required aria-required="true"></label>
         <label class="field"><span>Email <span class="req" aria-hidden="true">*</span></span><input class="js-email" type="email" name="email" autocomplete="email" required aria-required="true"></label>
       </div>
+      <label class="field"><span>Home zip code <span class="req" aria-hidden="true">*</span></span><input class="js-zip" type="text" name="zip" inputmode="numeric" pattern="[0-9]*" autocomplete="postal-code" maxlength="5" placeholder="85001" required aria-required="true"><small class="field-hint js-zip-hint">So we can show times for the team that covers your area.</small></label>
       <fieldset class="pick"><legend>Interested in <small>(optional)</small></legend><div class="pchips"><label class="pchip"><input type="radio" name="product-exit" value="Whole House Filtration"><span>Whole House Filtration</span></label><label class="pchip"><input type="radio" name="product-exit" value="Elevated Drinking System"><span>Elevated Drinking System</span></label><label class="pchip"><input type="radio" name="product-exit" value="Water Softener"><span>Water Softener</span></label><label class="pchip"><input type="radio" name="product-exit" value="Whole Home System (summer sale)"><span>Whole Home System (summer sale)</span></label><label class="pchip"><input type="radio" name="product-exit" value="Not sure yet"><span>Not sure yet</span></label></div></fieldset>
       <div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
       <button class="btn btn-book btn-block" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Request my free water test</button>
@@ -953,6 +962,99 @@ form[hidden]{display:none}
   var LEAD_ENDPOINT = 'https://formsubmit.co/ajax/info@usawaterco.com';
   var MAIN_PHONE = '(480) 690-0600', MAIN_TEL = '+14806900600';
   var state = { symptoms: [] };
+
+  /* ---------- Market routing ----------
+     The zip picks the team that covers it, which decides both the Calendly
+     calendar they book on and the phone number shown on the page.
+     Keep these in step with booking.js on the main site. */
+  var MARKETS = {
+    phoenix: {
+      label: 'Phoenix, AZ',
+      url: 'https://calendly.com/d/dv9n-zgw-rp8/phoenix-free-water-test',
+      phone: '(480) 690-0600', tel: '+14806900600'
+    },
+    'south-florida': {
+      label: 'South Florida & Miami',
+      url: 'https://calendly.com/d/dz66-7h6-fht/south-florida-free-water-test',
+      phone: '(954) 801-8176', tel: '+19548018176'
+    },
+    orlando: {
+      label: 'Orlando, FL',
+      url: 'https://calendly.com/d/dvwy-6hj-3jp/orlando-free-water-test',
+      phone: '(321) 663-6873', tel: '+13216636873'
+    }
+  };
+  var ZIP_PREFIXES = {
+    phoenix: ['850', '851', '852', '853'],
+    'south-florida': ['330', '331', '332', '333', '334', '339', '341'],
+    orlando: ['327', '328', '329', '347']
+  };
+
+  /* Returns a market key, or null when we do not cover that zip. */
+  function marketForZip(zip) {
+    var digits = String(zip || '').replace(/\D/g, '');
+    if (digits.length < 5) return null;
+    var prefix = digits.slice(0, 3);
+    for (var key in ZIP_PREFIXES) {
+      if (ZIP_PREFIXES[key].indexOf(prefix) > -1) return key;
+    }
+    return null;
+  }
+
+  /* Swap every phone number on the page over to the team that covers the zip. */
+  function applyMarketPhone(market) {
+    var m = MARKETS[market];
+    if (!m) return;
+    document.querySelectorAll('a.js-phone, a[data-track="call_click"]').forEach(function (a) {
+      a.setAttribute('href', 'tel:' + m.tel);
+      var num = a.querySelector('.js-phone-num');
+      if (num) num.textContent = m.phone;
+      else if (/^\(?\d{3}\)?[ .-]?\d{3}[ .-]?\d{4}$/.test(a.textContent.trim())) a.textContent = m.phone;
+    });
+    document.querySelectorAll('.js-phone-num').forEach(function (n) { n.textContent = m.phone; });
+    MAIN_PHONE = m.phone; MAIN_TEL = m.tel;
+  }
+
+  /* Opens the Calendly popup for a market with the form answers already filled in. */
+  function openCalendly(market, lead) {
+    var m = MARKETS[market];
+    if (!m || !window.Calendly) return false;
+    var at = attribution();
+    /* Name and email go in the URL as well as the prefill object. The widget
+       sends prefill to the iframe after it loads, the URL params are applied
+       on the way in, so this survives a slow or blocked message. Only the two
+       standard invitee fields are prefilled: the custom question slots differ
+       per event and filling the wrong box is worse than an empty one. */
+    var url = m.url + '?hide_gdpr_banner=1'
+      + '&name=' + encodeURIComponent(lead.name)
+      + '&email=' + encodeURIComponent(lead.email);
+    window.Calendly.initPopupWidget({
+      url: url,
+      prefill: { name: lead.name, email: lead.email },
+      utm: {
+        utmSource: at.utm_source || 'landing-page',
+        utmMedium: at.utm_medium || '',
+        utmCampaign: at.utm_campaign || '',
+        utmContent: at.utm_content || '',
+        utmTerm: at.utm_term || ''
+      }
+    });
+    return true;
+  }
+
+  /* Calendly tells the page when a booking completes. Send them to the
+     thank you page so the conversion pixel fires, carrying ad click ids over. */
+  window.addEventListener('message', function (e) {
+    if (!e.origin || e.origin.indexOf('calendly.com') === -1) return;
+    if (!e.data || e.data.event !== 'calendly.event_scheduled') return;
+    var params = new URLSearchParams(location.search);
+    var p = e.data.payload || {};
+    function last(uri) { var s = String(uri || '').split('/'); return s[s.length - 1] || ''; }
+    if (last(p.invitee && p.invitee.uri)) params.set('invitee', last(p.invitee.uri));
+    if (last(p.event && p.event.uri)) params.set('event', last(p.event.uri));
+    var q = params.toString();
+    window.location.href = '/thank-you/' + (q ? '?' + q : '');
+  });
 
   window.dataLayer = window.dataLayer || [];
   function track(event, data) {
@@ -986,10 +1088,26 @@ form[hidden]{display:none}
     var id = root.getAttribute('data-slip');
     var form = root.querySelector('form'), note = root.querySelector('.js-note'), btn = form.querySelector('button[type="submit"]');
     var nameIn = root.querySelector('.js-name'), phoneIn = root.querySelector('.js-phone-in'), emailIn = root.querySelector('.js-email');
+    var zipIn = root.querySelector('.js-zip'), zipHint = root.querySelector('.js-zip-hint');
     var success = root.querySelector('.js-success'), started = false, btnHtml = btn.innerHTML;
     function invalid(el) { el.removeAttribute('aria-invalid'); void el.offsetWidth; el.setAttribute('aria-invalid', 'true'); }
     form.addEventListener('input', function (e) {
       if (e.target === phoneIn) phoneIn.value = fmtPhone(phoneIn.value);
+      if (e.target === zipIn) {
+        zipIn.value = zipIn.value.replace(/\D/g, '').slice(0, 5);
+        var mk = marketForZip(zipIn.value);
+        if (mk) {
+          applyMarketPhone(mk);
+          zipHint.className = 'field-hint js-zip-hint';
+          zipHint.textContent = 'Covered by our ' + MARKETS[mk].label + ' team.';
+        } else if (zipIn.value.length === 5) {
+          zipHint.className = 'field-hint is-bad js-zip-hint';
+          zipHint.textContent = 'We are not booking online there yet. Send your details and someone will call you.';
+        } else {
+          zipHint.className = 'field-hint js-zip-hint';
+          zipHint.textContent = 'So we can show times for the team that covers your area.';
+        }
+      }
       if (e.target.hasAttribute('aria-invalid')) e.target.removeAttribute('aria-invalid');
       if (note.classList.contains('is-error') && !form.querySelector('[aria-invalid="true"]')) { note.textContent = ''; note.className = 'form-note js-note'; }
       if (!started) { started = true; track('lead_form_start', { form: id }); }
@@ -997,12 +1115,15 @@ form[hidden]{display:none}
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var name = nameIn.value.trim(), digits = phoneDigits(phoneIn.value), email = emailIn.value.trim();
+      var zip = String(zipIn.value || '').replace(/\D/g, '');
+      var market = marketForZip(zip);
       var picked = form.querySelector('input[type="radio"]:checked');
       var errs = [];
-      [nameIn, phoneIn, emailIn].forEach(function (el) { el.removeAttribute('aria-invalid'); });
+      [nameIn, phoneIn, emailIn, zipIn].forEach(function (el) { el.removeAttribute('aria-invalid'); });
       if (name.length < 2) { invalid(nameIn); errs.push([nameIn, 'Enter your name so our team knows who to ask for.']); }
       if (digits.length !== 10 || /^[01]/.test(digits)) { invalid(phoneIn); errs.push([phoneIn, 'Enter a 10-digit phone number so we can call to schedule your test.']); }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { invalid(emailIn); errs.push([emailIn, 'Enter a valid email address.']); }
+      if (zip.length !== 5) { invalid(zipIn); errs.push([zipIn, 'Enter your 5-digit zip code so we can book with the team that covers you.']); }
       if (errs.length) {
         note.className = 'form-note is-error js-note';
         note.textContent = errs[0][1];
@@ -1013,40 +1134,85 @@ form[hidden]{display:none}
       var product = picked ? picked.value : 'Not specified';
       var hp = form.querySelector('.hp input');
       btn.disabled = true;
-      btn.innerHTML = '<span class="spin" aria-hidden="true"></span>Sending your request';
+      btn.innerHTML = '<span class="spin" aria-hidden="true"></span>' + (market ? 'Opening your times' : 'Sending your request');
       note.className = 'form-note js-note'; note.textContent = '';
+      if (market) applyMarketPhone(market);
+      var lead = { name: name, phone: fmtPhone(digits), email: email, zip: zip };
       var payload = {
-        name: name, phone: fmtPhone(digits), email: email, product_interest: product,
+        name: name, phone: fmtPhone(digits), email: email, zip: zip,
+        market: market ? MARKETS[market].label : 'Outside current service areas',
+        product_interest: product,
         water_concerns: state.symptoms.join(', ') || 'None selected', form_location: id,
-        _subject: 'New free water test request: ' + name, _template: 'table', _captcha: 'false'
+        _subject: 'New free water test request: ' + name + ' (' + (market ? MARKETS[market].label : 'zip ' + zip) + ')',
+        _template: 'table', _captcha: 'false'
       };
       var at = attribution(); for (var k in at) payload[k] = at[k];
-      function done() {
+
+      /* Capture the lead first so nothing is lost if they close the calendar,
+         then hand them straight to Calendly to pick a time. The lead request
+         runs in the background: a problem there must never block a booking. */
+      function sendLead() {
+        if (hp && hp.value) return;
+        var ctrl = 'AbortController' in window ? new AbortController() : null;
+        var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 15000);
+        fetch(LEAD_ENDPOINT, {
+          method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload), signal: ctrl ? ctrl.signal : undefined
+        }).then(function (r) {
+          clearTimeout(timer);
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json().catch(function () { return {}; });
+        }).then(function (res) {
+          if (res && (res.success === false || res.success === 'false')) throw new Error('Rejected');
+        }).catch(function () {
+          clearTimeout(timer);
+          track('lead_submit_failed', { form: id });
+        });
+      }
+
+      function showSuccess() {
         sSet('usaw_lead', '1');
         form.hidden = true; success.hidden = false;
-        track('generate_lead', { form: id, product_interest: product });
+        var h = success.querySelector('h3'), p = success.querySelector('p');
+        if (market) {
+          if (h) h.textContent = 'Almost done, pick your time';
+          if (p) {
+            p.innerHTML = 'Choose a day and time that suits you and your ' + MARKETS[market].label +
+              ' team will be there. ' +
+              '<a href="#" class="js-reopen">Open the calendar</a> if it did not appear.';
+          }
+        } else {
+          if (h) h.textContent = 'Request received';
+          if (p) p.textContent = 'Thanks. We are not booking online in your area yet, so your local USA Water Company team will call you soon to set up your free in-home water test.';
+        }
+        track('generate_lead', { form: id, product_interest: product, market: market || 'uncovered' });
         var t = document.getElementById('toast'); if (t) t.classList.remove('is-visible');
       }
-      if (hp && hp.value) { done(); return; }
-      var ctrl = 'AbortController' in window ? new AbortController() : null;
-      var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 15000);
-      fetch(LEAD_ENDPOINT, {
-        method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(payload), signal: ctrl ? ctrl.signal : undefined
-      }).then(function (r) {
-        clearTimeout(timer);
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        return r.json().catch(function () { return {}; });
-      }).then(function (res) {
-        if (res && (res.success === false || res.success === 'false')) throw new Error('Rejected');
-        done();
-      }).catch(function () {
-        clearTimeout(timer);
-        btn.disabled = false; btn.innerHTML = btnHtml;
-        note.className = 'form-note is-error js-note';
-        note.innerHTML = 'We couldn\u2019t send your request. Please try again or call <a href="tel:' + MAIN_TEL + '" data-track="call_click">' + MAIN_PHONE + '</a> and we\u2019ll set up your test by phone.';
-        track('lead_submit_failed', { form: id });
-      });
+
+      sendLead();
+      showSuccess();
+      btn.disabled = false; btn.innerHTML = btnHtml;
+
+      if (market) {
+        track('booking_opened', { form: id, market: market });
+        /* widget.js is async, so wait for it on a slow connection rather than silently doing nothing */
+        var waited = 0;
+        (function tryOpen() {
+          if (openCalendly(market, lead)) return;
+          if ((waited += 150) > 6000) {
+            var p2 = success.querySelector('p');
+            if (p2) p2.innerHTML = 'Book your time here: <a href="' + MARKETS[market].url + '" target="_blank" rel="noopener">open the calendar</a>.';
+            return;
+          }
+          setTimeout(tryOpen, 150);
+        })();
+        success.addEventListener('click', function (e) {
+          var r = e.target.closest('.js-reopen');
+          if (!r) return;
+          e.preventDefault();
+          openCalendly(market, lead);
+        });
+      }
     });
   }
   document.querySelectorAll('[data-slip]').forEach(initLead);
