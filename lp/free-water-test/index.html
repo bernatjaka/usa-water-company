@@ -213,6 +213,12 @@ section[id],#top-form{scroll-margin-top:96px}
 .lead-body .field input{height:52px}
 .field .req{color:var(--c-red-deep);font-weight:700}
 .field-hint{display:block;margin-top:6px;font-size:13px;line-height:1.4;color:var(--steel)}
+.form-deal{display:flex;align-items:flex-start;gap:8px;margin:0 0 12px;padding:10px 12px;border-radius:10px;font-size:14px;line-height:1.45;color:var(--c-red-deep);background:color-mix(in srgb, var(--c-red) 9%, transparent);border:1px solid color-mix(in srgb, var(--c-red) 26%, transparent)}
+.form-deal svg{flex:none;width:18px;height:18px;margin-top:1px}
+.form-deal b{font-weight:800}
+.offer-deal{display:flex;align-items:flex-start;gap:10px;margin:0 0 18px;padding:12px 14px;border-radius:12px;font-size:16px;line-height:1.5;color:var(--c-white);background:color-mix(in srgb, var(--c-red) 24%, transparent);border:1px solid color-mix(in srgb, var(--c-white) 26%, transparent)}
+.offer-deal svg{flex:none;width:20px;height:20px;margin-top:2px}
+.offer-deal b{font-weight:800}
 .field-hint.is-bad{color:var(--c-red-deep);font-weight:600}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
 .pick{border:0;padding:0;margin:4px 0 14px}
@@ -491,8 +497,8 @@ form[hidden]{display:none}
 <!-- Offer bar: remove when the summer sale ends -->
 <div class="offerbar">
   <div class="wrap">
-    <span class="ob-long">Summer sale: Whole Home Water System for $2,950 with installation included.</span>
-    <span class="ob-short">Summer sale: Whole Home System, $2,950 installed.</span>
+    <span class="ob-long">Summer sale: Whole Home Water System for $2,950 with installation included.<b class="ob-extra js-deadline"> Book by October 15 and take another $250 off.</b></span>
+    <span class="ob-short">$2,950 installed.<b class="ob-extra js-deadline"> $250 off by Oct 15.</b></span>
     <a href="#offer" data-track="offerbar_click">See the offer</a>
   </div>
 </div>
@@ -543,6 +549,7 @@ form[hidden]{display:none}
       </div>
       <label class="field"><span>Home zip code <span class="req" aria-hidden="true">*</span></span><input class="js-zip" type="text" name="zip" inputmode="numeric" pattern="[0-9]*" autocomplete="postal-code" maxlength="5" placeholder="85001" required aria-required="true"><small class="field-hint js-zip-hint">So we can show times for the team that covers your area.</small></label>
       <fieldset class="pick"><legend>Interested in <small>(optional)</small></legend><div class="pchips"><label class="pchip"><input type="radio" name="product-hero" value="Whole House Filtration"><span>Whole House Filtration</span></label><label class="pchip"><input type="radio" name="product-hero" value="Elevated Drinking System"><span>Elevated Drinking System</span></label><label class="pchip"><input type="radio" name="product-hero" value="Water Softener"><span>Water Softener</span></label><label class="pchip"><input type="radio" name="product-hero" value="Whole Home System (summer sale)"><span>Whole Home System (summer sale)</span></label><label class="pchip"><input type="radio" name="product-hero" value="Not sure yet"><span>Not sure yet</span></label></div></fieldset>
+      <p class="form-deal js-deadline"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg><span>Book by <b>October 15</b> and take another <b>$250 off</b> your system.</span></p>
       <div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
       <button class="btn btn-book btn-block" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Request my free water test</button>
       <p class="form-note js-note" aria-live="polite"></p>
@@ -722,6 +729,7 @@ form[hidden]{display:none}
       </div>
       <label class="field"><span>Home zip code <span class="req" aria-hidden="true">*</span></span><input class="js-zip" type="text" name="zip" inputmode="numeric" pattern="[0-9]*" autocomplete="postal-code" maxlength="5" placeholder="85001" required aria-required="true"><small class="field-hint js-zip-hint">So we can show times for the team that covers your area.</small></label>
       <fieldset class="pick"><legend>Interested in <small>(optional)</small></legend><div class="pchips"><label class="pchip"><input type="radio" name="product-mid" value="Whole House Filtration"><span>Whole House Filtration</span></label><label class="pchip"><input type="radio" name="product-mid" value="Elevated Drinking System"><span>Elevated Drinking System</span></label><label class="pchip"><input type="radio" name="product-mid" value="Water Softener"><span>Water Softener</span></label><label class="pchip"><input type="radio" name="product-mid" value="Whole Home System (summer sale)"><span>Whole Home System (summer sale)</span></label><label class="pchip"><input type="radio" name="product-mid" value="Not sure yet"><span>Not sure yet</span></label></div></fieldset>
+      <p class="form-deal js-deadline"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg><span>Book by <b>October 15</b> and take another <b>$250 off</b> your system.</span></p>
       <div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
       <button class="btn btn-book btn-block" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Request my free water test</button>
       <p class="form-note js-note" aria-live="polite"></p>
@@ -751,6 +759,7 @@ form[hidden]{display:none}
         <span class="price-num">$<span data-count="2950" data-format="comma">2,950</span></span>
         <span class="price-cap">with professional installation included</span>
       </div>
+      <p class="offer-deal js-deadline"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg><span>Book your free water test by <b>October 15</b> and take another <b>$250 off</b>, bringing it to <b>$2,700</b> installed.</span></p>
       <ul class="ticks">
         <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.6 2.5L16 9.5"/></svg>Filtration and softening for the whole house</li>
         <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.6 2.5L16 9.5"/></svg>Engineered for the contaminants in your local water</li>
@@ -832,6 +841,7 @@ form[hidden]{display:none}
       </div>
       <label class="field"><span>Home zip code <span class="req" aria-hidden="true">*</span></span><input class="js-zip" type="text" name="zip" inputmode="numeric" pattern="[0-9]*" autocomplete="postal-code" maxlength="5" placeholder="85001" required aria-required="true"><small class="field-hint js-zip-hint">So we can show times for the team that covers your area.</small></label>
       <fieldset class="pick"><legend>Interested in <small>(optional)</small></legend><div class="pchips"><label class="pchip"><input type="radio" name="product-book" value="Whole House Filtration"><span>Whole House Filtration</span></label><label class="pchip"><input type="radio" name="product-book" value="Elevated Drinking System"><span>Elevated Drinking System</span></label><label class="pchip"><input type="radio" name="product-book" value="Water Softener"><span>Water Softener</span></label><label class="pchip"><input type="radio" name="product-book" value="Whole Home System (summer sale)"><span>Whole Home System (summer sale)</span></label><label class="pchip"><input type="radio" name="product-book" value="Not sure yet"><span>Not sure yet</span></label></div></fieldset>
+      <p class="form-deal js-deadline"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg><span>Book by <b>October 15</b> and take another <b>$250 off</b> your system.</span></p>
       <div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
       <button class="btn btn-book btn-block" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Request my free water test</button>
       <p class="form-note js-note" aria-live="polite"></p>
@@ -934,6 +944,7 @@ form[hidden]{display:none}
       </div>
       <label class="field"><span>Home zip code <span class="req" aria-hidden="true">*</span></span><input class="js-zip" type="text" name="zip" inputmode="numeric" pattern="[0-9]*" autocomplete="postal-code" maxlength="5" placeholder="85001" required aria-required="true"><small class="field-hint js-zip-hint">So we can show times for the team that covers your area.</small></label>
       <fieldset class="pick"><legend>Interested in <small>(optional)</small></legend><div class="pchips"><label class="pchip"><input type="radio" name="product-exit" value="Whole House Filtration"><span>Whole House Filtration</span></label><label class="pchip"><input type="radio" name="product-exit" value="Elevated Drinking System"><span>Elevated Drinking System</span></label><label class="pchip"><input type="radio" name="product-exit" value="Water Softener"><span>Water Softener</span></label><label class="pchip"><input type="radio" name="product-exit" value="Whole Home System (summer sale)"><span>Whole Home System (summer sale)</span></label><label class="pchip"><input type="radio" name="product-exit" value="Not sure yet"><span>Not sure yet</span></label></div></fieldset>
+      <p class="form-deal js-deadline"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg><span>Book by <b>October 15</b> and take another <b>$250 off</b> your system.</span></p>
       <div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
       <button class="btn btn-book btn-block" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Request my free water test</button>
       <p class="form-note js-note" aria-live="polite"></p>
@@ -962,6 +973,15 @@ form[hidden]{display:none}
   var LEAD_ENDPOINT = 'https://formsubmit.co/ajax/info@usawaterco.com';
   var MAIN_PHONE = '(480) 690-0600', MAIN_TEL = '+14806900600';
   var state = { symptoms: [] };
+
+  /* ---------- Limited time offer ----------
+     EDIT THIS ONE DATE to change or extend the $250 off deadline.
+     Everything marked .js-deadline disappears on its own once it passes,
+     so the page never sits there advertising an offer that has ended. */
+  var OFFER_ENDS = new Date(2026, 9, 15, 23, 59, 59);   // 15 October 2026, local time
+  if (Date.now() > OFFER_ENDS.getTime()) {
+    document.querySelectorAll('.js-deadline').forEach(function (el) { el.remove(); });
+  }
 
   /* ---------- Market routing ----------
      The zip picks the team that covers it, which decides both the Calendly
@@ -1179,7 +1199,10 @@ form[hidden]{display:none}
           if (p) {
             p.innerHTML = 'Choose a day and time that suits you and your ' + MARKETS[market].label +
               ' team will be there. ' +
-              '<a href="#" class="js-reopen">Open the calendar</a> if it did not appear.';
+              '<a href="#" class="js-reopen">Open the calendar</a> if it did not appear.' +
+              (Date.now() <= OFFER_ENDS.getTime()
+                ? '<br><br>Book a slot on or before <b>October 15</b> and you take another <b>$250 off</b> your system.'
+                : '');
           }
         } else {
           if (h) h.textContent = 'Request received';
