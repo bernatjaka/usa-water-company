@@ -155,12 +155,20 @@ function initZipRouter() {
 function applyMarketPhone(key) {
   var m = MARKETS[key];
   if (!m || !m.phone || !m.tel) return;
+  var NUM = /\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}/;
   var links = document.querySelectorAll('a[href^="tel:"]');
   for (var i = 0; i < links.length; i++) {
     var a = links[i];
     a.setAttribute('href', 'tel:' + m.tel);
-    /* only rewrite the visible text where it is the number itself */
-    a.textContent = a.textContent.replace(/\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}/, m.phone);
+    /* Rewrite the number in place. Setting textContent would wipe out any
+       icon or span inside the link, so walk the text nodes instead and leave
+       the markup alone. Links holding a [data-phone-text] element are handled
+       by the loop below. */
+    if (a.querySelector('[data-phone-text]')) continue;
+    var walker = document.createTreeWalker(a, NodeFilter.SHOW_TEXT, null, false), node;
+    while ((node = walker.nextNode())) {
+      if (NUM.test(node.nodeValue)) node.nodeValue = node.nodeValue.replace(NUM, m.phone);
+    }
   }
   var labels = document.querySelectorAll('[data-phone-text]');
   for (var j = 0; j < labels.length; j++) { labels[j].textContent = m.phone; }
