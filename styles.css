@@ -928,3 +928,31 @@ section[id] { scroll-margin-top: 90px; }
   .cut-panel h3 { font-size: 1.45rem; }
   .cut-tab { font-size: .84rem; padding: .5rem .8rem; }
 }
+
+/* ===== Why Aquonyx band ===== */
+.whyband { background: linear-gradient(180deg, var(--navy) 0%, #0b1a2e 100%); color: #fff; padding: 5rem 0; }
+.whyband h2 { color: #fff; }
+.eyebrow-light { color: #7fb3f0; }
+.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem; margin-bottom: 2.4rem; }
+.why-card {
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 18px; padding: 1.8rem;
+}
+.why-ico {
+  display: grid; place-items: center; width: 52px; height: 52px; margin-bottom: 1.2rem;
+  border-radius: 14px; background: var(--blue); color: #fff;
+}
+.why-ico svg { width: 26px; height: 26px; }
+.why-card h3 { color: #fff; font-size: 1.3rem; margin-bottom: .6rem; }
+.why-card p { color: #b9ccE2; font-size: .98rem; margin: 0; }
+
+.why-shots { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+.why-shots figure { margin: 0; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); border-radius: 18px; padding: .9rem; }
+.why-shots img { display: block; width: 100%; height: 19rem; object-fit: cover; border-radius: 12px; }
+.why-shots figcaption { color: #9fb6d1; font-size: .9rem; line-height: 1.5; padding: .9rem .4rem .2rem; }
+
+@media (max-width: 900px) {
+  .why-grid { grid-template-columns: 1fr; }
+  .why-shots { grid-template-columns: 1fr; }
+  .why-shots img { height: 14rem; }
+}
