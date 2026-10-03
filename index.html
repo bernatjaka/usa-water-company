@@ -121,32 +121,104 @@
   </section>
 
   <!-- Trust bar -->
-  <section class="trustbar">
-    <div class="container trustbar-inner">
-      <div class="trust-item">
-        <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg></div>
-        <strong>Licensed &amp; Insured</strong>
-        <span>Trained local technicians</span>
+  <!-- Stats strip -->
+  <section class="statstrip">
+    <div class="container statstrip-inner">
+      <div class="stat">
+        <strong>Free</strong>
+        <span>In-home test and a written report you keep</span>
       </div>
-      <div class="trust-item">
-        <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M8.2 12.5 7 22l5-3 5 3-1.2-9.5"/></svg></div>
-        <strong>Locally Owned &amp; Operated</strong>
-        <span>Phoenix, Miami &amp; Orlando</span>
+      <div class="stat">
+        <strong>Local</strong>
+        <span>Technicians in Phoenix, South Florida and Orlando</span>
       </div>
-      <div class="trust-item">
-        <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6.5l-5 8.5a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-8.5V3"/><path d="M7.5 15h9"/></svg></div>
-        <strong>Free In-Home Testing</strong>
-        <span>Full written report included</span>
+      <div class="stat">
+        <strong>USA</strong>
+        <span>Aquonyx systems assembled and tested in America</span>
       </div>
-      <div class="trust-item">
-        <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
-        <strong>Professional Installation</strong>
-        <span>By licensed contractors</span>
+      <div class="stat">
+        <strong>Licensed</strong>
+        <span>Every system installed by licensed contractors</span>
       </div>
     </div>
   </section>
 
-  <!-- Water report: scene and copy both pinned, scroll swaps the copy -->
+  <!-- What the free test covers -->
+  <section class="section" id="readings">
+    <div class="container wrc-grid">
+      <div class="wrc-copy-col reveal reveal-up">
+        <span class="eyebrow">What your free test covers</span>
+        <h2>Five readings at your tap, explained in plain language.</h2>
+        <p class="section-sub">Your technician measures each one in your own kitchen and walks you through what it
+          means for your water heater, your fixtures and the glass you drink from. Tap a reading to see what the
+          report shows.</p>
+        <p class="wrc-note">Lead, PFAS and bacteria need a certified lab. We arrange one when your concerns or your
+          readings call for it.</p>
+        <a href="contact.html" class="btn btn-primary hero2-cta">Book My Free Water Test
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <div class="wrc-card reveal reveal-up">
+        <div class="wrc-head">
+          <strong>USA Water Co. water report</strong>
+          <span class="wrc-sample">Sample</span>
+        </div>
+        <div class="wrc-body">
+          <div class="wrc-tabs" role="tablist">
+            <button class="wrc-tab is-on" type="button" data-reading="hardness">Hardness</button>
+            <button class="wrc-tab" type="button" data-reading="chlorine">Chlorine</button>
+            <button class="wrc-tab" type="button" data-reading="iron">Iron</button>
+            <button class="wrc-tab" type="button" data-reading="ph">pH</button>
+            <button class="wrc-tab" type="button" data-reading="tds">Dissolved solids</button>
+          </div>
+            <div class="wrc-panel is-on" data-reading="hardness">
+              <p class="wrc-name">HARDNESS</p>
+              <p class="wrc-value">10.4<em>gpg</em><span class="wrc-chip wrc-chip-bad">Very hard</span></p>
+              <div class="wrc-gauge"><span class="wrc-dot" style="left:74%"></span></div>
+              <p class="wrc-scale"><span>0</span><span>Soft below 3.5 gpg</span><span>14 gpg</span></p>
+              <p class="wrc-copy">On the USGS scale, water above about 10.5 grains per gallon is very hard. Hardness is what leaves white scale on faucets and shower heads, and what shortens the life of a water heater.</p>
+              <p class="wrc-ref">Reference: <a href="https://www.usgs.gov/special-topics/water-science-school/science/hardness-water" target="_blank" rel="noopener">USGS hardness scale</a></p>
+            </div>
+            <div class="wrc-panel" data-reading="chlorine">
+              <p class="wrc-name">CHLORINE</p>
+              <p class="wrc-value">1.4<em>ppm</em><span class="wrc-chip wrc-chip-ok">Within limits</span></p>
+              <div class="wrc-gauge"><span class="wrc-dot" style="left:35%"></span></div>
+              <p class="wrc-scale"><span>0</span><span>EPA limit 4.0 ppm</span><span>4 ppm</span></p>
+              <p class="wrc-copy">The EPA allows up to 4.0 parts per million of chlorine in drinking water. It is there to keep the water safe on the way to your house. Most people notice it as taste or smell at the tap.</p>
+              <p class="wrc-ref">Reference: <a href="https://www.epa.gov/ground-water-and-drinking-water/national-primary-drinking-water-regulations" target="_blank" rel="noopener">EPA disinfectant limits</a></p>
+            </div>
+            <div class="wrc-panel" data-reading="iron">
+              <p class="wrc-name">IRON</p>
+              <p class="wrc-value">0.18<em>ppm</em><span class="wrc-chip wrc-chip-ok">Within limits</span></p>
+              <div class="wrc-gauge"><span class="wrc-dot" style="left:30%"></span></div>
+              <p class="wrc-scale"><span>0</span><span>Staining above 0.3 ppm</span><span>0.6 ppm</span></p>
+              <p class="wrc-copy">The EPA secondary standard for iron is 0.3 parts per million. Above that you start to see orange staining in sinks, tubs and laundry, and a metallic taste in the water.</p>
+              <p class="wrc-ref">Reference: <a href="https://www.epa.gov/sdwa/secondary-drinking-water-standards-guidance-nuisance-chemicals" target="_blank" rel="noopener">EPA secondary standards</a></p>
+            </div>
+            <div class="wrc-panel" data-reading="ph">
+              <p class="wrc-name">PH</p>
+              <p class="wrc-value">7.6<em></em><span class="wrc-chip wrc-chip-ok">Ideal range</span></p>
+              <div class="wrc-gauge"><span class="wrc-dot" style="left:53%"></span></div>
+              <p class="wrc-scale"><span>6</span><span>Ideal 6.5 to 8.5</span><span>9</span></p>
+              <p class="wrc-copy">The EPA recommends drinking water sits between 6.5 and 8.5. Below that range water turns corrosive on your pipes. Above it you get scale and a flat taste.</p>
+              <p class="wrc-ref">Reference: <a href="https://www.epa.gov/sdwa/secondary-drinking-water-standards-guidance-nuisance-chemicals" target="_blank" rel="noopener">EPA secondary standards</a></p>
+            </div>
+            <div class="wrc-panel" data-reading="tds">
+              <p class="wrc-name">TOTAL DISSOLVED SOLIDS</p>
+              <p class="wrc-value">420<em>ppm</em><span class="wrc-chip wrc-chip-ok">Within limits</span></p>
+              <div class="wrc-gauge"><span class="wrc-dot" style="left:42%"></span></div>
+              <p class="wrc-scale"><span>0</span><span>EPA guidance 500 ppm</span><span>1000 ppm</span></p>
+              <p class="wrc-copy">Total dissolved solids is everything that would be left behind if the water evaporated: minerals, salts and metals. The EPA secondary standard is 500 parts per million, mostly for taste.</p>
+              <p class="wrc-ref">Reference: <a href="https://www.epa.gov/sdwa/secondary-drinking-water-standards-guidance-nuisance-chemicals" target="_blank" rel="noopener">EPA secondary standards</a></p>
+            </div>
+        </div>
+        <p class="wrc-foot">Sample report with illustrative readings, not results from a real home. The report you
+          are handed shows your own numbers.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- How it works -->
   <section class="section band-soft" id="how">
     <div class="container">
@@ -531,6 +603,16 @@
     document.querySelectorAll('#nav a').forEach(function (link) {
       link.addEventListener('click', function () {
         document.getElementById('nav').classList.remove('open');
+      });
+    });
+    /* Sample water report card: swap the visible reading */
+    document.querySelectorAll('.wrc-tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var key = tab.getAttribute('data-reading'), card = tab.closest('.wrc-card');
+        card.querySelectorAll('.wrc-tab').forEach(function (t) { t.classList.toggle('is-on', t === tab); });
+        card.querySelectorAll('.wrc-panel').forEach(function (p) {
+          p.classList.toggle('is-on', p.getAttribute('data-reading') === key);
+        });
       });
     });
   </script>
