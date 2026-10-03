@@ -1029,3 +1029,38 @@ section[id] { scroll-margin-top: 90px; }
   .bookcard { padding: 1.4rem; }
   .bookcard-row { grid-template-columns: 1fr; gap: 0; }
 }
+
+/* ===== Service detail pages ===== */
+/* these shots ship on white, so multiply them into the frame tint */
+.svc-media img { background: linear-gradient(180deg, #f7fafd, #e9f1fa); object-fit: contain; padding: 1.6rem; mix-blend-mode: multiply; }
+.addr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2.4rem; }
+.addr-card { border: 1px solid var(--border); border-radius: 14px; padding: 1.3rem 1.4rem; background: #fff; }
+.addr-card h3 { font-size: 1.1rem; margin-bottom: .5rem; }
+.addr-card p { color: var(--muted); font-size: .95rem; margin: 0; line-height: 1.6; }
+
+.signs { list-style: none; margin: 0 0 2.4rem; padding: 0; }
+.signs li { position: relative; padding-left: 1.5rem; margin-bottom: .7rem; line-height: 1.6; }
+.signs li::before { content: ""; position: absolute; left: 0; top: .6em; width: 8px; height: 8px; border-radius: 50%; background: var(--blue); }
+
+.howit { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 2.4rem; }
+.howit-cell { padding: 1.4rem; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.howit-cell:nth-child(2n) { border-right: 0; }
+.howit-cell:nth-last-child(-n+2) { border-bottom: 0; }
+.howit-cell span { display: block; font-size: .82rem; font-weight: 800; color: var(--muted); margin-bottom: .5rem; }
+.howit-cell p { margin: 0; font-weight: 600; color: var(--navy); line-height: 1.5; }
+
+.places { display: grid; grid-template-columns: repeat(3, 1fr); gap: .2rem 1rem; border: 1px solid var(--border); border-radius: 14px; padding: 1.3rem 1.4rem; }
+.places a { display: flex; align-items: center; gap: .5rem; padding: .45rem 0; color: var(--navy); font-size: .95rem; }
+.places a:hover { color: var(--red); }
+.places svg { width: 17px; height: 17px; color: var(--blue); flex: none; }
+.places a:last-child { font-weight: 700; color: var(--blue); }
+
+@media (max-width: 1000px) { .places { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 620px) {
+  .addr-grid { grid-template-columns: 1fr; }
+  .howit { grid-template-columns: 1fr; }
+  .howit-cell { border-right: 0; }
+  .howit-cell:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
+  .howit-cell:last-child { border-bottom: 0; }
+  .places { grid-template-columns: 1fr; }
+}
