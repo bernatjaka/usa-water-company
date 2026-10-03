@@ -645,10 +645,16 @@ section[id] { scroll-margin-top: 90px; }
   border-radius: 18px; height: clamp(24rem, 36vw, 31rem);
   box-shadow: 0 24px 60px rgba(13,35,64,.18);
 }
+/* The hero photo is a wide banner and this frame is close to square, so anchor
+   the crop on the technician on the right rather than letting it centre. */
+.hero2-media img { object-position: 72% center; }
 .hero2-float { top: auto; bottom: 1.6rem; left: -1.6rem; }
 .hero2-wave { display: none; }
 
 @media (max-width: 980px) {
+  /* this block sits after the unmedia'd .hero2-inner rule above, so the
+     single-column collapse has to be restated here or that rule wins */
+  .hero2-inner { grid-template-columns: 1fr; gap: 2.2rem; padding: 2.4rem 0 3rem; }
   .hero2-media { width: auto; margin-left: 0; order: -1; }
   .hero2-media img, .hero2-media.is-empty::before { border-radius: 16px; height: clamp(16rem, 52vw, 22rem); }
   .hero2-float { left: .9rem; bottom: .9rem; }
