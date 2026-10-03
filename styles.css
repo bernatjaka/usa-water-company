@@ -457,17 +457,9 @@ section[id] { scroll-margin-top: 90px; }
 }
 
 /* Promo bar + summer sale section */
-.promobar { background: var(--red); color: #fff; font-size: .92rem; }
 /* On phones it wraps to three lines plus a button and swallows most of the
    first screen, so it is desktop only. Remove this block to bring it back. */
-@media (max-width: 760px) { .promobar { display: none; } }
-.promobar-inner { display: flex; align-items: center; justify-content: center; gap: 1rem; padding: .6rem 2.2rem; position: relative; flex-wrap: wrap; }
-.promobar p { margin: 0; }
-.promobar-cta { background: #fff; color: var(--red); font-weight: 800; padding: .35rem 1rem; border-radius: 999px; font-size: .85rem; white-space: nowrap; }
-.promobar-cta:hover { background: #fff4ef; }
-.promobar-close { position: absolute; right: .4rem; top: 50%; transform: translateY(-50%); background: none; border: 0; color: #fff; font-size: 1.5rem; line-height: 1; cursor: pointer; padding: 0 .4rem; opacity: .85; }
-.promobar-close:hover { opacity: 1; }
-
+@media (max-width: 760px) { 
 .promo-wrap { display: grid; grid-template-columns: 0.85fr 1fr; gap: 3rem; align-items: center; }
 .promo-art img { width: 100%; border-radius: 16px; box-shadow: var(--shadow-lg); display: block; }
 .promo-copy h2 { font-size: 2.4rem; margin: .6rem 0 .9rem; }
