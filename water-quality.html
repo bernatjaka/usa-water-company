@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What's In Your Water | Free Water Report | USA Water Company</title>
+  <meta name="description" content="See what travels through your pipes before it reaches your tap. Enter your zip for a water report for your area, then book a free in-home test in Phoenix, South Florida or Orlando." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="water-report/report.css?v=20260922173852" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="logo-mark.svg" />
+  <link rel="icon" type="image/jpeg" href="logo.jpg" />
+  <link rel="apple-touch-icon" href="logo-mark.svg" />
+  <link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css" />
+  <!-- OpenAI conversion pixel -->
+  <script>!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");oaiq("init",{pixelId:"1VNhxFcREChcwBRyd2UR84",debug:true});</script>
+</head>
+<body>
+
+
+  <!-- Promo bar -->
+  <div class="promobar" id="promobar" hidden>
+    <div class="container promobar-inner">
+      <p><strong>Summer Sale, Final Days.</strong> Whole Home Water System $2,950, installation included.</p>
+      <a href="contact.html" class="promobar-cta">Book Free Test</a>
+      <button class="promobar-close" id="promobar-close" aria-label="Close offer">&times;</button>
+    </div>
+  </div>
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span>Better Water, Healthier Homes</span>
+      <a href="tel:+14806900600">Call us: (480) 690-0600</a>
+    </div>
+  </div>
+
+  <!-- Header / Nav -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand"><img src="logo-horizontal.svg" alt="USA Water Company logo" /></a>
+      <nav class="nav" id="nav">
+        <div class="nav-item has-menu">
+          <a href="services.html">Services <svg class="nav-caret" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></a>
+          <div class="nav-menu">
+            <a href="services.html">All Services</a>
+            <a href="products.html#whole-house">Whole-House Filtration</a>
+            <a href="products.html#softener">Water Softening</a>
+            <a href="products.html#elevated">Drinking Water Systems</a>
+            <a href="how-it-works.html">Free Water Testing</a>
+          </div>
+        </div>
+        <div class="nav-item"><a href="products.html">Products</a></div>
+        <div class="nav-item has-menu">
+          <a href="service-areas.html">Service Areas <svg class="nav-caret" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></a>
+          <div class="nav-menu">
+            <a href="phoenix.html">Phoenix, AZ</a>
+            <a href="south-florida.html">South Florida &amp; Miami</a>
+            <a href="orlando.html">Orlando, FL</a>
+            <a href="service-areas.html">All Service Areas</a>
+          </div>
+        </div>
+        <div class="nav-item has-menu">
+          <a href="water-quality.html">Water Quality <svg class="nav-caret" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></a>
+          <div class="nav-menu">
+            <a href="water-quality.html">What's In Your Water</a>
+            <a href="how-it-works.html">How It Works</a>
+            <a href="index.html#faq">Common Questions</a>
+          </div>
+        </div>
+        <div class="nav-item has-menu">
+          <a href="index.html#about">About <svg class="nav-caret" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></a>
+          <div class="nav-menu">
+            <a href="index.html#about">Our Company</a>
+            <a href="reviews.html">Reviews</a>
+            <a href="contact.html">Contact</a>
+          </div>
+        </div>
+      </nav>
+      <a href="contact.html" class="btn btn-primary nav-cta">Book Free Test</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+    </div>
+  </header>
+
+
+  <section class="wr-block" id="wr-block">
+    <div class="wr-pin">
+      <canvas class="sys" id="sys" aria-hidden="true"></canvas>
+      <div class="wr-scene" data-wr="1">
+        <div class="wr-txt">
+          <span class="pill">The Water Report</span>
+          <h2>This is what<br /><span class="accent">enters your home</span></h2>
+          <p>Hardness minerals, chlorine, sediment, and whatever the pipes pick up on the way.</p>
+        </div>
+      </div>
+      <div class="wr-scene" data-wr="2">
+        <div class="wr-txt">
+          <h2>A whole home system<br /><span class="accent">catches it</span></h2>
+          <p>Carbon filtration and softening strip it out before it reaches a single tap in the house.</p>
+        </div>
+      </div>
+      <div class="wr-scene" data-wr="3">
+        <div class="wr-txt">
+          <h2>This is what<br /><span class="accent">should come out</span></h2>
+          <p>Want to know what is actually in yours?</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Zip prompt, straight after the scene -->
+  <section class="wr-ask" id="wr-ask">
+    <div class="wr-ask-grid">
+
+      <!-- Introduction. Facade only, the player loads on press. -->
+      <div class="wr-ask-video" id="intro-video">
+        <button type="button" class="wr-vid-play" id="intro-play" aria-label="Play introduction">
+          <img src="https://i.vimeocdn.com/video/2203967809-2a0e4359fa5d62fe4c5bffce1d17a70b7fd5d063d36066f3b82388254fc122d9-d_640?region=us"
+               alt="" loading="lazy" />
+          <span class="wr-vid-icon" aria-hidden="true"></span>
+          <span class="wr-vid-label">Meet USA Water Company<br /><small>34 seconds</small></span>
+        </button>
+      </div>
+
+      <div class="wr-ask-inner">
+      <h2 class="wr-ask-h">Have you ever checked what's in your water?</h2>
+      <p class="wr-ask-line">I live in
+        <span class="wr-ask-slot"><input id="ask-zip" type="text" inputmode="numeric"
+          maxlength="5" autocomplete="postal-code" placeholder="[ zip code ]" /></span>
+      </p>
+      <button class="btn btn-primary" id="wr-open">Check My Water</button>
+      <p class="wr-ask-note" id="ask-note"></p>
+      </div>
+    </div>
+  </section>
+
+    <!-- Water report quiz, opens over the page -->
+  <div class="wr-modal" id="wr-modal" hidden>
+    <div class="wr-modal-bar">
+      <span class="wr-tag">Your Water Report</span>
+      <button class="wr-close" id="wr-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="wr-modal-body">
+
+      <section class="panel is-on" data-panel="1">
+        <div class="sentence">
+          <p class="line" data-line="1">I'm
+            <span class="slot"><input id="f-name" type="text" autocomplete="given-name"
+              placeholder="[ your name ]" maxlength="24" /></span>
+          </p>
+          <p class="line" data-line="2">I live in
+            <span class="slot"><input id="f-zip" type="text" inputmode="numeric" autocomplete="postal-code"
+              placeholder="[ zip code ]" maxlength="5" /></span>
+          </p>
+        </div>
+        <p class="err" id="err" role="alert"></p>
+        <div class="nav">
+          <button class="link" id="prev">Previous</button>
+          <button class="btn" id="next">Next</button>
+        </div>
+        <p class="fine" id="fine">No email needed. Your results show straight away.</p>
+      </section>
+
+      <section class="panel" data-panel="4">
+        <p class="building">Reading water quality data for <span id="b-zip"></span></p>
+        <div class="bar"><span id="barfill"></span></div>
+      </section>
+
+      <section class="panel wr-report" data-panel="5">
+        <p class="eyebrow">Water report for <span id="r-zip"></span></p>
+        <h2 class="rtitle" id="r-title">Your Water Report</h2>
+        <p class="rsub" id="r-sub"></p>
+
+        <!-- Craig on what happens next, right under the open results -->
+        <div class="wr-nextsteps" id="r-video" hidden>
+          <button type="button" class="wr-vid-play" id="r-video-play" aria-label="Play video">
+            <img src="https://i.vimeocdn.com/video/2203957080-037091ebc67ef8d4cbc67dcdc3ccad216f7a6850bfa00388a7888b40039553cc-d_640?region=us"
+                 alt="" loading="lazy" />
+            <span class="wr-vid-icon" aria-hidden="true"></span>
+          </button>
+          <div class="wr-nextsteps-copy">
+            <h3>What happens next</h3>
+            <p>A quick look at what a free in-home test actually involves. 31 seconds.</p>
+          </div>
+        </div>
+
+        <div class="wr-grid" id="r-cards"></div>
+
+        <div class="wr-gate" id="r-gate" hidden>
+          <div class="wr-gate-grid wr-gate-grid-solo">
+            <div class="wr-gate-copy">
+              <h3 id="r-gate-title">More results in your area</h3>
+              <p id="r-gate-sub"></p>
+              <button type="button" class="btn" id="r-cta">Pick a Time for My Free Test</button>
+              <ul class="wr-gate-list">
+                <li>A certified technician tests the water at your own taps</li>
+                <li>Full written report, explained in plain language</li>
+                <li>Free, about an hour, and no obligation to buy anything</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="wr-copyto">
+          <button type="button" class="link" id="wr-mailme">Email me a copy of this report</button>
+          <form class="wr-copyto-form" id="wr-mailform" hidden>
+            <input type="email" id="wr-mailinput" placeholder="your@email.com" autocomplete="email" />
+            <button type="submit" class="btn btn-sm">Send it</button>
+          </form>
+          <p class="wr-copyto-done" id="wr-mailok" hidden>Sent. Check your inbox.</p>
+        </div>
+        <p class="fine">Area figures come from the EWG Tap Water Database and reflect water supplied to your area, not a test of your own tap.</p>
+      </section>
+
+      <!-- Booking, straight after the report. Assume the sale. -->
+      <section class="panel wr-book" data-panel="6">
+        <p class="eyebrow">Your free in-home test</p>
+        <h2 class="rtitle">Pick a day<br /><span class="wr-accent">that suits you</span></h2>
+        <p class="rsub" id="b-sub">A certified technician tests the water at your own taps and walks you through the full results. Free, about an hour, no obligation.</p>
+        <div id="wr-cal" style="min-width:320px;height:660px;"></div>
+        <button type="button" class="link" id="wr-backtoreport">Back to my results</button>
+      </section>
+
+    </div>
+
+    <div class="wr-sticky-cta" id="wr-stickycta" hidden>
+      <div class="wr-sticky-inner">
+        <span class="wr-sticky-text" id="wr-sticky-text">See your full results</span>
+        <button type="button" class="btn" id="wr-sticky-btn">Pick a Time for My Free Test</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner footer-4">
+      <div class="footer-brand">
+        <img src="logo-horizontal.svg" alt="USA Water Company" />
+        <span class="footer-name">USA Water Company</span>
+        <span class="footer-slogan">Better Water, Healthier Homes</span>
+        <p>Locally owned and operated in Phoenix, Miami, and Orlando.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="services.html">Services</a>
+        <a href="products.html">Products</a>
+        <a href="water-quality.html">Water Quality</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="reviews.html">Reviews</a>
+      </div>
+      <div class="footer-col">
+        <h4>Service Areas</h4>
+        <a href="service-areas.html">All Areas</a>
+        <a href="phoenix.html">Phoenix, AZ</a>
+        <a href="south-florida.html">South Florida</a>
+        <a href="orlando.html">Orlando, FL</a>
+      </div>
+      <div class="footer-col">
+        <h4>Get in Touch</h4>
+        <a href="tel:+14806900600">(480) 690-0600</a>
+        <a href="mailto:info@usawaterco.com">info@usawaterco.com</a>
+        <span>9200 E. Pima Center Pkwy, Scottsdale, AZ 85258</span>
+        <span>Monday to Saturday, 8AM to 6PM</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <span>© 2026 USA Water Company. All rights reserved.</span>
+        <span class="footer-disclosure">Professionally Installed by Licensed Contractors</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('hamburger').addEventListener('click', function () {
+      document.getElementById('nav').classList.toggle('open');
+    });
+    document.querySelectorAll('#nav a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        document.getElementById('nav').classList.remove('open');
+      });
+    });
+  </script>
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <script src="calendly-redirect.js"></script>
+  <script src="water-report/data.js?v=20260922173852"></script>
+  <script src="water-report/system.js?v=20260922173852"></script>
+  <script src="water-report/report.js?v=20260922173852"></script>
+  <script src="booking.js?v=20260923095429"></script>
+  <script src="promo.js"></script>
+  <script src="reveal.js"></script>
+</body>
+</html>
