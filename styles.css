@@ -842,3 +842,6 @@ section[id] { scroll-margin-top: 90px; }
 }
 .map-town-l { text-anchor: end; }
 .map-leader { stroke: #9db3c9; stroke-width: 1; fill: none; }
+.map-inset-land { fill: #dbe9fa; stroke: #a9c6e8; stroke-width: 1.5; }
+.map-inset-dot { fill: var(--red); stroke: #fff; stroke-width: 2; }
+.map-inset-label { fill: #93a7bd; font-size: 13px; font-weight: 800; letter-spacing: 2.2px; text-anchor: middle; }
