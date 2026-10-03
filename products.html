@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Products | USA Water Company</title>
   <meta name="description" content="Explore water filtration, reverse osmosis, and water softening systems from USA Water Company, professionally installed in Phoenix, AZ and Miami, FL." />
-  <link rel="stylesheet" href="styles.css?v=20261002210608" />
+  <link rel="stylesheet" href="styles.css?v=20261002212033" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="logo-mark.svg" />
   <link rel="icon" type="image/jpeg" href="logo.jpg" />
   <link rel="apple-touch-icon" href="logo-mark.svg" />
+  <link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css" />
   <!-- OpenAI conversion pixel -->
   <script>!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");oaiq("init",{pixelId:"1VNhxFcREChcwBRyd2UR84",debug:true});</script>
 </head>
 <body>
+
 
   <!-- Top bar -->
   <div class="topbar">
@@ -25,9 +30,7 @@
   <!-- Header / Nav -->
   <header class="header">
     <div class="container header-inner">
-      <a href="index.html" class="brand">
-        <img src="logo-horizontal.svg" alt="USA Water Company logo" />
-      </a>
+      <a href="index.html" class="brand"><img src="logo-horizontal.svg" alt="USA Water Company logo" /></a>
       <nav class="nav" id="nav">
         <div class="nav-item has-menu">
           <a href="services.html">Services <svg class="nav-caret" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></a>
@@ -71,42 +74,213 @@
     </div>
   </header>
 
-  <!-- Products hero -->
-  <section class="hero hero-short">
-    <div class="container center">
-      <span class="pill pill-light">Water Treatment Systems</span>
-      <h1>Our Water Treatment<br /><span class="accent-light">Product Catalog</span></h1>
-      <p class="lead center-lead">Professional-grade water filtration, softening, and reverse osmosis systems, expertly sized for your home and professionally installed by licensed contractors in Phoenix and Miami.</p>
-      <div class="hero-actions center-actions">
-        <a href="contact.html" class="btn btn-primary">Get a Free Consultation →</a>
-        <a href="tel:+14806900600" class="btn btn-ghost">(480) 690-0600</a>
+  <!-- Catalog hero -->
+  <section class="sa-hero">
+    <div class="container">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="index.html">Home</a> <span>/</span>
+        <a href="services.html">Services</a> <span>/</span>
+        <span aria-current="page">Products</span>
+      </nav>
+      <div class="sa-hero-grid">
+        <div>
+          <span class="eyebrow">Aquonyx water systems</span>
+          <h1>Our Water Treatment Product Catalog</h1>
+          <p class="hero2-lead">Aquonyx filtration, softening and reverse osmosis systems, professionally
+            installed by licensed contractors in Phoenix, South Florida and Orlando, with a lifetime
+            warranty on whole-home systems.</p>
+          <p class="prod-by">Systems by <strong>AQUONYX</strong></p>
+          <div class="hero2-actions">
+            <a href="contact.html" class="btn btn-primary hero2-cta">Book My Free Water Test <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+            <a class="hero2-phone" href="tel:+14806900600"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><span data-phone-text>(480) 690-0600</span></a>
+          </div>
+          <p class="hero2-proof">
+            <span class="hero2-badge"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.6 2.5L16 9.5"/></svg> Licensed &amp; insured</span>
+            <span class="hero2-badge"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.6 2.5L16 9.5"/></svg> Lifetime warranty on whole-home systems</span>
+            <span class="hero2-badge">Built in the USA</span>
+          </p>
+        </div>
+        <figure class="sa-media">
+          <img src="the-diamond.png" width="1024" height="1024" alt="The Black Diamond whole-house carbon filter" />
+        </figure>
       </div>
     </div>
   </section>
 
-  <!-- System chooser -->
-  <div class="chooser">
+  <!-- Jump bar -->
+  <nav class="jumpbar" aria-label="Jump to a section">
+    <div class="container jumpbar-inner">
+        <a href="#systems">The systems</a>
+        <a href="#inside">Look inside</a>
+        <a href="#whole-house">Carbon Filter</a>
+        <a href="#softener">Water Softener</a>
+        <a href="#elevated">Drinking Water</a>
+        <a href="#why">Why Aquonyx</a>
+    </div>
+  </nav>
+
+  <!-- The three systems -->
+  <section class="section" id="systems">
     <div class="container">
-      <h2 class="center chooser-title">Choose Your System</h2>
-      <div class="chooser-grid">
-        <a href="#whole-house" class="choose-card">
-          <span class="choose-eyebrow">Whole-House Filtration</span>
+      <div class="section-head center">
+        <span class="eyebrow">The systems we install</span>
+        <h2>Three systems, matched to your test results</h2>
+        <p class="section-sub">We recommend a system only after testing your water, so you get what your
+          home actually needs rather than the biggest thing on the truck.</p>
+      </div>
+      <div class="prod-grid">
+        <a class="prod-card reveal reveal-up" href="#whole-house">
+          <div class="prod-shot"><img src="whole-house-filter.png" width="1024" height="1024" alt="Black Diamond Carbon Filter" loading="lazy" /></div>
+          <span class="prod-kind">Whole-house filtration</span>
           <h3>Black Diamond Carbon Filter</h3>
-          <p>Whole-home activated carbon that reduces chlorine, taste, and odor from every tap.</p>
-          <span class="choose-link">View system →</span>
+          <p>A deep bed of activated carbon that reduces chlorine, chloramine, taste, odor and many organic contaminants at every tap in the house. Choice of coconut shell or catalytic carbon, in 1.0, 1.5 and 2.0 cubic foot sizes. No salt, no added chemicals.</p>
+          <span class="link-arrow">See the detail <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
         </a>
-        <a href="#softener" class="choose-card">
-          <span class="choose-eyebrow">Water Softener</span>
+        <a class="prod-card reveal reveal-up" href="#softener">
+          <div class="prod-shot"><img src="softener.png" width="1024" height="1024" alt="Diamond Soft Water Softener" loading="lazy" /></div>
+          <span class="prod-kind">Water softener</span>
           <h3>Diamond Soft Water Softener</h3>
-          <p>Removes hard-water minerals to protect your pipes, appliances, and fixtures.</p>
-          <span class="choose-link">View system →</span>
+          <p>A metered softener that removes the calcium and magnesium behind hard-water scale, protecting your water heater, fixtures and appliances. Available in 30,000, 45,000 and 60,000 grain capacities, with a separate brine tank.</p>
+          <span class="link-arrow">See the detail <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="prod-card reveal reveal-up" href="#elevated">
+          <div class="prod-shot"><img src="elevated-system-main.png" width="1024" height="1024" alt="Elevated Drinking System" loading="lazy" /></div>
+          <span class="prod-kind">Drinking water</span>
+          <h3>Elevated Drinking System</h3>
+          <p>A five-stage reverse osmosis system at your kitchen sink, from a 5 micron sediment pre-filter through the membrane to a remineralization stage that puts calcium and magnesium back. Quiet, non-electric, with a 3-gallon storage tank.</p>
+          <span class="link-arrow">See the detail <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
         </a>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Featured product: Whole-House Carbon Filter -->
-  <section class="section" id="whole-house">
+  <!-- Cutaway -->
+  <section class="section band-soft" id="inside">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">How it works</span>
+        <h2>Look inside the Black Diamond</h2>
+        <p class="section-sub">Open the tank up and see what each part does, from the carbon at the top
+          down to the distributor at the bottom.</p>
+      </div>
+      <div class="cut-grid">
+        <figure class="cut-stage">
+          <div class="cut-3d" id="cut3d">
+            <div class="cut-still"><svg class="cut-svg" viewBox="0 0 420 580" role="img" aria-label="Cutaway drawing of the Black Diamond carbon filter">
+        <defs>
+          <linearGradient id="cutJacket" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#27313d"/><stop offset=".42" stop-color="#4a5868"/>
+            <stop offset=".62" stop-color="#2d3844"/><stop offset="1" stop-color="#1b232d"/>
+          </linearGradient>
+          <pattern id="cutCarbon" width="9" height="9" patternUnits="userSpaceOnUse">
+            <rect width="9" height="9" fill="#2b3340"/>
+            <circle cx="2.2" cy="2.4" r="1.5" fill="#495768"/><circle cx="6.6" cy="6.1" r="1.7" fill="#3d4a5a"/>
+            <circle cx="7.2" cy="1.8" r="1.1" fill="#54637a"/><circle cx="2.8" cy="7" r="1.2" fill="#44515f"/>
+          </pattern>
+          <pattern id="cutGravel" width="11" height="11" patternUnits="userSpaceOnUse">
+            <rect width="11" height="11" fill="#b9c4d1"/>
+            <circle cx="3" cy="3.4" r="2.2" fill="#93a2b4"/><circle cx="8.3" cy="7.6" r="2.4" fill="#a4b2c2"/>
+            <circle cx="8.6" cy="2.3" r="1.6" fill="#879ead"/>
+          </pattern>
+        </defs>
+
+        <!-- tank -->
+        <g class="cut-part cut-tank">
+          <rect x="118" y="96" width="184" height="406" rx="34" fill="url(#cutJacket)"/>
+          <rect x="118" y="96" width="184" height="406" rx="34" fill="none" stroke="#141b23" stroke-width="2"/>
+          <ellipse cx="210" cy="508" rx="78" ry="12" fill="#161d26"/>
+        </g>
+
+        <!-- what the cutaway reveals, hidden on step 1 -->
+        <g class="cut-inner">
+          <rect class="cut-void" x="146" y="118" width="128" height="368" rx="20" fill="#eef4fb"/>
+          <g class="cut-part cut-carbon">
+            <rect x="146" y="150" width="128" height="212" fill="url(#cutCarbon)"/>
+            <rect x="146" y="150" width="128" height="212" fill="none" stroke="#1d2531" stroke-width="1.5"/>
+          </g>
+          <g class="cut-part cut-gravel">
+            <rect x="146" y="362" width="128" height="86" fill="url(#cutGravel)"/>
+            <rect x="146" y="362" width="128" height="86" fill="none" stroke="#8795a6" stroke-width="1.5"/>
+          </g>
+          <g class="cut-part cut-riser">
+            <rect x="201" y="118" width="18" height="340" rx="7" fill="#e9eef5" stroke="#9fb0c4" stroke-width="1.6"/>
+            <path d="M193 452h34v14a10 10 0 0 1-10 10h-14a10 10 0 0 1-10-10z" fill="#dce5ef" stroke="#9fb0c4" stroke-width="1.6"/>
+            <path d="M197 458h26M197 465h26" stroke="#9fb0c4" stroke-width="1.6" stroke-linecap="round"/>
+          </g>
+        </g>
+
+        <!-- control valve, always on top of the tank -->
+        <g class="cut-part cut-valve">
+          <rect x="160" y="40" width="100" height="58" rx="10" fill="#222b36" stroke="#141b23" stroke-width="2"/>
+          <rect x="174" y="52" width="48" height="26" rx="4" fill="#9fd4e8"/>
+          <circle cx="243" cy="66" r="7" fill="#4a5868"/>
+          <rect x="186" y="96" width="48" height="12" fill="#2b3340"/>
+          <path d="M118 74h42M260 74h42" stroke="#4a5868" stroke-width="13" stroke-linecap="round"/>
+        </g>
+
+        <!-- brine tank, only called out on the softener step -->
+        <g class="cut-part cut-brine">
+          <rect x="316" y="300" width="74" height="200" rx="14" fill="url(#cutJacket)" stroke="#141b23" stroke-width="2"/>
+          <rect x="316" y="300" width="74" height="18" rx="8" fill="#1b232d"/>
+          <ellipse cx="353" cy="504" rx="36" ry="8" fill="#161d26"/>
+        </g>
+      </svg></div>
+            <p class="cut-hint">Drag to turn it</p>
+          </div>
+          <figcaption>3D model of the Black Diamond carbon filter. Shown in cutaway for illustration, not to scale.</figcaption>
+        </figure>
+        <div class="cut-copy">
+          <div class="cut-tabs" role="tablist">
+            <button class="cut-tab is-on" type="button" data-step="outside">Outside</button>
+            <button class="cut-tab" type="button" data-step="inside">Look inside</button>
+            <button class="cut-tab" type="button" data-step="carbon">Carbon media</button>
+            <button class="cut-tab" type="button" data-step="gravel">Gravel underbedding</button>
+            <button class="cut-tab" type="button" data-step="riser">Riser and distributor</button>
+            <button class="cut-tab" type="button" data-step="valve">Control valve</button>
+          </div>
+            <div class="cut-panel is-on" data-step="outside">
+              <p class="cut-count">Step 1 of 6</p>
+              <h3>Outside</h3>
+              <p class="cut-sub">One tank, one job</p>
+              <p>The Black Diamond is a single tank in a black jacket with a metered control valve on top. It plumbs into the main line where water enters the house, so every tap downstream gets filtered water. Built in the USA and backed by a lifetime warranty.</p>
+            </div>
+            <div class="cut-panel" data-step="inside">
+              <p class="cut-count">Step 2 of 6</p>
+              <h3>Look inside</h3>
+              <p class="cut-sub">A deep bed of media</p>
+              <p>Cut the tank open and it is mostly media. A deep bed of activated carbon fills the upper two thirds, resting on a gravel underbedding that keeps the bed level and stops media washing out.</p>
+            </div>
+            <div class="cut-panel" data-step="carbon">
+              <p class="cut-count">Step 3 of 6</p>
+              <h3>Carbon media</h3>
+              <p class="cut-sub">Coconut shell or catalytic</p>
+              <p>The carbon is the part doing the work. Coconut shell carbon handles chlorine, taste and odor. Catalytic carbon is the choice when your utility uses chloramine, which ordinary carbon struggles with. Available in 1.0, 1.5 and 2.0 cubic foot beds.</p>
+            </div>
+            <div class="cut-panel" data-step="gravel">
+              <p class="cut-count">Step 4 of 6</p>
+              <h3>Gravel underbedding</h3>
+              <p class="cut-sub">Keeps the bed where it belongs</p>
+              <p>Under the carbon sits a layer of graded gravel. It spreads the flow evenly across the bottom of the bed so water cannot channel down one side, and it stops fine media reaching the distributor.</p>
+            </div>
+            <div class="cut-panel" data-step="riser">
+              <p class="cut-count">Step 5 of 6</p>
+              <h3>Riser and distributor</h3>
+              <p class="cut-sub">How the water travels</p>
+              <p>Water enters at the top, works down through the carbon, and is collected by the distributor basket at the bottom of the riser tube. It then travels back up the riser and out to the house.</p>
+            </div>
+            <div class="cut-panel" data-step="valve">
+              <p class="cut-count">Step 6 of 6</p>
+              <h3>Control valve</h3>
+              <p class="cut-sub">Backwashes only when needed</p>
+              <p>The metered valve on top counts the water you actually use. It backwashes the bed on a schedule driven by that number rather than a timer, which lifts packed media, flushes out what the carbon has caught, and resets the bed.</p>
+            </div>
+          <a class="link-arrow" href="#whole-house">See the full specifications <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section class="section" id="whole-house">
     <div class="container">
       <div class="section-head center">
         <span class="pill">Whole-House Filtration</span>
@@ -223,6 +397,33 @@
   </section>
 
   <!-- Footer -->
+  <!-- Why Aquonyx -->
+  <section class="section" id="why">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">Why Aquonyx</span>
+        <h2>Built in America, sized for your house</h2>
+      </div>
+      <div class="cards">
+        <div class="card reveal reveal-up">
+          <h3>Assembled and tested in the USA</h3>
+          <p>Every Aquonyx system is built, filled and tested in a US facility before it ships. We handle
+            the installation and the support here in your market.</p>
+        </div>
+        <div class="card reveal reveal-up">
+          <h3>Lifetime warranty</h3>
+          <p>Whole-home systems carry a lifetime warranty. The drinking water system uses quick-change
+            filters you can swap yourself in a couple of minutes.</p>
+        </div>
+        <div class="card reveal reveal-up">
+          <h3>Sized to your readings</h3>
+          <p>Carbon beds come in 1.0, 1.5 and 2.0 cubic feet and softeners in 30,000, 45,000 and 60,000
+            grains. Which one you need depends on your hardness and how much water the house uses.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <footer class="footer">
     <div class="container footer-inner footer-4">
       <div class="footer-brand">
@@ -273,5 +474,6 @@
     });
   </script>
   <script src="reveal.js"></script>
+  <script type="module" src="products-3d.js"></script>
 </body>
 </html>

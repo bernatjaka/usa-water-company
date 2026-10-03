@@ -845,3 +845,80 @@ section[id] { scroll-margin-top: 90px; }
 .map-inset-land { fill: #dbe9fa; stroke: #a9c6e8; stroke-width: 1.5; }
 .map-inset-dot { fill: var(--red); stroke: #fff; stroke-width: 2; }
 .map-inset-label { fill: #93a7bd; font-size: 13px; font-weight: 800; letter-spacing: 2.2px; text-anchor: middle; }
+
+/* ===== Product catalog ===== */
+.prod-by { font-size: .82rem; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: var(--muted); margin-bottom: 1.6rem; }
+.prod-by strong { color: var(--navy); letter-spacing: 3px; font-weight: 800; }
+
+.jumpbar { position: sticky; top: 76px; z-index: 40; background: rgba(255,255,255,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+.jumpbar-inner { display: flex; gap: .6rem; overflow-x: auto; padding: .8rem 0; scrollbar-width: none; }
+.jumpbar-inner::-webkit-scrollbar { display: none; }
+.jumpbar a {
+  flex: none; padding: .5rem 1.1rem; border-radius: 999px; border: 1px solid var(--border);
+  font-size: .9rem; font-weight: 700; color: var(--navy); background: #fff; white-space: nowrap;
+}
+.jumpbar a:hover { border-color: var(--blue); color: var(--red); }
+
+.prod-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.prod-card { display: block; color: inherit; }
+.prod-shot {
+  display: flex; align-items: center; justify-content: center; padding: 1.6rem;
+  background: linear-gradient(180deg, #f6f9fd, #eaf1fa); border-radius: 18px; margin-bottom: 1.2rem;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.prod-shot img { width: 100%; max-height: 300px; object-fit: contain; }
+.prod-card:hover .prod-shot { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.prod-kind { display: block; font-size: .74rem; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; color: var(--blue); margin-bottom: .35rem; }
+.prod-card h3 { font-size: 1.3rem; margin-bottom: .6rem; }
+.prod-card p { color: var(--muted); margin-bottom: .9rem; }
+
+/* 3D cutaway */
+.cut-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 3rem; align-items: center; }
+.cut-stage { margin: 0; }
+.cut-3d {
+  position: relative; width: 100%; aspect-ratio: 1 / 1; max-height: 34rem;
+  background: linear-gradient(180deg, #ffffff, #e9f0f9);
+  border: 1px solid var(--border); border-radius: 18px; overflow: hidden;
+  cursor: grab; touch-action: pan-y;
+}
+.cut-3d.is-grabbing { cursor: grabbing; }
+/* the canvas fills the box; a class selector beats the UA [hidden] rule, so the
+   still needs its own hidden state or it sits on top of the 3D */
+.cut-3d canvas { position: absolute; inset: 0; display: block; width: 100% !important; height: 100% !important; }
+.cut-still { position: absolute; inset: 0; display: grid; place-items: center; padding: 1.2rem; }
+.cut-still[hidden] { display: none; }
+.cut-still .cut-svg { width: auto; height: 100%; max-width: 100%; }
+.cut-hint {
+  position: absolute; left: 50%; bottom: .9rem; transform: translateX(-50%);
+  font-size: .78rem; font-weight: 700; letter-spacing: .4px; color: var(--muted);
+  background: rgba(255,255,255,.85); padding: .3rem .8rem; border-radius: 999px;
+  opacity: 0; transition: opacity .3s ease; pointer-events: none;
+}
+.cut-3d.is-live .cut-hint { opacity: 1; }
+.cut-stage figcaption { font-size: .84rem; color: var(--muted); margin-top: .8rem; }
+
+.cut-tabs { display: flex; flex-wrap: wrap; gap: .5rem; background: var(--blue-light); padding: .5rem; border-radius: 14px; margin-bottom: 1.6rem; }
+.cut-tab {
+  font: inherit; font-size: .9rem; font-weight: 700; cursor: pointer; border: 0;
+  padding: .55rem 1rem; border-radius: 10px; background: transparent; color: var(--navy);
+  transition: background .15s, box-shadow .15s;
+}
+.cut-tab:hover { background: rgba(255,255,255,.6); }
+.cut-tab.is-on { background: #fff; box-shadow: var(--shadow); }
+.cut-panel { display: none; }
+.cut-panel.is-on { display: block; }
+.cut-count { font-size: .74rem; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; color: var(--muted); margin-bottom: .3rem; }
+.cut-panel h3 { font-size: 1.8rem; margin-bottom: .3rem; }
+.cut-sub { color: var(--blue); font-weight: 700; margin-bottom: .8rem; }
+.cut-panel p:last-child { color: var(--text); }
+.cut-copy > .link-arrow { margin-top: 1.4rem; }
+
+@media (max-width: 1000px) {
+  .prod-grid { grid-template-columns: 1fr; gap: 2.4rem; }
+  .cut-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
+@media (max-width: 960px) { .jumpbar { top: 0; } }
+@media (max-width: 620px) {
+  .cut-panel h3 { font-size: 1.45rem; }
+  .cut-tab { font-size: .84rem; padding: .5rem .8rem; }
+}
