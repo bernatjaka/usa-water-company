@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>USA Water Company | Water Filtration, Softening &amp; Testing</title>
   <meta name="description" content="USA Water Company provides professional water filtration, softening, and certified testing for homes and businesses in Phoenix, Miami, and Orlando. Start with a free test." />
-  <link rel="stylesheet" href="styles.css?v=20261002224247" />
+  <link rel="stylesheet" href="styles.css?v=20261002224806" />
   <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="logo-mark.svg" />
   <link rel="icon" type="image/jpeg" href="logo.jpg" />
@@ -287,6 +287,77 @@
     </div>
   </section>
 
+  <!-- Book your free water test -->
+  <section class="bookband" id="book">
+    <svg class="bookband-waves" viewBox="0 0 1440 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <path d="M0 250C240 150 420 420 700 330s430-240 740-120v490H0z" fill="#1b3f78" opacity=".55"/>
+      <path d="M0 360C260 260 450 520 740 430s420-230 700-110v380H0z" fill="#23508f" opacity=".5"/>
+      <path d="M0 470C280 380 470 610 760 530s400-200 680-90v260H0z" fill="#2c61a8" opacity=".4"/>
+    </svg>
+    <div class="container bookband-inner">
+      <div class="bookband-copy">
+        <h2>Your water.<br />Your answers.<br />Your free test.</h2>
+        <ul class="bookband-ticks">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.6 2.5L16 9.5"/></svg> In-home testing at your own tap</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.6 2.5L16 9.5"/></svg> A written report that is yours to keep</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.6 2.5L16 9.5"/></svg> No obligation to buy a system</li>
+        </ul>
+        <a class="bookband-phone" href="tel:+14806900600">(480) 690-0600</a>
+      </div>
+
+      <div class="bookcard">
+        <h3>Book Your Free Water Test</h3>
+        <p class="bookcard-sub">Tell us where you are and pick a time that suits you.</p>
+        <form id="book-form" novalidate>
+          <div class="bookcard-row">
+            <label class="bookcard-field">
+              <span>Full name <i aria-hidden="true">*</i></span>
+              <input type="text" id="bf-name" name="name" autocomplete="name" placeholder="Jane Smith" required />
+            </label>
+            <label class="bookcard-field">
+              <span>Zip code <i aria-hidden="true">*</i></span>
+              <input type="text" id="bf-zip" name="zip" inputmode="numeric" maxlength="5"
+                     autocomplete="postal-code" placeholder="85258" required />
+            </label>
+          </div>
+          <div class="bookcard-row">
+            <label class="bookcard-field">
+              <span>Email <i aria-hidden="true">*</i></span>
+              <input type="email" id="bf-email" name="email" autocomplete="email" placeholder="you@example.com" required />
+            </label>
+            <label class="bookcard-field">
+              <span>Phone</span>
+              <input type="tel" id="bf-phone" name="phone" inputmode="tel" autocomplete="tel-national" placeholder="(480) 555-0123" />
+            </label>
+          </div>
+          <label class="bookcard-field">
+            <span>What are you noticing? <em>(optional)</em></span>
+            <select id="bf-concern" name="concern">
+              <option value="">Choose one...</option>
+              <option>Spots on dishes and glassware</option>
+              <option>White scale on fixtures or shower heads</option>
+              <option>Chlorine taste or smell</option>
+              <option>Dry skin or hair</option>
+              <option>Orange or rust staining</option>
+              <option>Rotten egg smell</option>
+              <option>Not sure yet</option>
+            </select>
+          </label>
+          <button type="submit" class="btn btn-primary bookcard-go">Pick My Time <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
+          <p class="bookcard-note" id="bf-note" aria-live="polite"></p>
+        </form>
+        <div class="bookcard-next">
+          <p class="bookcard-next-h">What happens next</p>
+          <ol>
+            <li>You pick a day and time on your local team's calendar.</li>
+            <li>A technician tests your water at your kitchen tap, about an hour.</li>
+            <li>You keep the written report. No obligation.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- The systems -->
   <section class="section" id="systems">
     <div class="container">
@@ -497,6 +568,71 @@
         });
       });
     });
+
+    /* Booking band: the zip decides whose calendar opens. Falls back to a call
+       when we do not cover that area yet, rather than pretending we can book it. */
+    (function () {
+      var form = document.getElementById('book-form');
+      if (!form) return;
+      var note = document.getElementById('bf-note');
+      var nameIn = document.getElementById('bf-name');
+      var zipIn = document.getElementById('bf-zip');
+      var mailIn = document.getElementById('bf-email');
+      var phoneIn = document.getElementById('bf-phone');
+
+      function fail(el, msg) {
+        note.className = 'bookcard-note is-error';
+        note.textContent = msg;
+        el.focus();
+        return false;
+      }
+      zipIn.addEventListener('input', function () {
+        zipIn.value = zipIn.value.replace(/\D/g, '').slice(0, 5);
+        var m = marketForZip(zipIn.value);
+        if (m) {
+          note.className = 'bookcard-note is-ok';
+          note.textContent = 'Covered by our ' + MARKETS[m].label + ' team.';
+          applyMarketPhone(m);
+        } else if (zipIn.value.length === 5) {
+          note.className = 'bookcard-note';
+          note.textContent = 'We are not booking online there yet. Send this and we will call you.';
+        } else {
+          note.className = 'bookcard-note';
+          note.textContent = '';
+        }
+      });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = nameIn.value.trim();
+        var zip = zipIn.value.replace(/\D/g, '');
+        var email = mailIn.value.trim();
+        if (name.length < 2) return fail(nameIn, 'Enter your name so the team knows who to ask for.');
+        if (zip.length !== 5) return fail(zipIn, 'Enter your 5-digit zip so we can book the right team.');
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return fail(mailIn, 'Enter a valid email address.');
+
+        var market = marketForZip(zip);
+        if (!market) {
+          note.className = 'bookcard-note is-error';
+          note.innerHTML = 'We do not have a team in ' + zip + ' yet. Call '
+            + '<a href="tel:+14806900600">(480) 690-0600</a> and we will see what we can do.';
+          return;
+        }
+        applyMarketPhone(market);
+        note.className = 'bookcard-note is-ok';
+        note.textContent = 'Opening times for ' + MARKETS[market].label + '...';
+
+        var url = marketUrl(market) + '?hide_gdpr_banner=1'
+          + '&name=' + encodeURIComponent(name) + '&email=' + encodeURIComponent(email);
+        whenCalendlyReady(function () {
+          if (window.Calendly) {
+            Calendly.initPopupWidget({ url: url, prefill: { name: name, email: email } });
+          } else {
+            window.location.href = 'contact.html';
+          }
+        });
+      });
+    })();
   </script>
   <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
   <script src="calendly-redirect.js"></script>
