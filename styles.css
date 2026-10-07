@@ -1099,6 +1099,8 @@ section[id] { scroll-margin-top: 90px; }
 }
 .rv-google:hover { background: #0a1b33; color: #fff; }
 .rv-google svg:last-child { width: 20px; height: 20px; }
+/* a class selector beats the UA [hidden] rule, so these need their own */
+.rv-back[hidden], .rv-q[hidden] { display: none !important; }
 .rv-back { display: block; margin: 0 auto; background: none; border: 0; font: inherit; font-size: .9rem; color: var(--blue); cursor: pointer; text-decoration: underline; padding: .6rem; }
 
 .rv-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 .8rem; }
