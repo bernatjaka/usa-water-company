@@ -1064,3 +1064,71 @@ section[id] { scroll-margin-top: 90px; }
   .howit-cell:last-child { border-bottom: 0; }
   .places { grid-template-columns: 1fr; }
 }
+
+/* ===== /review, the link reps send to customers ===== */
+.rv-body { background: linear-gradient(170deg, #f4f8fd 0%, #e7eff9 100%); min-height: 100vh; }
+.rv-wrap { max-width: 36rem; margin: 0 auto; padding: 2.5rem 1.2rem 3rem; }
+.rv-card { background: #fff; border-radius: 20px; padding: 2rem 1.8rem; box-shadow: 0 24px 60px rgba(13,35,64,.14); }
+.rv-stars { display: flex; justify-content: center; gap: .2rem; color: #f5b301; margin-bottom: 1rem; }
+.rv-stars svg { width: 26px; height: 26px; }
+.rv-card h1 { font-size: clamp(1.5rem, 5vw, 1.9rem); text-align: center; line-height: 1.2; margin-bottom: .7rem; }
+.rv-lead { text-align: center; color: var(--muted); margin-bottom: 1.8rem; line-height: 1.6; }
+.rv-q { font-size: .78rem; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; color: var(--muted); margin-bottom: .9rem; }
+
+/* grid rather than flex so the market name stacks above its towns instead of
+   the two fighting for the same row and wrapping mid-phrase */
+.rv-market {
+  display: grid; grid-template-columns: 1fr auto; align-items: center; column-gap: .9rem;
+  width: 100%; text-align: left; cursor: pointer;
+  font: inherit; background: #fff; border: 1.5px solid var(--border); border-radius: 14px;
+  padding: 1rem 1.1rem; margin-bottom: .7rem; transition: border-color .15s, box-shadow .15s, transform .15s;
+}
+.rv-market strong { grid-column: 1; grid-row: 1; }
+.rv-market span { grid-column: 1; grid-row: 2; }
+.rv-market > svg { grid-column: 2; grid-row: 1 / span 2; }
+.rv-market:hover { border-color: var(--blue); box-shadow: var(--shadow); transform: translateY(-2px); }
+.rv-market strong { display: block; color: var(--navy); font-size: 1.05rem; }
+.rv-market span { display: block; color: var(--muted); font-size: .85rem; line-height: 1.4; }
+.rv-market > svg { width: 20px; height: 20px; color: var(--blue); }
+.rv-market span { margin-top: .15rem; }
+
+.rv-google {
+  display: flex; align-items: center; justify-content: center; gap: .6rem;
+  background: var(--navy); color: #fff; font-weight: 800; font-size: 1.05rem;
+  padding: 1.1rem 1.4rem; border-radius: 12px; margin-bottom: 1rem;
+}
+.rv-google:hover { background: #0a1b33; color: #fff; }
+.rv-google svg:last-child { width: 20px; height: 20px; }
+.rv-back { display: block; margin: 0 auto; background: none; border: 0; font: inherit; font-size: .9rem; color: var(--blue); cursor: pointer; text-decoration: underline; padding: .6rem; }
+
+.rv-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 .8rem; }
+.rv-field { display: block; margin-bottom: 1rem; }
+.rv-field > span { display: block; font-size: .85rem; font-weight: 700; color: var(--navy); margin-bottom: .35rem; }
+.rv-field input, .rv-field textarea {
+  width: 100%; font: inherit; font-size: 1rem; padding: .8rem .9rem;
+  border: 1.5px solid var(--border); border-radius: 10px; background: #fbfcfe; color: var(--text);
+}
+.rv-field input { height: 50px; }
+.rv-field input:focus, .rv-field textarea:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 4px rgba(42,94,170,.16); }
+
+.rv-rate { border: 0; padding: 0; margin: 0 0 1rem; }
+.rv-rate legend { font-size: .85rem; font-weight: 700; color: var(--navy); margin-bottom: .35rem; }
+.rv-rate-row { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: .2rem; }
+.rv-rate-row input { position: absolute; opacity: 0; width: 0; height: 0; }
+.rv-rate-row label { cursor: pointer; color: #dde4ec; transition: color .12s; }
+.rv-rate-row label svg { width: 34px; height: 34px; display: block; }
+.rv-rate-row label:hover, .rv-rate-row label:hover ~ label,
+.rv-rate-row input:checked ~ label { color: #f5b301; }
+.rv-rate-row input:focus-visible + label { outline: 2px solid var(--blue); outline-offset: 2px; border-radius: 4px; }
+
+.rv-send { width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border-radius: 10px; padding: 1rem; font-size: 1.02rem; }
+.rv-send svg { width: 20px; height: 20px; }
+.rv-note { font-size: .88rem; color: var(--muted); margin-top: .8rem; min-height: 1.2em; text-align: center; }
+.rv-note.is-error { color: var(--red-dark); font-weight: 600; }
+.rv-foot { text-align: center; margin-top: 1.4rem; font-size: .88rem; }
+
+@media (max-width: 460px) {
+  .rv-row { grid-template-columns: 1fr; gap: 0; }
+  .rv-card { padding: 1.5rem 1.2rem; }
+  .rv-rate-row label svg { width: 40px; height: 40px; }
+}
