@@ -2,3 +2,9 @@
 Thumbs.db
 *.log
 node_modules/
+
+# New homeowner extraction: the downloaded county file and the lists it builds.
+# This repo is published at usawatercompany.com, so committing these would put
+# thousands of names and home addresses on the public internet.
+tools/.cache/
+tools/new-homeowners-*.csv
