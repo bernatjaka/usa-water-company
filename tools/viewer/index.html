@@ -1,0 +1,448 @@
+<title>Maricopa New Movers</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root {
+  --ink:        #0d2340;
+  --ink-2:      #1b3457;
+  --muted:      #64748b;
+  --muted-2:    #8a98a9;
+  --ground:     #f2f5f9;
+  --surface:    #ffffff;
+  --line:       #dde4ed;
+  --line-soft:  #e9eef4;
+  --blue:       #2a5eaa;
+  --blue-soft:  #e8f0fb;
+  --red:        #c0392b;
+  --red-soft:   #fcebe8;
+  --green:      #1d7a45;
+  --green-soft: #e3f4ea;
+  --shadow:     0 1px 2px rgba(13,35,64,.06), 0 8px 24px rgba(13,35,64,.07);
+}
+:root:not([data-theme="light"]) {
+  @media (prefers-color-scheme: dark) {
+    --ink:#e8eef6; --ink-2:#c3d2e4; --muted:#8d9cb0; --muted-2:#6d7e94;
+    --ground:#0a1523; --surface:#122134; --line:#25374f; --line-soft:#1c2c42;
+    --blue:#6ea8f0; --blue-soft:#17304f; --red:#f08b7d; --red-soft:#3a1f1c;
+    --green:#6ed49a; --green-soft:#12332330;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"] {
+  --ink:#e8eef6; --ink-2:#c3d2e4; --muted:#8d9cb0; --muted-2:#6d7e94;
+  --ground:#0a1523; --surface:#122134; --line:#25374f; --line-soft:#1c2c42;
+  --blue:#6ea8f0; --blue-soft:#17304f; --red:#f08b7d; --red-soft:#3a1f1c;
+  --green:#6ed49a; --green-soft:#123323;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--ground); color: var(--ink);
+  font: 400 15px/1.55 "IBM Plex Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 1240px; margin: 0 auto; padding-block: 28px 56px; padding-left: 20px; padding-right: 20px; }
+
+/* ---------- masthead ---------- */
+.top { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 22px; }
+h1 {
+  font: 800 30px/1.1 Archivo, "IBM Plex Sans", sans-serif; letter-spacing: -.8px;
+  margin: 0 0 6px; text-wrap: balance;
+}
+.sub { margin: 0; color: var(--muted); font-size: 14px; max-width: 62ch; }
+.src { font-size: 12.5px; color: var(--muted-2); margin: 6px 0 0; }
+.src a { color: var(--blue); }
+
+/* ---------- summary ---------- */
+.figs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line);
+  border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
+.fig { background: var(--surface); padding: 14px 16px; }
+.fig b { display: block; font: 700 23px/1.1 Archivo, sans-serif; font-variant-numeric: tabular-nums; letter-spacing: -.5px; }
+.fig span { display: block; font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+/* ---------- caveat ---------- */
+.note {
+  display: flex; gap: 10px; align-items: flex-start;
+  background: var(--red-soft); border-left: 3px solid var(--red);
+  padding: 12px 14px; border-radius: 0 8px 8px 0; margin-bottom: 20px; font-size: 13.5px; line-height: 1.5;
+}
+.note b { font-weight: 600; }
+
+/* ---------- controls ---------- */
+.bar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+.seg { display: inline-flex; background: var(--surface); border: 1px solid var(--line); border-radius: 9px; padding: 3px; gap: 2px; }
+.seg button {
+  font: 600 13.5px/1 "IBM Plex Sans", sans-serif; color: var(--muted); background: none;
+  border: 0; padding: 8px 14px; border-radius: 6px; cursor: pointer;
+}
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--surface); }
+.seg button:focus-visible, .ctl:focus-visible, .btn:focus-visible, th button:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.ctl {
+  font: 400 14px/1 "IBM Plex Sans", sans-serif; color: var(--ink);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 9px; padding: 10px 12px; height: 40px;
+}
+#q { flex: 1 1 230px; min-width: 0; }
+.btn {
+  font: 600 13.5px/1 "IBM Plex Sans", sans-serif; cursor: pointer; height: 40px; padding: 0 15px;
+  border-radius: 9px; border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+}
+.btn:hover { border-color: var(--blue); color: var(--blue); }
+.count { margin-left: auto; font-size: 13.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.count b { color: var(--ink); font-weight: 600; }
+
+/* ---------- table ---------- */
+.scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); box-shadow: var(--shadow); }
+table { border-collapse: collapse; width: 100%; min-width: 860px; font-size: 14px; }
+thead th {
+  position: sticky; top: 0; z-index: 2; background: var(--surface);
+  text-align: left; padding: 0; border-bottom: 1px solid var(--line); white-space: nowrap;
+}
+thead th button {
+  width: 100%; text-align: left; background: none; border: 0; cursor: pointer;
+  font: 600 11.5px/1 "IBM Plex Sans", sans-serif; letter-spacing: .9px; text-transform: uppercase;
+  color: var(--muted); padding: 13px 14px;
+}
+thead th.num button, td.num { text-align: right; }
+thead th button[data-dir]::after { content: " \2193"; }
+thead th button[data-dir="asc"]::after { content: " \2191"; }
+tbody tr { border-bottom: 1px solid var(--line-soft); }
+tbody tr:last-child { border-bottom: 0; }
+tbody tr:hover { background: var(--blue-soft); }
+td { padding: 11px 14px; vertical-align: top; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.owner { font-weight: 600; }
+.apn { font-size: 11.5px; color: var(--muted-2); font-variant-numeric: tabular-nums; margin-top: 2px; }
+.addr { color: var(--ink-2); }
+.when { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.ago { display: block; font-size: 11.5px; color: var(--muted-2); }
+.chip {
+  display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: .3px;
+  padding: 2px 7px; border-radius: 999px; background: var(--green-soft); color: var(--green); white-space: nowrap;
+}
+.chip-new { background: var(--red-soft); color: var(--red); }
+.empty { padding: 44px 16px; text-align: center; color: var(--muted); }
+
+/* ---------- loading / fallback ---------- */
+#loader { padding: 40px 16px; text-align: center; color: var(--muted); }
+#fallback { display: none; padding: 26px; text-align: center; border: 1px dashed var(--line); border-radius: 10px; background: var(--surface); }
+#fallback p { margin: 0 0 14px; color: var(--muted); font-size: 14px; }
+
+.foot { margin-top: 20px; font-size: 12.5px; color: var(--muted-2); line-height: 1.6; }
+
+@media (max-width: 760px) {
+  .figs { grid-template-columns: 1fr 1fr; }
+  h1 { font-size: 25px; }
+  .count { margin-left: 0; width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="wrap">
+  <div class="top">
+    <div>
+      <h1>Maricopa New Movers</h1>
+      <p class="sub">Households that bought and moved into a home in Maricopa County, built from deeds
+        recorded with the County Recorder.</p>
+      <p class="src">Source: Maricopa County Assessor Sales Affidavits, refreshed weekly &middot;
+        <a href="https://www.mcassessor.maricopa.gov/page/data_sales/" target="_blank" rel="noopener">mcassessor.maricopa.gov</a></p>
+    </div>
+  </div>
+
+  <div class="figs" id="figs" hidden>
+    <div class="fig"><b id="f-total">&mdash;</b><span>In the last 90 days</span></div>
+    <div class="fig"><b id="f-moved">&mdash;</b><span>Mailing address is the house</span></div>
+    <div class="fig"><b id="f-median">&mdash;</b><span>Median sale price</span></div>
+    <div class="fig"><b id="f-cities">&mdash;</b><span>Cities and towns</span></div>
+  </div>
+
+  <div class="note">
+    <div><b>The 30 day view will look thin, and that is expected.</b> A sale only reaches the county
+      file once the deed is recorded and keyed, which takes weeks, so the most recent weeks are still
+      filling in. Work the 60 and 90 day views.</div>
+  </div>
+
+  <div class="bar">
+    <div class="seg" role="group" aria-label="Time window">
+      <button type="button" id="w30" data-days="30" aria-pressed="false">30 days</button>
+      <button type="button" id="w60" data-days="60" aria-pressed="false">60 days</button>
+      <button type="button" id="w90" data-days="90" aria-pressed="true">90 days</button>
+    </div>
+    <input class="ctl" type="search" id="q" placeholder="Search name, street, city or zip" aria-label="Search">
+    <select class="ctl" id="city" aria-label="Filter by city"><option value="">All cities</option></select>
+    <button class="btn" type="button" id="dl">Download CSV</button>
+    <span class="count" id="count"></span>
+  </div>
+
+  <div id="loader" hidden>Reading the file&hellip;</div>
+
+  <div id="fallback">
+    <p><b>Choose your list file to begin.</b><br>Pick <code>new-homeowners-90.csv</code> from your
+      computer. It is read in your browser and never uploaded anywhere.</p>
+    <input type="file" id="pick" accept=".csv,text/csv">
+  </div>
+
+  <div class="scroll" id="scroll" hidden>
+    <table>
+      <thead>
+        <tr>
+          <th><button type="button" data-sort="0" data-dir="desc">Sold</button></th>
+          <th><button type="button" data-sort="1">Owner</button></th>
+          <th><button type="button" data-sort="2">Property</button></th>
+          <th><button type="button" data-sort="3">City</button></th>
+          <th><button type="button" data-sort="4">Zip</button></th>
+          <th class="num"><button type="button" data-sort="5">Price</button></th>
+          <th><button type="button" data-sort="6">Status</button></th>
+        </tr>
+      </thead>
+      <tbody id="body"></tbody>
+    </table>
+  </div>
+
+  <p class="foot" id="foot"></p>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var COL = { DATE: 0, OWNER: 1, ADDR: 2, CITY: 3, ZIP: 4, PRICE: 5, MOVED: 6, APN: 7 };
+  var all = [], view = [], days = 90, sortCol = 0, sortDir = 'desc';
+
+  var $ = function (id) { return document.getElementById(id); };
+  var fmt = function (n) { return n.toLocaleString('en-US'); };
+
+  /* A real CSV reader: the price column carries thousands separators, so the
+     county rows arrive quoted and a split on commas would shred them. */
+  function parseCSV(text) {
+    var rows = [], row = [], val = '', q = false, i = 0, c;
+    if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+    for (; i < text.length; i++) {
+      c = text[i];
+      if (q) {
+        if (c === '"') { if (text[i + 1] === '"') { val += '"'; i++; } else q = false; }
+        else val += c;
+      } else if (c === '"') q = true;
+      else if (c === ',') { row.push(val); val = ''; }
+      else if (c === '\n') { row.push(val); rows.push(row); row = []; val = ''; }
+      else if (c !== '\r') val += c;
+    }
+    if (val !== '' || row.length) { row.push(val); rows.push(row); }
+    return rows;
+  }
+
+  function load(text) {
+    var rows = parseCSV(text);
+    if (rows.length < 2) { fail(); return; }
+    var head = rows[0].map(function (h) { return h.trim(); });
+    var ix = {};
+    head.forEach(function (h, n) { ix[h] = n; });
+
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+    all = [];
+    for (var r = 1; r < rows.length; r++) {
+      var x = rows[r];
+      if (!x || x.length < head.length || !x[ix['Sale date']]) continue;
+      var d = new Date(x[ix['Sale date']] + 'T00:00:00');
+      var ago = Math.round((today - d) / 86400000);
+      var priceRaw = (x[ix['Sale price']] || '').replace(/[$,]/g, '');
+      all.push([
+        x[ix['Sale date']],
+        x[ix['Owner']],
+        x[ix['Property address']] + ((x[ix['Suite']] || '').trim() ? ' ' + x[ix['Suite']].trim() : ''),
+        x[ix['City']],
+        x[ix['Zip']],
+        priceRaw ? parseInt(priceRaw, 10) : 0,
+        x[ix['Moved in']] === 'Yes',
+        x[ix['Parcel']] || '',
+        ago
+      ]);
+    }
+    if (!all.length) { fail(); return; }
+    ready();
+  }
+
+  function fail() {
+    $('loader').hidden = true;
+    $('fallback').style.display = 'block';
+  }
+
+  function ready() {
+    $('loader').hidden = true;
+    $('fallback').style.display = 'none';
+    $('scroll').hidden = false;
+    $('figs').hidden = false;
+
+    var prices = all.map(function (r) { return r[COL.PRICE]; }).filter(Boolean).sort(function (a, b) { return a - b; });
+    var cities = {};
+    all.forEach(function (r) { cities[r[COL.CITY]] = (cities[r[COL.CITY]] || 0) + 1; });
+    var names = Object.keys(cities).sort();
+
+    $('f-total').textContent = fmt(all.length);
+    $('f-moved').textContent = fmt(all.filter(function (r) { return r[COL.MOVED]; }).length);
+    $('f-median').textContent = prices.length ? '$' + fmt(prices[Math.floor(prices.length / 2)]) : '—';
+    $('f-cities').textContent = fmt(names.length);
+
+    var sel = $('city');
+    names.forEach(function (n) {
+      var o = document.createElement('option');
+      o.value = n; o.textContent = n + ' (' + fmt(cities[n]) + ')';
+      sel.appendChild(o);
+    });
+
+    var span = all.map(function (r) { return r[COL.DATE]; }).sort();
+    $('foot').textContent = 'Deeds recorded ' + span[0] + ' to ' + span[span.length - 1] +
+      '. Public record, for USA Water Company use. Direct mail to these addresses is ordinary practice; ' +
+      'phoning numbers appended from elsewhere is a different question and runs into the Do Not Call registry.';
+
+    render();
+  }
+
+  function render() {
+    var q = $('q').value.trim().toLowerCase();
+    var city = $('city').value;
+
+    view = all.filter(function (r) {
+      if (r[8] > days) return false;
+      if (city && r[COL.CITY] !== city) return false;
+      if (q) {
+        var hay = (r[COL.OWNER] + ' ' + r[COL.ADDR] + ' ' + r[COL.CITY] + ' ' + r[COL.ZIP]).toLowerCase();
+        if (hay.indexOf(q) === -1) return false;
+      }
+      return true;
+    });
+
+    var dir = sortDir === 'asc' ? 1 : -1;
+    view.sort(function (a, b) {
+      var x = a[sortCol], y = b[sortCol];
+      if (typeof x === 'number' && typeof y === 'number') return (x - y) * dir;
+      if (typeof x === 'boolean') return ((x ? 1 : 0) - (y ? 1 : 0)) * dir;
+      return String(x).localeCompare(String(y)) * dir;
+    });
+
+    $('count').innerHTML = '<b>' + fmt(view.length) + '</b> of ' + fmt(all.length) + ' households';
+
+    var body = $('body');
+    body.textContent = '';
+    if (!view.length) {
+      var tr = document.createElement('tr');
+      var td = document.createElement('td');
+      td.className = 'empty'; td.colSpan = 7;
+      td.textContent = 'Nothing matches that. Try a wider window or clear the search.';
+      tr.appendChild(td); body.appendChild(tr);
+      return;
+    }
+
+    var frag = document.createDocumentFragment();
+    view.slice(0, 2000).forEach(function (r) {
+      var tr = document.createElement('tr');
+
+      var when = document.createElement('td');
+      when.className = 'when';
+      when.appendChild(document.createTextNode(r[COL.DATE]));
+      var ago = document.createElement('span');
+      ago.className = 'ago';
+      ago.textContent = r[8] === 0 ? 'today' : r[8] + (r[8] === 1 ? ' day ago' : ' days ago');
+      when.appendChild(ago);
+      tr.appendChild(when);
+
+      var own = document.createElement('td');
+      var nm = document.createElement('div');
+      nm.className = 'owner'; nm.textContent = r[COL.OWNER];
+      own.appendChild(nm);
+      var apn = document.createElement('div');
+      apn.className = 'apn'; apn.textContent = 'APN ' + r[COL.APN];
+      own.appendChild(apn);
+      tr.appendChild(own);
+
+      var ad = document.createElement('td');
+      ad.className = 'addr'; ad.textContent = r[COL.ADDR];
+      tr.appendChild(ad);
+
+      var ci = document.createElement('td'); ci.textContent = r[COL.CITY]; tr.appendChild(ci);
+      var zp = document.createElement('td'); zp.className = 'num'; zp.textContent = r[COL.ZIP]; tr.appendChild(zp);
+
+      var pr = document.createElement('td');
+      pr.className = 'num';
+      pr.textContent = r[COL.PRICE] ? '$' + fmt(r[COL.PRICE]) : '—';
+      tr.appendChild(pr);
+
+      var st = document.createElement('td');
+      if (r[8] <= 14) {
+        var n = document.createElement('span');
+        n.className = 'chip chip-new'; n.textContent = 'Just recorded';
+        st.appendChild(n);
+      } else if (r[COL.MOVED]) {
+        var m = document.createElement('span');
+        m.className = 'chip'; m.textContent = 'Living there';
+        st.appendChild(m);
+      }
+      tr.appendChild(st);
+
+      frag.appendChild(tr);
+    });
+    body.appendChild(frag);
+
+    if (view.length > 2000) {
+      var tr2 = document.createElement('tr');
+      var td2 = document.createElement('td');
+      td2.className = 'empty'; td2.colSpan = 7;
+      td2.textContent = 'Showing the first 2,000. Narrow by city or search, or download the CSV for the full ' + fmt(view.length) + '.';
+      tr2.appendChild(td2); body.appendChild(tr2);
+    }
+  }
+
+  /* ---- controls ---- */
+  document.querySelectorAll('.seg button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      days = parseInt(b.getAttribute('data-days'), 10);
+      document.querySelectorAll('.seg button').forEach(function (o) {
+        o.setAttribute('aria-pressed', String(o === b));
+      });
+      render();
+    });
+  });
+  $('q').addEventListener('input', render);
+  $('city').addEventListener('change', render);
+
+  document.querySelectorAll('th button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var c = parseInt(b.getAttribute('data-sort'), 10);
+      sortDir = (c === sortCol && sortDir === 'desc') ? 'asc' : 'desc';
+      sortCol = c;
+      document.querySelectorAll('th button').forEach(function (o) { o.removeAttribute('data-dir'); });
+      b.setAttribute('data-dir', sortDir);
+      render();
+    });
+  });
+
+  $('dl').addEventListener('click', function () {
+    var head = ['Sale date', 'Owner', 'Property address', 'City', 'Zip', 'Sale price', 'Living there', 'Parcel'];
+    var esc = function (v) { v = String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+    var lines = [head.join(',')];
+    view.forEach(function (r) {
+      lines.push([r[0], r[1], r[2], r[3], r[4], r[5] || '', r[6] ? 'Yes' : '', r[7]].map(esc).join(','));
+    });
+    var blob = new Blob(['﻿' + lines.join('\n')], { type: 'text/csv;charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'new-movers-' + days + 'day.csv';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
+  });
+
+  $('pick').addEventListener('change', function (e) {
+    var f = e.target.files && e.target.files[0];
+    if (!f) return;
+    $('loader').hidden = false;
+    $('fallback').style.display = 'none';
+    var fr = new FileReader();
+    fr.onload = function () { load(String(fr.result)); };
+    fr.readAsText(f);
+  });
+
+  /* This copy ships with no data of its own. The file the user picks is read
+     locally by FileReader and never leaves the machine. */
+  $('fallback').style.display = 'block';
+})();
+</script>
