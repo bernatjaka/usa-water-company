@@ -1,5 +1,7 @@
 <title>Maricopa New Movers</title>
 <meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
 :root {
@@ -121,6 +123,21 @@ td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
   padding: 2px 7px; border-radius: 999px; background: var(--green-soft); color: var(--green); white-space: nowrap;
 }
 .chip-new { background: var(--red-soft); color: var(--red); }
+/* map */
+#map { height: 640px; width: 100%; background: var(--line-soft); }
+.leaflet-container { font: inherit; background: var(--line-soft); }
+.leaflet-popup-content-wrapper { border-radius: 10px; box-shadow: var(--shadow); background: var(--surface); color: var(--ink); }
+.leaflet-popup-tip { background: var(--surface); }
+.leaflet-popup-content { margin: 12px 14px; font-size: 13.5px; line-height: 1.5; }
+.pop-name { font-weight: 600; font-size: 14.5px; display: block; }
+.pop-line { color: var(--muted); display: block; }
+.pop-price { font-variant-numeric: tabular-nums; font-weight: 600; display: block; margin-top: 4px; }
+.leaflet-control-attribution { background: var(--surface) !important; color: var(--muted) !important; font-size: 10.5px; }
+.leaflet-control-attribution a { color: var(--blue) !important; }
+.legend { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; padding: 11px 14px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--muted); }
+.legend i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+.unplotted { margin-left: auto; }
+
 .empty { padding: 44px 16px; text-align: center; color: var(--muted); }
 
 /* ---------- loading / fallback ---------- */
@@ -170,6 +187,10 @@ td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
     </div>
     <input class="ctl" type="search" id="q" placeholder="Search name, street, city or zip" aria-label="Search">
     <select class="ctl" id="city" aria-label="Filter by city"><option value="">All cities</option></select>
+    <div class="seg" role="group" aria-label="View">
+      <button type="button" id="vTable" aria-pressed="true">Table</button>
+      <button type="button" id="vMap" aria-pressed="false">Map</button>
+    </div>
     <button class="btn" type="button" id="dl">Download CSV</button>
     <span class="count" id="count"></span>
   </div>
@@ -199,6 +220,15 @@ td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
     </table>
   </div>
 
+  <div class="scroll" id="mapwrap" hidden>
+    <div id="map"></div>
+    <div class="legend">
+      <span><i style="background:var(--red)"></i>Recorded in the last 14 days</span>
+      <span><i style="background:var(--blue)"></i>Earlier in the window</span>
+      <span class="unplotted" id="unplotted"></span>
+    </div>
+  </div>
+
   <p class="foot" id="foot"></p>
 </div>
 
@@ -206,7 +236,7 @@ td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
 (function () {
   'use strict';
 
-  var COL = { DATE: 0, OWNER: 1, ADDR: 2, CITY: 3, ZIP: 4, PRICE: 5, MOVED: 6, APN: 7 };
+  var COL = { DATE: 0, OWNER: 1, ADDR: 2, CITY: 3, ZIP: 4, PRICE: 5, MOVED: 6, APN: 7, AGO: 8, LAT: 9, LON: 10 };
   var all = [], view = [], days = 90, sortCol = 0, sortDir = 'desc';
 
   var $ = function (id) { return document.getElementById(id); };
@@ -255,7 +285,9 @@ td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
         priceRaw ? parseInt(priceRaw, 10) : 0,
         x[ix['Moved in']] === 'Yes',
         x[ix['Parcel']] || '',
-        ago
+        ago,
+        parseFloat(x[ix['Latitude']]) || null,
+        parseFloat(x[ix['Longitude']]) || null
       ]);
     }
     if (!all.length) { fail(); return; }
@@ -390,7 +422,107 @@ td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
       td2.textContent = 'Showing the first 2,000. Narrow by city or search, or download the CSV for the full ' + fmt(view.length) + '.';
       tr2.appendChild(td2); body.appendChild(tr2);
     }
+
+    if (showing === 'map') drawMap();
   }
+
+
+  /* ---------- map ----------
+     Leaflet with CARTO basemaps: no token and no account, unlike Mapbox, and
+     the tiles come in a light and a dark style so the map follows the page.
+     8,500 markers would crawl as individual DOM nodes, so everything is drawn
+     into a single canvas layer instead. */
+  var map = null, layer = null, tiles = null, mapReady = false;
+
+  function darkMode() {
+    var t = document.documentElement.getAttribute('data-theme');
+    if (t) return t === 'dark';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+
+  function tileURL() {
+    return darkMode()
+      ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+      : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+  }
+
+  function initMap() {
+    if (mapReady || typeof L === 'undefined') return;
+    map = L.map('map', { preferCanvas: true, scrollWheelZoom: true })
+           .setView([33.45, -112.07], 9);
+    tiles = L.tileLayer(tileURL(), {
+      maxZoom: 18,
+      attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+    }).addTo(map);
+    layer = L.layerGroup().addTo(map);
+    mapReady = true;
+    if (window.matchMedia) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+        if (tiles) tiles.setUrl(tileURL());
+      });
+    }
+  }
+
+  function css(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+
+  function drawMap() {
+    if (!mapReady) return;
+    layer.clearLayers();
+    var pts = view.filter(function (r) { return r[COL.LAT] && r[COL.LON]; });
+    var recent = css('--red') || '#c0392b';
+    var older = css('--blue') || '#2a5eaa';
+    var bounds = [];
+
+    pts.forEach(function (r) {
+      var fresh = r[COL.AGO] <= 14;
+      var m = L.circleMarker([r[COL.LAT], r[COL.LON]], {
+        radius: fresh ? 5 : 3.6,
+        color: fresh ? recent : older,
+        weight: 1,
+        opacity: 0.9,
+        fillColor: fresh ? recent : older,
+        fillOpacity: fresh ? 0.75 : 0.5
+      });
+      m.bindPopup(
+        '<span class="pop-name">' + esc(r[COL.OWNER]) + '</span>' +
+        '<span class="pop-line">' + esc(r[COL.ADDR]) + ', ' + esc(r[COL.CITY]) + ' ' + esc(r[COL.ZIP]) + '</span>' +
+        '<span class="pop-line">Recorded ' + esc(r[COL.DATE]) + ', ' + r[COL.AGO] + ' days ago</span>' +
+        (r[COL.PRICE] ? '<span class="pop-price">$' + fmt(r[COL.PRICE]) + '</span>' : '')
+      );
+      m.addTo(layer);
+      bounds.push([r[COL.LAT], r[COL.LON]]);
+    });
+
+    var missing = view.length - pts.length;
+    $('unplotted').textContent = missing
+      ? fmt(missing) + ' of ' + fmt(view.length) + ' have no parcel point'
+      : fmt(pts.length) + ' plotted';
+
+    if (bounds.length) map.fitBounds(bounds, { padding: [30, 30], maxZoom: 14 });
+  }
+
+  function esc(v) {
+    return String(v == null ? '' : v).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+
+  var showing = 'table';
+  function setView(which) {
+    showing = which;
+    $('vTable').setAttribute('aria-pressed', String(which === 'table'));
+    $('vMap').setAttribute('aria-pressed', String(which === 'map'));
+    $('scroll').hidden = which !== 'table';
+    $('mapwrap').hidden = which !== 'map';
+    if (which === 'map') {
+      initMap();
+      setTimeout(function () { if (map) { map.invalidateSize(); drawMap(); } }, 30);
+    }
+  }
+  $('vTable').addEventListener('click', function () { setView('table'); });
+  $('vMap').addEventListener('click', function () { setView('map'); });
 
   /* ---- controls ---- */
   document.querySelectorAll('.seg button').forEach(function (b) {
